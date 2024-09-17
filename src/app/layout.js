@@ -1,5 +1,7 @@
-import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide.';
+import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide.js';
+import { UserProvider } from './contexts/UserContext.js';
 import './globals.css';
+import './reset.css';
 
 export const metadata = {
   title: 'Create Next App',
@@ -10,10 +12,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body data-theme="dark">
-        <>
+        <UserProvider>
+          <p>BONJOUR</p>
           <ConfigureAmplifyClientSide />
           {children}
-        </>
+        </UserProvider>
       </body>
     </html>
   );
