@@ -100,9 +100,9 @@ export const animateFadeIn = (element) => {
     }, {
         scrollTrigger: {
             trigger: element,
-            start: 'top 100%', // Déclenche l'animation lorsque l'élément est à 80% de la vue
-            end: '+=100', // Optionnel: déclenche l'animation lorsque l'élément a défiler de 100 pixels
-            toggleActions: 'play none none none', // Optionnel: contrôle le comportement de l'animation
+            start: 'top 100%',
+            end: '+=100',
+            toggleActions: 'play none none none',
         },
         duration: 1,
         opacity: 1,
