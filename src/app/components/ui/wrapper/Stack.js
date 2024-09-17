@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import * as Animate from '../../../animations/AnimationGsap';
+import * as Animate from '../../../animations/GsapAnimation';
 
 const StackDiv = styled.div`
   gap: ${props => props.$spacing || "10px"};
