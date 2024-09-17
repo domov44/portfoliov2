@@ -8,8 +8,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="container pb-6">
+    <html lang="fr">
+      <body data-theme="dark">
         <>
           <ConfigureAmplifyClientSide />
           {children}
