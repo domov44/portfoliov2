@@ -11,13 +11,6 @@ gap:5px;
   width: fit-content;
   height: fit-content;
   border:  none;
-  padding: ${props =>
-        props.$wtext === "yes"
-            ? "10px 14px"
-            : props.$wtext === "no"
-                ? "10px"
-                : "10px 14px"};
-  font-size: 20px;
   border-radius: ${props =>
         props.$wtext === "yes"
             ? "5px"
@@ -98,7 +91,7 @@ gap:5px;
     }}
 `;
 
-const IconButton = ({ type, variant, wtext, width, className, id, onClick, to, href, children, disable }) => {
+const IconButton = ({ type, variant, width, className, id, onClick, to, href, children, disable }) => {
     const Component = href || to ? Link : 'button';
     const linkProps = href ? { href } : { to };
 
@@ -106,7 +99,6 @@ const IconButton = ({ type, variant, wtext, width, className, id, onClick, to, h
         <IconButtonComponent
             as={Component}
             type={type ? (type === "input" ? ["button", "input"] : type) : "button"}
-            $wtext={wtext}
             $variant={variant}
             $disable={disable}
             disabled={disable}

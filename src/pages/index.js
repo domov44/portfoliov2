@@ -46,10 +46,10 @@ const Home = () => {
             <Section>
                 <Stack direction="column">
                     <Title level={2} className={"step-2"}>Buttons variant</Title>
-                    <Stack>
-                        <Button variant={"primary"}>Hover me</Button>
-                        <Button variant={"secondary"}>Hover me</Button>
-                        <IconButton variant={"action"}>Hover me</IconButton>
+                    <Stack flexWrap={"wrap"}>
+                        <Button className={"step-2"} variant={"primary"}>Hover me</Button>
+                        <Button className={"step-1"} variant={"secondary"}>Hover me</Button>
+                        <IconButton className={"step-3"} variant={"action"}>Hover me</IconButton>
                         <IconButton variant={"action"}><IoMdAdd/> Hover me</IconButton>
                         <IconButton variant={"secondary-action"}>Hover me</IconButton>
                         <IconButton variant={"basique"}>Hover me</IconButton>

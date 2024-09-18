@@ -22,8 +22,6 @@ const StyledComponent = styled.button`
       : props.$width === "full-width"
         ? "100%"
         : "fit-content"};
-  padding: 12px 16px;
-  font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
   background-color: var(--main-color);

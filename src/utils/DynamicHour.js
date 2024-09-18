@@ -32,7 +32,7 @@ const DynamicHour = () => {
   const { hours, minutes, amPm } = formatTime();
 
   return (
-    <Text fontfamily={"styled"}>Nantes, 
+    <Text fontfamily={"styled"} className={"step--2"}>Nantes, {' '}
       {hours.toLowerCase()}
       <span style={{ opacity: showColon ? 1 : 0 }}>:</span>
       {minutes.toLowerCase()} {amPm}
