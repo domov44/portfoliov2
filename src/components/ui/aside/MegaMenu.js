@@ -28,7 +28,7 @@ const StyledAside = styled.aside`
   border: 2px solid var(--grey-color);
   position: fixed;
   z-index: 1;
-  animation: ${props => (props.$isopen === 'open' ? slideIn : slideOut)} 0.3s forwards;
+  animation: ${props => (props.$isopen === 'open' ? slideIn : slideOut)} 0.4s forwards;
   animation-fill-mode: forwards;
 
   @media (max-width: 1000px) {

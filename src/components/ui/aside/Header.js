@@ -21,10 +21,10 @@ const StyledHeader = styled.header`
 `;
 
 const StyledAsideButton = styled.button`
-  background-color: var(--bg-color);
   position: relative;
   z-index: 2;
   cursor: pointer;
+  background: none;
   border: none;
   font-weight: 500;
   font-size: 20px;
@@ -46,7 +46,7 @@ const ButtonText = styled.span`
   left: 0;
   width: 100%;
   text-align: center;
-  transition: transform 0.4s ease;
+  transition: transform 0.8s ease;
 `;
 
 function Header({ isopen, toggleMenu }) {
@@ -75,17 +75,17 @@ function Header({ isopen, toggleMenu }) {
 
   const handleClick = () => {
     const tl = timelineRef.current;
-    tl.play();
-    toggleMenu();
-
-    console.log(isopen)
+    setTimeout(() => {
+      tl.play();
+      toggleMenu();
+    }, 100);
   };
 
   return (
     <StyledHeader $isopen={isopen}>
       <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1100px">
-        <Text fontfamily={"styled"}>Ronan</Text>
-        <StyledAsideButton ref={buttonRef} onClick={handleClick}>
+        <Text fontfamily={"styled"} className={"step--2"}>Ronan</Text>
+        <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
           <ButtonTextWrapper>
             <ButtonText ref={menuTextRef}>menu</ButtonText>
             <ButtonText ref={closeTextRef}>close</ButtonText>
