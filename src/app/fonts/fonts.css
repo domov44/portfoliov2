@@ -1,4 +1,17 @@
-  /*               Candal             */
+  /*               ClashDisplay          */
+
+  /* ClashDisplay Regular */
+  @font-face {
+    font-family: 'ClashDisplay';
+    src: url('ClashDisplay-Variable.ttf') format('truetype');
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+
+
+/*               Candal             */
 
   /* Candal Regular */
   @font-face {

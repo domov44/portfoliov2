@@ -23,33 +23,15 @@ const TitleComponent = styled.h1`
       : props.$variant === "black"
       ? "#151b49"
       : "var(--color-title)"};
-  font-size: ${(props) => props.$fontsize || getDefaultFontSize(props.$level)}; /* Utiliser la taille de police personnalisée ou la taille par défaut */
 `;
 
-const getDefaultFontSize = (level) => {
-  switch (level) {
-    case 1:
-      return "30px";
-    case 2:
-      return "25px";
-    case 3:
-      return "23px";
-    case 4:
-      return "20px";
-    case 5:
-      return "19px";
-    case 6:
-      return "18px";
-    default:
-      return "16px";
-  }
-};
 
-const Title = ({ variant, level, fontSize, className, id, onClick, children, textalign, fontfamily, ...restProps }) => {
+
+const Title = ({ variant, level, className, id, onClick, children, textalign, fontfamily, ...restProps }) => {
   const HeadingTag = `h${level || 1}`;
 
   return (
-    <TitleComponent as={HeadingTag} $variant={variant} $fontsize={fontSize} $level={level} $textalign={textalign} $fontfamily={fontfamily} {...restProps} className="title">
+    <TitleComponent as={HeadingTag} className={className} $variant={variant} $level={level} $textalign={textalign} $fontfamily={fontfamily} {...restProps}>
       {children}
     </TitleComponent>
   );

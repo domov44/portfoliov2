@@ -9,6 +9,8 @@ const TextComponent = styled.p`
       ? "var(--text-font)"
       : props.$fontfamily === "semi-bold"
       ? "var(--text-font-bold)"
+      : props.$fontfamily === "styled"
+      ? "var(--text-font-cashdisplay)"
       : "var(--text-font-light)"};
   color: ${(props) =>
     props.$variant === "default"
@@ -22,23 +24,11 @@ const TextComponent = styled.p`
           : "var(--paragraph)"};
   text-align: ${props => (props.$textalign)};
   max-width: ${props => (props.$maxwidth)};
-  font-size: ${(props) => {
-    switch (props.$size) {
-      case "sm":
-        return "16px";
-      case "md":
-        return "18px";
-      case "lg":
-        return "20px";
-      default:
-        return "18px";
-    }
-  }};
 `;
 
-const Text = ({ variant, textalign, size, className, id, onClick, children, maxwidth, fontfamily, ...restProps }) => {
+const Text = ({ variant, textalign, className, id, onClick, children, maxwidth, fontfamily, ...restProps }) => {
   return (
-    <TextComponent $textalign={textalign} $variant={variant} $size={size} $maxwidth={maxwidth} $fontfamily={fontfamily} {...restProps}>
+    <TextComponent className={className} $textalign={textalign} $variant={variant} $maxwidth={maxwidth} $fontfamily={fontfamily} {...restProps}>
       {children}
     </TextComponent>
   );
