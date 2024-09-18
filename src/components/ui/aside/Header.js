@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Section from '../wrapper/Section';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import { gsap } from 'gsap';
 import Container from '../wrapper/Container';
-import InvisibleLink from '../button/InvisibleLink';
-import HeaderSearch from './HeaderSearch';
-import Stack from '../wrapper/Stack';
-import { PiMagnifyingGlass } from 'react-icons/pi';
-import { useUser } from '@/utils/UserContext';
-
+import Text from '../textual/Text';
+import DynamicHour from '@/utils/DynamicHour';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -21,104 +17,84 @@ const StyledHeader = styled.header`
   padding: 10px 5% 10px 5%;
   align-items: center;
   justify-content: center;
-  margin-left: ${props => (props.$isopen === 'open' ? '280px' : '0px')};
   transition: 0.2s;
-
-  @media (max-width: 1000px) {
-      margin-left: ${props => (props.$isopen === 'open' ? '0px' : '0px')};
-    }
 `;
 
 const StyledAsideButton = styled.button`
   background-color: var(--bg-color);
-  opacity: 1;
-  border-radius: 5px;
-  padding: 15px;
   position: relative;
-  width: 40px;
-  border: 2px solid var(--grey-color);
-  height: 40px;
-  display: flex;
   z-index: 2;
-  transition: 0.3s;
   cursor: pointer;
-
-  &::before {
-    content: '';
-    position: absolute;
-    background: var(--color-title);
-    width: 20px;
-    height: 2px;
-    border-radius: 50px;
-    left: ${props => (props.$isopen === 'open' ? '50%' : '23%')};
-    top: ${props => (props.$isopen === 'open' ? '50%' : '33%')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(45deg)' : '')};
-    transition: 0.3s;
-}
-
-&:hover::before{
-    width: ${props => (props.$isopen === 'close' ? '18px' : '')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(40deg)' : '')};
-}
-
-&:active::before{
-    width: ${props => (props.$isopen === 'close' ? '15px' : '')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(30deg)' : '')};
-}
-
-&::after {
-    content: '';
-    position: absolute;
-    background: var(--color-title);
-    width: 20px;
-    height: 2px;
-    border-radius: 50px;
-    left: ${props => (props.$isopen === 'open' ? '50%' : '23%')};
-    bottom: ${props => (props.$isopen === 'open' ? '50%' : '33%')};
-    top: ${props => (props.$isopen === 'open' ? '50%' : '')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(-45deg)' : '')};
-    transition: 0.3s;
-
-}
-
-&:hover::after{
-    width: ${props => (props.$isopen === 'close' ? '15px' : '')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(-40deg)' : '')};
-}
-
-&:active::after{
-    width: ${props => (props.$isopen === 'close' ? '10px' : '')};
-    transform: ${props => (props.$isopen === 'open' ? 'translate(-50%, -50%) rotate(-30deg)' : '')};
-}
+  border: none;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-title);
+  font-family: var(--text-font-cashdisplay);
+  overflow: hidden;
+  height: 30px;
+  width: 80px;
 `;
 
-function Header({ isopen, toggleSidebar }) {
-    const { user, isLoggedIn, profilePictureURL } = useUser();
-    return (
-        <>
-            <StyledHeader $isopen={isopen}>
-                <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1100px">
-                    <StyledAsideButton onClick={toggleSidebar} $isopen={isopen} />
-                    <Stack align="center">
-                        <>
-                            <HeaderSearch icon={PiMagnifyingGlass}>
-                                Rechercher
-                            </HeaderSearch>
-                            {isLoggedIn && user?.pseudo &&
-                                <InvisibleLink href="/profil" lineheight="0">
-                                    {profilePictureURL ? (
-                                        <img src={profilePictureURL} className="user-picture-2" alt={user.profile.name} />
-                                    ) : (
-                                        <img src="/svg/utilisateur.svg" className="user-picture-2" alt="avatar" />
-                                    )}
-                                </InvisibleLink>
-                            }
-                        </>
-                    </Stack>
-                </Container>
-            </StyledHeader>
-        </>
-    );
+const ButtonTextWrapper = styled.div`
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+`;
+
+const ButtonText = styled.span`
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.4s ease;
+`;
+
+function Header({ isopen, toggleMenu }) {
+  const buttonRef = useRef(null);
+  const menuTextRef = useRef(null);
+  const closeTextRef = useRef(null);
+  const timelineRef = useRef(null);
+
+  useEffect(() => {
+    const menuSpan = menuTextRef.current;
+    const closeSpan = closeTextRef.current;
+
+    gsap.set(menuSpan, { yPercent: isopen === 'open' ? -200 : 0 });
+    gsap.set(closeSpan, { yPercent: isopen === 'open' ? 0 : 200 });
+
+    const tl = gsap.timeline({ paused: true });
+    tl.to(menuSpan, { duration: 0.2, yPercent: -200, ease: 'power2.inOut' })
+      .to(closeSpan, { duration: 0.2, yPercent: 0, ease: 'power2.inOut' }, 0);
+
+    timelineRef.current = tl;
+
+    return () => {
+      tl.kill();
+    };
+  }, [isopen]);
+
+  const handleClick = () => {
+    const tl = timelineRef.current;
+    tl.play();
+    toggleMenu();
+
+    console.log(isopen)
+  };
+
+  return (
+    <StyledHeader $isopen={isopen}>
+      <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1100px">
+        <Text fontfamily={"styled"}>Ronan</Text>
+        <StyledAsideButton ref={buttonRef} onClick={handleClick}>
+          <ButtonTextWrapper>
+            <ButtonText ref={menuTextRef}>menu</ButtonText>
+            <ButtonText ref={closeTextRef}>close</ButtonText>
+          </ButtonTextWrapper>
+        </StyledAsideButton>
+        <DynamicHour />
+      </Container>
+    </StyledHeader>
+  );
 }
 
 export default Header;
