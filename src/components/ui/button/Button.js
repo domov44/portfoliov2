@@ -1,105 +1,88 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import Link from 'next/link';
-import ButtonLoading from "@/components/ButtonLoading";
+import React, { useRef, useState, useCallback } from 'react';
+import styled from 'styled-components';
 
-const StyledComponent = styled.button`
+const StyledButton = styled.button`
+  position: relative;
+  overflow: hidden;
+  background: none;
+  color: var(--color-title);
   border: none;
-  line-height: 1;
-  text-align: center;
-  position: ${props => props.$position || "relative"};
-  top: ${props => props.$top || ""};
-  right: ${props => props.$right || ""};
-  bottom: ${props => props.$bottom || ""};
-  left: ${props => props.$left || ""};
-  display: flex;
+  border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  width: ${props =>
-    props.$width === "fit-content"
-      ? "fit-content"
-      : props.$width === "full-width"
-        ? "100%"
-        : "fit-content"};
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: var(--main-color);
-  z-index: ${props => props.$zindex || ""};
+  font-weight: 500;
+  border: 2px solid var(--main-color);
+  padding: 10px 20px;
+  z-index: 1;
 
-  &:disabled{
-    cursor: default;
-    filter: grayscale(60%);
-    background-color: var(--main-color);
-    color: var(--color-title);
+  span {
+    z-index: 1;
+    position: relative;
+    transition: color 0.3s ease;
   }
 
-  &:disabled:hover{
-    background-color: var(--main-color);
-    color: var(--color-title);
-  }
-
-  ${({ $variant, $disable }) => {
-    if ($variant === "primary" && !$disable) {
-      return css`
-        background-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--main-color), var(--secondary-color));
-        background-size: 100% auto;
-        color: #fff;
-        
-        &:hover {
-          background-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--main-color), var(--secondary-color));
-        }
-      `;
-    } else if ($variant === "secondary" && !$disable) {
-      return css`
-        background-color: var(--bg-color);
-        border: 1px solid var(--color-title);
-        color: var(--color-title);
-        
-        &:hover {
-          background-color: var(--bg-color);
-        }
-      `;
+  &:hover {
+    span {
+      color: var(--bg-color);
     }
-  }}
+  }
 `;
 
-const Button = ({ type, variant, width, className, id, onClick, position, zindex, top, right, bottom, left, href, children, disable, icon: Icon }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 267, y: 13 });
+const Circle = styled.div`
+  position: absolute;
+  background-color: var(--main-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  transition: width 0.3s ease, height 0.3s ease;
+`;
 
-  const handleMouseMove = (e) => {
-    setMousePosition({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
-    e.currentTarget.style.setProperty('--mouse-x', `${e.nativeEvent.offsetX}px`);
-    e.currentTarget.style.setProperty('--mouse-y', `${e.nativeEvent.offsetY}px`);
-  };
+const Button = ({ children, onClick, className }) => {
+  const buttonRef = useRef(null);
+  const [circle, setCircle] = useState({ x: 0, y: 0, size: 0 });
 
-  const Component = href ? Link : 'button';
+  const handleMouseMove = useCallback((e) => {
+    if (!buttonRef.current) return;
+    const rect = buttonRef.current.getBoundingClientRect();
+    setCircle({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      size: Math.max(rect.width, rect.height) * 1.5
+    });
+  }, []);
+
+  const handleMouseEnter = useCallback((e) => {
+    handleMouseMove(e);
+  }, [handleMouseMove]);
+
+  const handleMouseLeave = useCallback(() => {
+    setCircle(prev => ({ ...prev, size: 0 }));
+  }, []);
 
   return (
-    <StyledComponent
-      as={Component}
-      type={type ? (type === "input" ? ["button", "input"] : type) : "button"}
-      disabled={disable}
-      $variant={variant}
-      $zindex={zindex}
-      $width={width}
-      $position={position}
-      $top={top}
-      $right={right}
-      $disable={disable}
-      $bottom={bottom}
-      $left={left}
-      className={className ? `btn-component ${className}` : "btn-component"}
-      id={id}
-      onClick={!disable ? onClick : null}
+    <StyledButton
+      ref={buttonRef}
+      className={className}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
-      href={href}
+      onMouseLeave={handleMouseLeave}
     >
-      {disable && <ButtonLoading />}
-      {Icon && <Icon />}{children}
-    </StyledComponent>
+      <Circle 
+        style={{
+          left: circle.x,
+          top: circle.y,
+          width: circle.size,
+          height: circle.size
+        }}
+      />
+      <span>{children}</span>
+    </StyledButton>
   );
 };
 
 export default Button;
-

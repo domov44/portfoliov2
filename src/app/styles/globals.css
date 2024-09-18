@@ -163,7 +163,8 @@ h6 {
 
 button {
   font-size: var(--_component-button-fontsize, var(--step-0, 1.5rem));
-  padding: var(--space-2xs) var(--space-xs);
+  padding: var(--space-3xs) var(--space-xs);
+  font-family: var(--text-font-cashdisplay);
 }
 
 p {
