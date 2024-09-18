@@ -49,6 +49,7 @@ const Home = () => {
                     <Stack flexWrap={"wrap"}>
                         <Button className={"step-2"} variant={"primary"}>Hover me</Button>
                         <Button className={"step-1"} variant={"secondary"}>Hover me</Button>
+                        <Button className={"step-1"} variant={"secondary"}>Hover me</Button>
                         <IconButton className={"step-3"} variant={"action"}>Hover me</IconButton>
                         <IconButton variant={"action"}><IoMdAdd/> Hover me</IconButton>
                         <IconButton variant={"secondary-action"}>Hover me</IconButton>
