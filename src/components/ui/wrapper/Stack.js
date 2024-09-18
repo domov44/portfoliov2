@@ -3,31 +3,31 @@ import styled from 'styled-components';
 import { useGsapAnimation } from '../../animation/AnimationGsap';
 
 const StackDiv = styled.div`
-position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" :  "")};
-right: ${props => props.$right || "" };
-left: ${props => props.$left || "" };
-top: ${props => props.$top || "" };
-bottom: ${props => props.$bottom || "" };
+  position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : "")};
+  right: ${props => props.$right || ""};
+  left: ${props => props.$left || ""};
+  top: ${props => props.$top || ""};
+  bottom: ${props => props.$bottom || ""};
   gap: ${props => props.$spacing || "10px"};
   width: ${props =>
     props.$width === "100%"
       ? "100%"
       : props.$width === "classic"
-        ? "auto"
-        : "auto"};
+      ? "auto"
+      : "auto"};
   display: flex;
-padding:  ${props => props.$padding || ""};
-flex-wrap:  ${props => props.$flexWrap || ""};
-border-radius: ${props => props.$radius || ""};
+  padding: ${props => props.$padding || ""};
+  flex-wrap: ${props => props.$flexWrap || ""};
+  border-radius: ${props => props.$radius || ""};
   flex-direction: ${props => (props.$direction === "column" ? "column" : "row")};
   align-items: ${props => (props.$align === "center" ? "center" : "")};
   justify-content: ${props => props.$justify || "start"};
   ${props => props.$separator && "border-bottom: 1px solid var(--grey-color);"}
-  ${props => props.$separator && `margin-bottom: 10px;`} /* Condition pour le margin-bottom */
-  ${props => props.$separator && `padding-bottom: 10px;`} /* Condition pour le padding-bottom */
+  ${props => props.$separator && `margin-bottom: 10px;`}
+  ${props => props.$separator && `padding-bottom: 10px;`}
 `;
 
-function Stack({ direction, align, justify, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator }) {
+function Stack({ direction, align, justify, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
   useGsapAnimation();
   const refs = useRef();
 
@@ -56,14 +56,16 @@ function Stack({ direction, align, justify, children, width, spacing, position, 
       $justify={justify}
       $width={width}
       $spacing={spacing}
-      $position={position} 
-      $right={right} 
-      $left={left} 
-      $bottom={bottom} 
-      $top={top} 
+      $position={position}
+      $right={right}
+      $left={left}
+      $bottom={bottom}
+      $top={top}
       $padding={padding}
+      $radius={radius}
       $animate={animate}
       $separator={separator}
+      $flexWrap={flexWrap} 
       ref={refs}
     >
       {children}
@@ -72,3 +74,4 @@ function Stack({ direction, align, justify, children, width, spacing, position, 
 }
 
 export default Stack;
+
