@@ -3,14 +3,7 @@ import styled from "styled-components";
 
 const TitleComponent = styled.h1`
   margin: 0;
-  font-family: ${(props) =>
-    props.$fontfamily === "light"
-      ? "var(--text-font-light)"
-      : props.$fontfamily === "medium"
-      ? "var(--text-font)"
-      : props.$fontfamily === "semi-bold"
-      ? "var(--text-font-bold)"
-      : "var(--title-font)"};
+  font-family: var(--text-font-cashdisplay);
   text-align: ${(props) => (props.$textalign)};
   line-height: 1;
   color: ${(props) =>

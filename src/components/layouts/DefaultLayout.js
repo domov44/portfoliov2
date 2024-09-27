@@ -15,21 +15,9 @@ export default function Defaultlayout({ children }) {
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1000) {
-        setMenuOpen(false);
-      } else {
-        setMenuOpen(true);
-      }
-    };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
     setPageLoaded(true);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, [key]);
 
   const MenuContent = pageLoaded ? (
