@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeroContainer = styled.section`
-    max-width: 1100px;
+    max-width: 1800px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,12 +13,13 @@ const HeroContainer = styled.section`
     padding:  ${props => props.$padding || ""};
 `;
 
-function Hero({ children, padding, spacing }) {
+// Wrap the Hero component with React.forwardRef
+const Hero = React.forwardRef(({ children, padding, spacing }, ref) => {
     return (
-        <HeroContainer $padding={padding} $spacing={spacing}>
+        <HeroContainer $padding={padding} $spacing={spacing} ref={ref}>
             {children}
         </HeroContainer>
     );
-}
+});
 
 export default Hero;

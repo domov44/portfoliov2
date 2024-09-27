@@ -1,65 +1,132 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import Title from '@/components/ui/textual/Title';
-import Text from '@/components/ui/textual/Text';
 import Hero from '@/components/ui/wrapper/Hero';
-import Section from '@/components/ui/wrapper/Section';
-import Stack from '@/components/ui/wrapper/Stack';
 import Button from '@/components/ui/button/Button';
-import IconButton from '@/components/ui/button/IconButton';
-import { IoMdAdd } from "react-icons/io";
+import { gsap } from 'gsap';
 
 const client = generateClient();
 
+const images = [
+    'https://www.ronanscotet.com/uploads/ImageProjets/miamalo.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-nexus-corp.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/ERP-Reltim-v2.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/pres-uptopixel.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/naotri.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/Musee-des-blindes.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/kiliron-shopz.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/pres-zechifoumi-v2.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/pres-carrefour-bio.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/pres-country-check.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-atlantic-cards.svg',
+    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-nexus-corp.svg',
+    "https://www.ronanscotet.com/uploads/ImageProjets/bruteforce.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/pres-International-horizons.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/blog-laravel.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/tape-taupe.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/club-reltim.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-reltim.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/currencyconverter.svg",
+    "https://www.ronanscotet.com/uploads/ImageProjets/pres-green-horizons.svg"
+
+
+];
+
 const Home = () => {
+    const [visibleImages, setVisibleImages] = useState([]);
+    const heroRef = useRef(null);
+    const lastImagePosition = useRef({ x: 0, y: 0, time: performance.now() });
+
+    const handleMouseMove = useCallback((e) => {
+        if (!heroRef.current) return;
+
+        const { clientX: x, clientY: y } = e;
+        const { left, top, right, bottom } = heroRef.current.getBoundingClientRect();
+
+        if (x >= left && x <= right && y >= top && y <= bottom) {
+            const timeNow = performance.now();
+            const timeDelta = timeNow - lastImagePosition.current.time;
+
+            const deltaX = x - lastImagePosition.current.x;
+            const deltaY = y - lastImagePosition.current.y;
+            const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+            
+            const velocity = distance / timeDelta || 1;
+
+            if (distance >= 150 && visibleImages.length < 50) {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                const randomImage = images[randomIndex];
+
+                if (!visibleImages.includes(randomImage)) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = randomImage;
+                    imgElement.style.position = 'absolute';
+
+                    imgElement.style.left = `${x - 150}px`;
+                    imgElement.style.top = `${y - 150}px`; 
+
+                    imgElement.style.pointerEvents = 'none';
+                    imgElement.style.width = '300px';
+                    imgElement.style.height = '300px';
+                    imgElement.style.clipPath = 'circle(0% at 50% 50%)';
+                    document.body.appendChild(imgElement);
+
+                    const translateDistance = Math.min(120, Math.max(30, velocity ** 2 * 10));
+                    const translateX = -deltaX / distance * translateDistance;
+                    const translateY = -deltaY / distance * translateDistance;
+
+                    gsap.fromTo(imgElement,
+                        {
+                            clipPath: 'circle(0% at 50% 50%)',
+                            x: translateX,
+                            y: translateY
+                        },
+                        {
+                            clipPath: 'circle(75% at 50% 50%)',
+                            x: 0,
+                            y: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            onComplete: () => {
+                                gsap.to(imgElement, {
+                                    opacity: 0,
+                                    duration: 0.5,
+                                    onComplete: () => {
+                                        document.body.removeChild(imgElement);
+                                        setVisibleImages(prev => prev.filter(img => img !== randomImage));
+                                    }
+                                });
+                            }
+                        }
+                    );
+
+                    lastImagePosition.current = { x, y, time: timeNow };
+
+                    setVisibleImages(prev => [...prev, randomImage]);
+                }
+            }
+        }
+    }, [visibleImages]);
+
+    useEffect(() => {
+        const currentHero = heroRef.current;
+        if (!currentHero) return;
+
+        currentHero.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            currentHero.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [handleMouseMove]);
 
     return (
         <>
-            <Hero>
-                <Title level={1} className={"step-7"}>H1 with classname</Title>
-                <Title level={2} className={"step-6"}>H2 with classname</Title>
-                <Title level={3} className={"step-5"}>H3 with classname</Title>
-                <Title level={4} className={"step-4"}>H4 with classname</Title>
-                <Title level={5} className={"step-3"}>H5 with classname</Title>
-                <Title level={6} className={"step-2"}>H6 with classname</Title>
+            <Hero ref={heroRef}>
+                <Title level={1} className={"step-7"}>Ronan Scotet</Title>
             </Hero>
-            <Section>
-                <Title level={1}>H1 without classname</Title>
-                <Title level={2}>H2 without classname</Title>
-                <Title level={3}>H3 without classname</Title>
-                <Title level={4}>H4 without classname</Title>
-                <Title level={5}>H5 without classname</Title>
-                <Title level={6}>H6 without classname</Title>
-            </Section>
-            <Section>
-                <Stack direction="column">
-                    <Title level={2} className={"step-2"}>Paragraph by default</Title>
-                    <Text>Logoden biniou degemer mat, an. Mederieg kenwerzh degemer romant, gwellañ. Dit deskiñ etrezek votez, paner. Ger Pornizhan stourm boued, hag. Speredekañ warc’hoazh kas nor, ar. Envel c’helien bennak kezeg, lezirek. Roud ostaleri kuzhat vihan, muzul. Enez digant c’hof all, ugnet. Ac’hanout kaier elgez amzer, hervez . Gwir Europa e dit, eme.</Text>
-                </Stack>
-            </Section>
-            <Section>
-                <Stack direction="column">
-                    <Title level={2} className={"step-2"}>Paragraph custom size</Title>
-                    <Text className={"step--3"}>Logoden biniou degemer mat, an. Mederieg kenwerzh degemer romant, gwellañ. Dit deskiñ etrezek votez, paner. Ger Pornizhan stourm boued, hag. Speredekañ warc’hoazh kas nor, ar. Envel c’helien bennak kezeg, lezirek. Roud ostaleri kuzhat vihan, muzul. Enez digant c’hof all, ugnet. Ac’hanout kaier elgez amzer, hervez . Gwir Europa e dit, eme.</Text>
-                </Stack>
-            </Section>
-            <Section>
-                <Stack direction="column">
-                    <Title level={2} className={"step-2"}>Buttons variant</Title>
-                    <Stack flexWrap={"wrap"}>
-                        <Button className={"step-2"} variant={"primary"}>Hover me</Button>
-                        <Button className={"step-1"} variant={"secondary"}>Hover me</Button>
-                        <Button className={"step-1"} variant={"secondary"}>Hover me</Button>
-                        <IconButton className={"step-3"} variant={"action"}>Hover me</IconButton>
-                        <IconButton variant={"action"}><IoMdAdd/> Hover me</IconButton>
-                        <IconButton variant={"secondary-action"}>Hover me</IconButton>
-                        <IconButton variant={"basique"}>Hover me</IconButton>
-                        <IconButton variant={"danger"}>Hover me</IconButton>
-                    </Stack>
-                </Stack>
-            </Section>
+            <Button className={"step-2"} variant={"primary"}>Hover me</Button>
         </>
-    )
+    );
 }
 
 export default Home;
