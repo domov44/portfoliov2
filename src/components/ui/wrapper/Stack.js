@@ -9,12 +9,7 @@ const StackDiv = styled.div`
   top: ${props => props.$top || ""};
   bottom: ${props => props.$bottom || ""};
   gap: ${props => props.$spacing || "10px"};
-  width: ${props =>
-    props.$width === "100%"
-      ? "100%"
-      : props.$width === "classic"
-      ? "auto"
-      : "auto"};
+  width: ${props => props.$width || "fit-content"};
   display: flex;
   padding: ${props => props.$padding || ""};
   flex-wrap: ${props => props.$flexWrap || ""};

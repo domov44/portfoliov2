@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import Container from '../wrapper/Container';
 import Text from '../textual/Text';
 import DynamicHour from '@/utils/DynamicHour';
+import Stack from '../wrapper/Stack';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -84,15 +85,21 @@ function Header({ isopen, toggleMenu }) {
 
   return (
     <StyledHeader $isopen={isopen}>
-      <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1100px">
-        <Text fontfamily={"styled"} className={"step--2"}>Ronan</Text>
-        <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
-          <ButtonTextWrapper>
-            <ButtonText ref={menuTextRef}>menu</ButtonText>
-            <ButtonText ref={closeTextRef}>close</ButtonText>
-          </ButtonTextWrapper>
-        </StyledAsideButton>
-        <DynamicHour />
+      <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1800px">
+        <Stack width="33.3%" align={"center"}>
+          <Text fontfamily={"styled"} className={"step--2"}>Ronan</Text>
+        </Stack>
+        <Stack width="33.3%" align={"center"} justify={"center"}>
+          <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
+            <ButtonTextWrapper>
+              <ButtonText ref={menuTextRef}>menu</ButtonText>
+              <ButtonText ref={closeTextRef}>close</ButtonText>
+            </ButtonTextWrapper>
+          </StyledAsideButton>
+        </Stack>
+        <Stack width="33.3%" align={"center"} justify={"end"}>
+          <DynamicHour />
+        </Stack>
       </Container>
     </StyledHeader>
   );

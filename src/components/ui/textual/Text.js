@@ -2,16 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TextComponent = styled.p`
-  font-family: ${(props) =>
-    props.$fontfamily === "light"
-      ? "var(--text-font-light)"
-      : props.$fontfamily === "medium"
-      ? "var(--text-font)"
-      : props.$fontfamily === "semi-bold"
-      ? "var(--text-font-bold)"
-      : props.$fontfamily === "styled"
-      ? "var(--text-font-cashdisplay)"
-      : "var(--text-font-light)"};
+  font-family: var(--text-font-cashdisplay);
   color: ${(props) =>
     props.$variant === "default"
       ? "var(--paragraph)"

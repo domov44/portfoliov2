@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   position: relative;
+  width: fit-content;
   overflow: hidden;
   background: none;
   color: var(--color-title);
