@@ -53,7 +53,7 @@ const Home = () => {
             
             const velocity = distance / timeDelta || 1;
 
-            if (distance >= 150 && visibleImages.length < 50) {
+            if (distance >= 120 && visibleImages.length < 50) {
                 const randomIndex = Math.floor(Math.random() * images.length);
                 const randomImage = images[randomIndex];
 
@@ -71,7 +71,7 @@ const Home = () => {
                     imgElement.style.clipPath = 'circle(0% at 50% 50%)';
                     document.body.appendChild(imgElement);
 
-                    const translateDistance = Math.min(120, Math.max(30, velocity ** 2 * 10));
+                    const translateDistance = Math.min(500, Math.max(30, velocity ** 2 * 10));
                     const translateX = -deltaX / distance * translateDistance;
                     const translateY = -deltaY / distance * translateDistance;
 
@@ -85,7 +85,7 @@ const Home = () => {
                             clipPath: 'circle(75% at 50% 50%)',
                             x: 0,
                             y: 0,
-                            duration: 0.8,
+                            duration: 1,
                             ease: 'power2.out',
                             onComplete: () => {
                                 gsap.to(imgElement, {
