@@ -14,10 +14,10 @@ const BentoDiv = styled.div`
   justify-content: center;
   align-items: ${props => (props.$align === "center" ? "center" : "")};
   width: ${props => (props.$width ? props.$width : "100%")};
-  background: ${props => (props.$highlight ? "var(--secondary-bg-color)" : "")};
+  background: ${props => (props.$highlight ? "#1f1d27" : "")};
   padding: ${props => (props.$padding ? props.$padding : "24px")};
   border-radius: ${props => (props.$highlight ? "10px" : "")};
-  box-shadow: ${props => (props.$highlight ? "rgba(0, 0, 0, 0.2) 0px 0px 2px 0px, rgba(0, 0, 0, 0.03) 0px 12px 24px -4px;" : "")};
+  border: 2px solid #2b2930;
 
   @media (max-width: 1000px) {
     width: ${props => (props.$responsive && props.$responsive.tabletWidth ? props.$responsive.tabletWidth : props.$width)};
