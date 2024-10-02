@@ -6,6 +6,7 @@ const StyledLinkButton = styled(Link)`
 color: var(--paragraph);
 position:relative;
 width: fit-content;
+height: fit-content;
 display: inline-block;
 
 &:before{

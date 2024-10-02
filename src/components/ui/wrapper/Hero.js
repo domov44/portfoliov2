@@ -5,7 +5,7 @@ const HeroContainer = styled.section`
     max-width: 1800px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     min-height: calc(100vh - 80px);
     width: 100%;
     margin-top: 80px;
@@ -13,7 +13,6 @@ const HeroContainer = styled.section`
     padding:  ${props => props.$padding || ""};
 `;
 
-// Wrap the Hero component with React.forwardRef
 const Hero = React.forwardRef(({ children, padding, spacing }, ref) => {
     return (
         <HeroContainer $padding={padding} $spacing={spacing} ref={ref}>
