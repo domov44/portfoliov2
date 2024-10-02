@@ -4,6 +4,12 @@ import Title from '@/components/ui/textual/Title';
 import Hero from '@/components/ui/wrapper/Hero';
 import Button from '@/components/ui/button/Button';
 import { gsap } from 'gsap';
+import Stack from '@/components/ui/wrapper/Stack';
+import TextLink from '@/components/ui/textual/TextLink';
+import Text from '@/components/ui/textual/Text';
+import Section from '@/components/ui/wrapper/Section';
+import Container from '@/components/ui/wrapper/Container';
+import Bento from '@/components/ui/wrapper/Bento';
 
 const client = generateClient();
 
@@ -50,7 +56,7 @@ const Home = () => {
             const deltaX = x - lastImagePosition.current.x;
             const deltaY = y - lastImagePosition.current.y;
             const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-            
+
             const velocity = distance / timeDelta || 1;
 
             if (distance >= 120 && visibleImages.length < 50) {
@@ -63,7 +69,7 @@ const Home = () => {
                     imgElement.style.position = 'absolute';
 
                     imgElement.style.left = `${x - 150}px`;
-                    imgElement.style.top = `${y - 150}px`; 
+                    imgElement.style.top = `${y - 150}px`;
 
                     imgElement.style.pointerEvents = 'none';
                     imgElement.style.width = '300px';
@@ -122,9 +128,44 @@ const Home = () => {
     return (
         <>
             <Hero ref={heroRef}>
-                <Title level={1} className={"step-7"}>Ronan Scotet</Title>
+                <Stack direction={"column"} width={"100%"} height={"calc(70vh - 80px)"} justify={"space-between"}>
+                    <Stack justify={"space-between"} width={"100%"} zIndex={2}>
+                        <Stack width={"33,3%"}>
+                            <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
+                        </Stack>
+                        <Stack width={"33,3%"} align={"center"}>
+                            <Title level={6}>Devops developer & lead dev</Title>
+                        </Stack>
+                        <Stack width={"33,3%"} align={"end"}>
+                            <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>ronanscotet</TextLink>
+                        </Stack>
+                    </Stack>
+                    <Title level={1}>Ronan Scotet</Title>
+                </Stack>
             </Hero>
-            <Button className={"step-2"} variant={"primary"}>Hover me</Button>
+            <Section>
+                <Container direction={"row"} width={"100%"} maxwidth={"1200px"}>
+                    <Stack width={"70%"} justify={"center"}>
+                        <Bento highlight={"highlight"}>
+                            block 1
+                        </Bento>
+                    </Stack>
+                    <Stack direction={"column"} width={"30%"} spacing={"20px"}>
+                        <Title level={2} className={"step-1"}>
+                            What do I do as a devops developer & as a lead developer?
+                        </Title>
+                        <Stack direction={"column"}>
+                            <Text>
+                                I manage web applications from A to Z, throughout the devops cycle.
+                            </Text>
+                            <Text>
+                                I automate and secure your project.
+                            </Text>
+                        </Stack>
+                        <Button className={"step-1"} variant={"primary"}>about me</Button>
+                    </Stack>
+                </Container>
+            </Section>
         </>
     );
 }

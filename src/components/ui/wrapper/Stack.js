@@ -6,10 +6,12 @@ const StackDiv = styled.div`
   position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : "")};
   right: ${props => props.$right || ""};
   left: ${props => props.$left || ""};
+  z-index: ${props => props.$zIndex || ""};
   top: ${props => props.$top || ""};
   bottom: ${props => props.$bottom || ""};
   gap: ${props => props.$spacing || "10px"};
   width: ${props => props.$width || "fit-content"};
+  height: ${props => props.$height || ""};
   display: flex;
   padding: ${props => props.$padding || ""};
   flex-wrap: ${props => props.$flexWrap || ""};
@@ -22,7 +24,7 @@ const StackDiv = styled.div`
   ${props => props.$separator && `padding-bottom: 10px;`}
 `;
 
-function Stack({ direction, align, justify, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
+function Stack({ direction, align, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
   useGsapAnimation();
   const refs = useRef();
 
@@ -62,6 +64,8 @@ function Stack({ direction, align, justify, children, width, spacing, position, 
       $separator={separator}
       $flexWrap={flexWrap} 
       ref={refs}
+      $height={height}
+      $zIndex={zIndex}
     >
       {children}
     </StackDiv>

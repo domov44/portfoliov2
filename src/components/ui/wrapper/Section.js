@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 const SectionContainer = styled.section`
 padding: 100px 0px;
-max-width: 1100px;
+border-radius: 10px;
+max-width: 1800px;
+background: var(--secondary-bg-color);
+align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
