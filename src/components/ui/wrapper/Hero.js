@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const HeroContainer = styled.section`
     max-width: 1800px;
     display: flex;
+    overflow: hidden;
+    position: relative;
     flex-direction: column;
     justify-content: flex-end;
     min-height: calc(100vh - 80px);
