@@ -14,28 +14,19 @@ import Bento from '@/components/ui/wrapper/Bento';
 const client = generateClient();
 
 const images = [
-    'https://www.ronanscotet.com/uploads/ImageProjets/miamalo.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-nexus-corp.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/ERP-Reltim-v2.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/pres-uptopixel.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/naotri.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/Musee-des-blindes.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/kiliron-shopz.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/pres-zechifoumi-v2.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/pres-carrefour-bio.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/pres-country-check.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-atlantic-cards.svg',
-    'https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-nexus-corp.svg',
-    "https://www.ronanscotet.com/uploads/ImageProjets/bruteforce.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/pres-International-horizons.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/blog-laravel.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/tape-taupe.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/club-reltim.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/carte-de-pres-reltim.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/currencyconverter.svg",
-    "https://www.ronanscotet.com/uploads/ImageProjets/pres-green-horizons.svg"
-
-
+    'https://ranlus.fr/assets/home-trail/1.jpeg',
+    'https://ranlus.fr/assets/home-trail/2.jpeg',
+    'https://ranlus.fr/assets/home-trail/3.jpeg',
+    'https://ranlus.fr/assets/home-trail/4.jpeg',
+    'https://ranlus.fr/assets/home-trail/6.jpeg',
+    'https://ranlus.fr/assets/home-trail/7.jpeg',
+    'https://ranlus.fr/assets/home-trail/8.jpeg',
+    'https://ranlus.fr/assets/home-trail/9.jpeg',
+    'https://ranlus.fr/assets/home-trail/10.jpeg',
+    'https://ranlus.fr/assets/home-trail/11.jpeg',
+    'https://ranlus.fr/assets/home-trail/13.jpeg',
+    'https://ranlus.fr/assets/home-trail/14.jpeg',
+    'https://ranlus.fr/assets/home-trail/15.jpeg',
 ];
 
 const Home = () => {
@@ -59,7 +50,7 @@ const Home = () => {
 
             const velocity = distance / timeDelta || 1;
 
-            if (distance >= 120 && visibleImages.length < 50) {
+            if (distance >= 100 && visibleImages.length < 50) {
                 const randomIndex = Math.floor(Math.random() * images.length);
                 const randomImage = images[randomIndex];
 
@@ -67,17 +58,17 @@ const Home = () => {
                     const imgElement = document.createElement('img');
                     imgElement.src = randomImage;
                     imgElement.style.position = 'absolute';
-
-                    imgElement.style.left = `${x - 150}px`;
-                    imgElement.style.top = `${y - 150}px`;
-
+                    imgElement.style.left = `${x - 107}px`;
+                    imgElement.style.top = `${y - 60}px`;
+                    imgElement.style.borderRadius = `10px`;
                     imgElement.style.pointerEvents = 'none';
-                    imgElement.style.width = '300px';
-                    imgElement.style.height = '300px';
+                    imgElement.style.width = '214px';
+                    imgElement.style.height = '120px';
                     imgElement.style.clipPath = 'circle(0% at 50% 50%)';
-                    document.body.appendChild(imgElement);
 
-                    const translateDistance = Math.min(500, Math.max(30, velocity ** 2 * 10));
+                    heroRef.current.appendChild(imgElement);
+
+                    const translateDistance = Math.min(500, Math.max(30, velocity ** 2 * 11));
                     const translateX = -deltaX / distance * translateDistance;
                     const translateY = -deltaY / distance * translateDistance;
 
@@ -98,7 +89,7 @@ const Home = () => {
                                     opacity: 0,
                                     duration: 0.5,
                                     onComplete: () => {
-                                        document.body.removeChild(imgElement);
+                                        heroRef.current.removeChild(imgElement);
                                         setVisibleImages(prev => prev.filter(img => img !== randomImage));
                                     }
                                 });
