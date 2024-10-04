@@ -33,42 +33,55 @@ const Home = () => {
     const [visibleImages, setVisibleImages] = useState([]);
     const heroRef = useRef(null);
     const lastImagePosition = useRef({ x: 0, y: 0, time: performance.now() });
+    const zIndexCounter = useRef(1);
+
+    useEffect(() => {
+        const heroElement = heroRef.current;
+        images.forEach((src, index) => {
+            const imgElement = document.createElement('img');
+            imgElement.src = src;
+            imgElement.style.position = 'absolute';
+            imgElement.style.opacity = 0;
+            imgElement.style.pointerEvents = 'none';
+            imgElement.style.width = '214px';
+            imgElement.style.height = '120px';
+            imgElement.style.borderRadius = '10px';
+            imgElement.classList.add(`image-${index}`);
+            heroElement.appendChild(imgElement);
+        });
+    }, []);
 
     const handleMouseMove = useCallback((e) => {
         if (!heroRef.current) return;
 
         const { clientX: x, clientY: y } = e;
-        const { left, top, right, bottom } = heroRef.current.getBoundingClientRect();
+        const { left, top } = heroRef.current.getBoundingClientRect();
 
-        if (x >= left && x <= right && y >= top && y <= bottom) {
+        const adjustedX = x - left;
+        const adjustedY = y - top;
+
+        if (adjustedX >= 0 && adjustedX <= heroRef.current.clientWidth && adjustedY >= 0 && adjustedY <= heroRef.current.clientHeight) {
             const timeNow = performance.now();
             const timeDelta = timeNow - lastImagePosition.current.time;
 
-            const deltaX = x - lastImagePosition.current.x;
-            const deltaY = y - lastImagePosition.current.y;
+            const deltaX = adjustedX - lastImagePosition.current.x;
+            const deltaY = adjustedY - lastImagePosition.current.y;
             const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
             const velocity = distance / timeDelta || 1;
 
             if (distance >= 100 && visibleImages.length < 50) {
                 const randomIndex = Math.floor(Math.random() * images.length);
-                const randomImage = images[randomIndex];
+                const randomImageClass = `.image-${randomIndex}`;
+                const imgElement = heroRef.current.querySelector(randomImageClass);
 
-                if (!visibleImages.includes(randomImage)) {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = randomImage;
-                    imgElement.style.position = 'absolute';
-                    imgElement.style.left = `${x - 107}px`;
-                    imgElement.style.top = `${y - 60}px`;
-                    imgElement.style.borderRadius = `10px`;
-                    imgElement.style.pointerEvents = 'none';
-                    imgElement.style.width = '214px';
-                    imgElement.style.height = '120px';
-                    imgElement.style.clipPath = 'circle(0% at 50% 50%)';
+                if (imgElement && !visibleImages.includes(randomIndex)) {
+                    imgElement.style.left = `${adjustedX - imgElement.width / 2}px`;
+                    imgElement.style.top = `${adjustedY - imgElement.height / 2}px`;
+                    imgElement.style.opacity = 1;
+                    imgElement.style.zIndex = zIndexCounter.current++;
 
-                    heroRef.current.appendChild(imgElement);
-
-                    const translateDistance = Math.min(500, Math.max(30, velocity ** 2 * 11));
+                    const translateDistance = Math.min(1500, Math.max(200, velocity ** 2 * 10));
                     const translateX = -deltaX / distance * translateDistance;
                     const translateY = -deltaY / distance * translateDistance;
 
@@ -89,21 +102,20 @@ const Home = () => {
                                     opacity: 0,
                                     duration: 0.5,
                                     onComplete: () => {
-                                        heroRef.current.removeChild(imgElement);
-                                        setVisibleImages(prev => prev.filter(img => img !== randomImage));
+                                        setVisibleImages(prev => prev.filter(img => img !== randomIndex));
                                     }
                                 });
                             }
                         }
                     );
 
-                    lastImagePosition.current = { x, y, time: timeNow };
-
-                    setVisibleImages(prev => [...prev, randomImage]);
+                    lastImagePosition.current = { x: adjustedX, y: adjustedY, time: timeNow };
+                    setVisibleImages(prev => [...prev, randomIndex]);
                 }
             }
         }
     }, [visibleImages]);
+
 
     useEffect(() => {
         const currentHero = heroRef.current;
