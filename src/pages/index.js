@@ -30,14 +30,14 @@ const ImageList = styled.ul`
 const ImageItem = styled.li`
     position: absolute;
     opacity: 0;
-    width: 214px;
-    height: 120px;
+    width: 15rem;
+    transition: width 0.3s ease, height 0.3s ease;
 `;
 
 const StyledImage = styled.img`
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 0.5rem;
     object-fit: cover;
 `;
 
@@ -84,7 +84,6 @@ const Home = () => {
         );
     }, []);
 
-
     useEffect(() => {
         animateTitle();
     }, [animateTitle]);
@@ -129,12 +128,18 @@ const Home = () => {
                 const liElement = heroRef.current.querySelector(randomImageClass);
 
                 if (liElement && !visibleImages.includes(randomIndex)) {
-                    liElement.style.left = `${adjustedX - 107}px`;
-                    liElement.style.top = `${adjustedY - 60}px`;
+                    const imageWidth = liElement.offsetWidth;
+                    const imageHeight = liElement.offsetHeight;
+                    const offsetX = imageWidth / 2;
+                    const offsetY = imageHeight / 2;
+
+                    liElement.style.left = `${adjustedX - offsetX}px`;
+                    liElement.style.top = `${adjustedY - offsetY}px`;
                     liElement.style.opacity = 1;
                     liElement.style.zIndex = zIndexCounter.current++;
 
-                    const translateDistance = Math.min(1500, Math.max(200, velocity ** 2 * 10));
+                    const viewportWidth = window.innerWidth;
+                    const translateDistance = Math.min(viewportWidth * 0.4, Math.max(200, velocity ** 2 * 10));
                     const translateX = -deltaX / distance * translateDistance;
                     const translateY = -deltaY / distance * translateDistance;
 
