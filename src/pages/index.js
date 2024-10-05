@@ -14,22 +14,6 @@ import Bento from '@/components/ui/wrapper/Bento';
 
 const client = generateClient();
 
-const images = [
-    'https://ranlus.fr/assets/home-trail/1.jpeg',
-    'https://ranlus.fr/assets/home-trail/2.jpeg',
-    'https://ranlus.fr/assets/home-trail/3.jpeg',
-    'https://ranlus.fr/assets/home-trail/4.jpeg',
-    'https://ranlus.fr/assets/home-trail/6.jpeg',
-    'https://ranlus.fr/assets/home-trail/7.jpeg',
-    'https://ranlus.fr/assets/home-trail/8.jpeg',
-    'https://ranlus.fr/assets/home-trail/9.jpeg',
-    'https://ranlus.fr/assets/home-trail/10.jpeg',
-    'https://ranlus.fr/assets/home-trail/11.jpeg',
-    'https://ranlus.fr/assets/home-trail/13.jpeg',
-    'https://ranlus.fr/assets/home-trail/14.jpeg',
-    'https://ranlus.fr/assets/home-trail/15.jpeg',
-];
-
 const ImageList = styled.ul`
     z-index: 0;
     margin: 0;
@@ -57,15 +41,15 @@ const StyledImage = styled.img`
     object-fit: cover;
 `;
 
-const ImagesList = () => {
+const ImagesList = ({ images }) => {
     return (
         <ImageList>
             {images.map((src, index) => (
-                <ImageItem 
+                <ImageItem
                     key={index}
                     className={`image-container-${index}`}
                 >
-                    <StyledImage 
+                    <StyledImage
                         src={src}
                         alt=""
                     />
@@ -80,6 +64,45 @@ const Home = () => {
     const heroRef = useRef(null);
     const lastImagePosition = useRef({ x: 0, y: 0, time: performance.now() });
     const zIndexCounter = useRef(1);
+    const titleRef = useRef(null);
+
+    const titleText = "Ronan Scotet";
+
+    const animateTitle = useCallback(() => {
+        const letters = titleRef.current.children;
+
+        gsap.fromTo(
+            letters,
+            { y: 150, scale: 0.8 },
+            {
+                y: 0,
+                scale: 1,
+                stagger: 0.03,
+                duration: 0.4,
+                ease: "power2.out",
+            }
+        );
+    }, []);
+
+
+    useEffect(() => {
+        animateTitle();
+    }, [animateTitle]);
+
+    const images = [
+        'https://ranlus.fr/assets/home-trail/1.jpeg',
+        'https://ranlus.fr/assets/home-trail/2.jpeg',
+        'https://ranlus.fr/assets/home-trail/3.jpeg',
+        'https://ranlus.fr/assets/home-trail/4.jpeg',
+        'https://ranlus.fr/assets/home-trail/6.jpeg',
+        'https://ranlus.fr/assets/home-trail/7.jpeg',
+        'https://ranlus.fr/assets/home-trail/8.jpeg',
+        'https://ranlus.fr/assets/home-trail/9.jpeg',
+        'https://ranlus.fr/assets/home-trail/11.jpeg',
+        'https://ranlus.fr/assets/home-trail/13.jpeg',
+        'https://ranlus.fr/assets/home-trail/14.jpeg',
+        'https://ranlus.fr/assets/home-trail/15.jpeg',
+    ];
 
     const handleMouseMove = useCallback((e) => {
         if (!heroRef.current) return;
@@ -144,7 +167,7 @@ const Home = () => {
                 }
             }
         }
-    }, [visibleImages]);
+    }, [visibleImages, images]);
 
     useEffect(() => {
         const currentHero = heroRef.current;
@@ -160,20 +183,33 @@ const Home = () => {
     return (
         <>
             <Hero ref={heroRef}>
-                <ImagesList />
+                <ImagesList images={images} />
                 <Stack direction={"column"} width={"100%"} height={"calc(70vh - 80px)"} justify={"space-between"}>
-                    <Stack justify={"space-between"} width={"100%"} zIndex={2}>
-                        <Stack width={"33,3%"}>
+                    <Stack justify={"space-between"} width={"100%"} zIndex={2} animationType={"animateFadeIn"} opacity={"0"}>
+                        <Stack width={"33.3%"}>
                             <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
                         </Stack>
-                        <Stack width={"33,3%"} align={"center"}>
+                        <Stack width={"33.3%"} justify={"center"}>
                             <Title level={6}>Devops developer & lead dev</Title>
                         </Stack>
-                        <Stack width={"33,3%"} align={"end"}>
+                        <Stack width={"33.3%"} justify={"end"}>
                             <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>ronanscotet</TextLink>
                         </Stack>
                     </Stack>
-                    <Title level={1}>Ronan Scotet</Title>
+                    <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
+                        <Title ref={titleRef} level={1} textalign="center" className="step-7">
+                            {titleText.split('').map((letter, index) => (
+                                <span
+                                    key={index}
+                                    style={{
+                                        display: 'inline-block',
+                                    }}
+                                >
+                                    {letter === ' ' ? '\u00A0' : letter}
+                                </span>
+                            ))}
+                        </Title>
+                    </Stack>
                 </Stack>
             </Hero>
             <Section>
