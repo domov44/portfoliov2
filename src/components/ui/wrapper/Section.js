@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionContainer = styled.section`
-padding: 100px 0px;
+padding: 100px 30px;
 border-radius: 10px;
 background: var(--secondary-bg-color);
 align-items: center;

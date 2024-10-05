@@ -8,11 +8,11 @@ const HeroContainer = styled.section`
     position: relative;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh);
     width: 100%;
-    margin-top: 80px;
+    padding-top: 80px;
     gap: ${props => props.$spacing || "30px"};
-    padding:  ${props => props.$padding || ""};
+    padding:  ${props => props.$padding || "0px 30px"};
 `;
 
 const Hero = React.forwardRef(({ children, padding, spacing, maxWidth }, ref) => {
