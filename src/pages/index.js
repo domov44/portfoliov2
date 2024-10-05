@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { generateClient } from 'aws-amplify/api';
+import styled from 'styled-components';
 import Title from '@/components/ui/textual/Title';
 import Hero from '@/components/ui/wrapper/Hero';
 import Button from '@/components/ui/button/Button';
@@ -29,27 +30,56 @@ const images = [
     'https://ranlus.fr/assets/home-trail/15.jpeg',
 ];
 
+const ImageList = styled.ul`
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+`;
+
+const ImageItem = styled.li`
+    position: absolute;
+    opacity: 0;
+    width: 214px;
+    height: 120px;
+`;
+
+const StyledImage = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+`;
+
+const ImagesList = () => {
+    return (
+        <ImageList>
+            {images.map((src, index) => (
+                <ImageItem 
+                    key={index}
+                    className={`image-container-${index}`}
+                >
+                    <StyledImage 
+                        src={src}
+                        alt=""
+                    />
+                </ImageItem>
+            ))}
+        </ImageList>
+    );
+};
+
 const Home = () => {
     const [visibleImages, setVisibleImages] = useState([]);
     const heroRef = useRef(null);
     const lastImagePosition = useRef({ x: 0, y: 0, time: performance.now() });
     const zIndexCounter = useRef(1);
-
-    useEffect(() => {
-        const heroElement = heroRef.current;
-        images.forEach((src, index) => {
-            const imgElement = document.createElement('img');
-            imgElement.src = src;
-            imgElement.style.position = 'absolute';
-            imgElement.style.opacity = 0;
-            imgElement.style.pointerEvents = 'none';
-            imgElement.style.width = '214px';
-            imgElement.style.height = '120px';
-            imgElement.style.borderRadius = '10px';
-            imgElement.classList.add(`image-${index}`);
-            heroElement.appendChild(imgElement);
-        });
-    }, []);
 
     const handleMouseMove = useCallback((e) => {
         if (!heroRef.current) return;
@@ -72,20 +102,20 @@ const Home = () => {
 
             if (distance >= 100 && visibleImages.length < 50) {
                 const randomIndex = Math.floor(Math.random() * images.length);
-                const randomImageClass = `.image-${randomIndex}`;
-                const imgElement = heroRef.current.querySelector(randomImageClass);
+                const randomImageClass = `.image-container-${randomIndex}`;
+                const liElement = heroRef.current.querySelector(randomImageClass);
 
-                if (imgElement && !visibleImages.includes(randomIndex)) {
-                    imgElement.style.left = `${adjustedX - imgElement.width / 2}px`;
-                    imgElement.style.top = `${adjustedY - imgElement.height / 2}px`;
-                    imgElement.style.opacity = 1;
-                    imgElement.style.zIndex = zIndexCounter.current++;
+                if (liElement && !visibleImages.includes(randomIndex)) {
+                    liElement.style.left = `${adjustedX - 107}px`;
+                    liElement.style.top = `${adjustedY - 60}px`;
+                    liElement.style.opacity = 1;
+                    liElement.style.zIndex = zIndexCounter.current++;
 
                     const translateDistance = Math.min(1500, Math.max(200, velocity ** 2 * 10));
                     const translateX = -deltaX / distance * translateDistance;
                     const translateY = -deltaY / distance * translateDistance;
 
-                    gsap.fromTo(imgElement,
+                    gsap.fromTo(liElement,
                         {
                             clipPath: 'circle(0% at 50% 50%)',
                             x: translateX,
@@ -98,7 +128,7 @@ const Home = () => {
                             duration: 1,
                             ease: 'power2.out',
                             onComplete: () => {
-                                gsap.to(imgElement, {
+                                gsap.to(liElement, {
                                     opacity: 0,
                                     duration: 0.5,
                                     onComplete: () => {
@@ -116,7 +146,6 @@ const Home = () => {
         }
     }, [visibleImages]);
 
-
     useEffect(() => {
         const currentHero = heroRef.current;
         if (!currentHero) return;
@@ -131,6 +160,7 @@ const Home = () => {
     return (
         <>
             <Hero ref={heroRef}>
+                <ImagesList />
                 <Stack direction={"column"} width={"100%"} height={"calc(70vh - 80px)"} justify={"space-between"}>
                     <Stack justify={"space-between"} width={"100%"} zIndex={2}>
                         <Stack width={"33,3%"}>
