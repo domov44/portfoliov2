@@ -73,7 +73,7 @@ const Home = () => {
 
         gsap.fromTo(
             letters,
-            { y: 150, scale: 0.8 },
+            { y: 250, scale: 0.8 },
             {
                 y: 0,
                 scale: 1,
@@ -219,8 +219,8 @@ const Home = () => {
                             <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>ronanscotet</TextLink>
                         </Stack>
                     </Stack>
-                    <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
-                        <Title ref={titleRef} level={1} textalign="center" className="step-7">
+                    <Stack overflow={"hidden"} justify={"center"} width={"100%"}>
+                        <Title ref={titleRef} level={1} textalign="center" fontSize={"14vw"} variant="colored">
                             {titleText.split('').map((letter, index) => (
                                 <span
                                     key={index}

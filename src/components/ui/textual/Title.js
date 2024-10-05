@@ -4,6 +4,7 @@ import styled from "styled-components";
 const TitleComponent = styled.h1`
   margin: 0;
   overflow: hidden;
+  font-size: ${(props) => props.$fontSize || ''};
   position: relative;
   font-family: var(--text-font-cashdisplay);
   text-align: ${(props) => props.$textalign};
@@ -21,7 +22,7 @@ const TitleComponent = styled.h1`
             : "var(--color-title)"};
 `;
 
-const Title = forwardRef(({ variant, level, className, id, onClick, children, textalign, fontfamily, ...restProps }, ref) => {
+const Title = forwardRef(({ variant, level, className, fontSize, id, onClick, children, textalign, fontfamily, ...restProps }, ref) => {
   const HeadingTag = `h${level || 1}`;
 
   return (
@@ -33,6 +34,7 @@ const Title = forwardRef(({ variant, level, className, id, onClick, children, te
       $textalign={textalign}
       $fontfamily={fontfamily}
       ref={ref} 
+      $fontSize={fontSize}
       {...restProps}
     >
       {children}

@@ -23,6 +23,10 @@ display: inline-block;
 &:hover:before{
         width: 0%;
     }
+
+    &:hover{
+        color: var(--color-title);
+    }
 `;
 
 const TextLink = ({ href, children }) => (
