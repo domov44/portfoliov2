@@ -12,10 +12,8 @@ const StyledHeader = styled.header`
   top: 0px;
   left: 0px;
   right: 0px;
-  z-index: 3;
-  background: var(--transparent-bg-color);
-  border-bottom: 2px solid var(--grey-color);
-  padding: 20px ;
+  z-index: 4;
+  padding: 30px ;
   align-items: center;
   justify-content: center;
   transition: 0.2s;
@@ -23,7 +21,7 @@ const StyledHeader = styled.header`
 
 const StyledAsideButton = styled.button`
   position: relative;
-  line-height: 1.5;
+  line-height: 1;
   z-index: 2;
   cursor: pointer;
   background: none;

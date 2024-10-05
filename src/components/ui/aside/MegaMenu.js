@@ -1,79 +1,106 @@
-import React, { useContext } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import gsap from 'gsap';
 import Text from '../textual/Text';
 import TextLink from '../textual/TextLink';
 
-const slideIn = keyframes`
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-`;
-
 const StyledAside = styled.aside`
   background: var(--bg-color);
-  padding-top: 180px;
+  border-radius: 10px;
+  margin-top: 10px;
+  position: relative;
+  padding-top: 280px;
   width: 100%;
   border: 2px solid var(--grey-color);
-  position: fixed;
-  z-index: 1;
-  animation: ${props => (props.$isopen === 'open' ? slideIn : slideOut)} 0.4s forwards;
-  animation-fill-mode: forwards;
+  z-index: 3;
 
   @media (max-width: 1000px) {
     width: 80%;
-    transform: translateX(${props => (props.$isopen === 'open' ? '' : '-100%')});
-    visibility: ${props => (props.$isopen === 'open' ? '' : 'hidden')};
   }
 `;
 
 const Overlay = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 4;
-  display: none;
-
-  @media (max-width: 1000px) {
-    display: ${props => (props.$isopen === 'open' ? 'block' : 'none')};
-  }
+  z-index: 3;
+  position: absolute;
+  opacity: 0; // Initial opacity for animation
+  visibility: ${props => (props.$isopen === 'open' ? 'visible' : 'hidden')}; // Change visibility based on isopen
 `;
 
 const StyledAsideContent = styled.div`
   background: var(--bg-color);
   padding: 15px;
   display: flex;
+  width: 100%;
   flex-direction: column;
-  z-index: 2;
-  transition: 0.3s;
+  z-index: 3;
   overflow-y: auto;
   height: 100%;
 `;
 
-function MegaMenu({ isopen, toggleSidebar }) {
+const MenuRoot = styled.div`
+  position: fixed;
+  padding: 0px 20px;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+`;
+
+function MegaMenu({ isopen, toggleMenu }) {
+  const asideRef = useRef(null);
+  const overlayRef = useRef(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isopen === 'open') {
+      setTimeout(() => {
+        setIsAnimating(true);
+        gsap.fromTo(
+          asideRef.current,
+          { y: '-100%', opacity: 0 },
+          {
+            y: '0%',
+            opacity: 1,
+            duration: 1,
+            ease: 'power4.out',
+          }
+        );
+
+        gsap.to(overlayRef.current, {
+          opacity: 1,
+          duration: 0.6,
+          ease: 'power4.out',
+          visibility: 'visible',
+        });
+      }, 400);
+    } else {
+      setIsAnimating(false);
+      gsap.to(asideRef.current, {
+        y: '-100%',
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power4.in',
+      });
+
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power4.in',
+        onComplete: () => {
+          gsap.set(overlayRef.current, { visibility: 'hidden' });
+        },
+      });
+    }
+  }, [isopen]);
 
   return (
-    <>
-      <Overlay $isopen={isopen} onClick={toggleSidebar} />
-      <StyledAside className="banner" $isopen={isopen}>
+    <MenuRoot>
+      <Overlay ref={overlayRef} $isopen={isopen} onClick={toggleMenu} />
+      <StyledAside ref={asideRef} className="banner" $isAnimating={isAnimating}>
         <StyledAsideContent>
           <Text>
             Développé avec ❤ par
@@ -83,7 +110,7 @@ function MegaMenu({ isopen, toggleSidebar }) {
           </Text>
         </StyledAsideContent>
       </StyledAside>
-    </>
+    </MenuRoot>
   );
 }
 
