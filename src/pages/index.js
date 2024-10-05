@@ -112,7 +112,8 @@ const Home = () => {
         const adjustedX = x - left;
         const adjustedY = y - top;
 
-        if (adjustedX >= 0 && adjustedX <= heroRef.current.clientWidth && adjustedY >= 0 && adjustedY <= heroRef.current.clientHeight) {
+        if (adjustedX >= 0 && adjustedX <= heroRef.current.clientWidth &&
+            adjustedY >= 0 && adjustedY <= heroRef.current.clientHeight) {
             const timeNow = performance.now();
             const timeDelta = timeNow - lastImagePosition.current.time;
 
@@ -122,53 +123,70 @@ const Home = () => {
 
             const velocity = distance / timeDelta || 1;
 
-            if (distance >= 100 && visibleImages.length < 50) {
-                const randomIndex = Math.floor(Math.random() * images.length);
-                const randomImageClass = `.image-container-${randomIndex}`;
-                const liElement = heroRef.current.querySelector(randomImageClass);
+            if (distance >= 100) {
+                const availableIndices = images.map((_, index) => index)
+                    .filter(index => !visibleImages.includes(index));
 
-                if (liElement && !visibleImages.includes(randomIndex)) {
-                    const imageWidth = liElement.offsetWidth;
-                    const imageHeight = liElement.offsetHeight;
-                    const offsetX = imageWidth / 2;
-                    const offsetY = imageHeight / 2;
+                if (availableIndices.length === 0 && visibleImages.length > 0) {
+                    const oldestImageIndex = visibleImages[0];
+                    const oldestElement = heroRef.current.querySelector(`.image-container-${oldestImageIndex}`);
 
-                    liElement.style.left = `${adjustedX - offsetX}px`;
-                    liElement.style.top = `${adjustedY - offsetY}px`;
-                    liElement.style.opacity = 1;
-                    liElement.style.zIndex = zIndexCounter.current++;
+                    if (oldestElement) {
+                        gsap.killTweensOf(oldestElement);
+                        oldestElement.style.opacity = 0;
+                        setVisibleImages(prev => prev.filter(img => img !== oldestImageIndex));
+                        availableIndices.push(oldestImageIndex);
+                    }
+                }
 
-                    const viewportWidth = window.innerWidth;
-                    const translateDistance = Math.min(viewportWidth * 0.4, Math.max(200, velocity ** 2 * 10));
-                    const translateX = -deltaX / distance * translateDistance;
-                    const translateY = -deltaY / distance * translateDistance;
+                if (availableIndices.length > 0) {
+                    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                    const randomImageClass = `.image-container-${randomIndex}`;
+                    const liElement = heroRef.current.querySelector(randomImageClass);
 
-                    gsap.fromTo(liElement,
-                        {
-                            clipPath: 'circle(0% at 50% 50%)',
-                            x: translateX,
-                            y: translateY
-                        },
-                        {
-                            clipPath: 'circle(75% at 50% 50%)',
-                            x: 0,
-                            y: 0,
-                            duration: 1,
-                            ease: 'power2.out',
-                            onComplete: () => {
-                                gsap.to(liElement, {
-                                    opacity: 0,
-                                    duration: 0.5,
-                                    onComplete: () => {
-                                        setVisibleImages(prev => prev.filter(img => img !== randomIndex));
-                                    }
-                                });
+                    if (liElement) {
+                        const imageWidth = liElement.offsetWidth;
+                        const imageHeight = liElement.offsetHeight;
+                        const offsetX = imageWidth / 2;
+                        const offsetY = imageHeight / 2;
+
+                        liElement.style.left = `${adjustedX - offsetX}px`;
+                        liElement.style.top = `${adjustedY - offsetY}px`;
+                        liElement.style.opacity = 1;
+                        liElement.style.zIndex = zIndexCounter.current++;
+
+                        const viewportWidth = window.innerWidth;
+                        const translateDistance = Math.min(viewportWidth * 0.4, Math.max(200, velocity ** 2 * 10));
+                        const translateX = -deltaX / distance * translateDistance;
+                        const translateY = -deltaY / distance * translateDistance;
+
+                        gsap.fromTo(liElement,
+                            {
+                                clipPath: 'circle(0% at 50% 50%)',
+                                x: translateX,
+                                y: translateY
+                            },
+                            {
+                                clipPath: 'circle(75% at 50% 50%)',
+                                x: 0,
+                                y: 0,
+                                duration: 1,
+                                ease: 'power2.out',
+                                onComplete: () => {
+                                    gsap.to(liElement, {
+                                        opacity: 0,
+                                        duration: 0.5,
+                                        onComplete: () => {
+                                            setVisibleImages(prev => prev.filter(img => img !== randomIndex));
+                                        }
+                                    });
+                                }
                             }
-                        }
-                    );
+                        );
 
-                    lastImagePosition.current = { x: adjustedX, y: adjustedY, time: timeNow };
-                    setVisibleImages(prev => [...prev, randomIndex]);
+                        lastImagePosition.current = { x: adjustedX, y: adjustedY, time: timeNow };
+                        setVisibleImages(prev => [...prev, randomIndex]);
+                    }
                 }
             }
         }
