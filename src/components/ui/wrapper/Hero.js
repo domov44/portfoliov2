@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeroContainer = styled.section`
-    max-width: 1800px;
+    max-width:  ${props => props.$maxWidth || ""};
     display: flex;
     overflow: hidden;
     position: relative;
@@ -15,9 +15,9 @@ const HeroContainer = styled.section`
     padding:  ${props => props.$padding || ""};
 `;
 
-const Hero = React.forwardRef(({ children, padding, spacing }, ref) => {
+const Hero = React.forwardRef(({ children, padding, spacing, maxWidth }, ref) => {
     return (
-        <HeroContainer $padding={padding} $spacing={spacing} ref={ref}>
+        <HeroContainer $padding={padding} $spacing={spacing} ref={ref} $maxWidth={maxWidth}>
             {children}
         </HeroContainer>
     );
