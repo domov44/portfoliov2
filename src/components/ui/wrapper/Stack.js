@@ -5,6 +5,7 @@ import { useGsapAnimation } from '../../animation/AnimationGsap';
 const StackDiv = styled.div`
   position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : "")};
   right: ${props => props.$right || ""};
+  overflow-y: ${props => props.$overflow || ""};
   left: ${props => props.$left || ""};
   z-index: ${props => props.$zIndex || ""};
   top: ${props => props.$top || ""};
@@ -19,18 +20,18 @@ const StackDiv = styled.div`
   flex-direction: ${props => (props.$direction === "column" ? "column" : "row")};
   align-items: ${props => (props.$align === "center" ? "center" : "")};
   justify-content: ${props => props.$justify || "start"};
+  opacity: ${props => props.$opacity || ""};
   ${props => props.$separator && "border-bottom: 1px solid var(--grey-color);"}
   ${props => props.$separator && `margin-bottom: 10px;`}
   ${props => props.$separator && `padding-bottom: 10px;`}
 `;
 
-function Stack({ direction, align, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
+function Stack({ direction, align, opacity, overflow, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
   useGsapAnimation();
   const refs = useRef();
 
   useEffect(() => {
     const animate = async () => {
-      // Attendre que gsapAnimations soit défini
       while (!window.gsapAnimations) {
         await new Promise(resolve => setTimeout(resolve, 100));
       }
@@ -49,6 +50,7 @@ function Stack({ direction, align, justify, zIndex, height, children, width, spa
   return (
     <StackDiv
       $direction={direction}
+      $opacity={opacity}
       $align={align}
       $justify={justify}
       $width={width}
@@ -66,6 +68,7 @@ function Stack({ direction, align, justify, zIndex, height, children, width, spa
       ref={refs}
       $height={height}
       $zIndex={zIndex}
+      $overflow={overflow}
     >
       {children}
     </StackDiv>
