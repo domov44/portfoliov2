@@ -87,7 +87,7 @@ function Header({ isopen, toggleMenu }) {
     <StyledHeader $isopen={isopen}>
       <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1800px">
         <Stack width="33.3%" align={"center"}>
-          <Text fontfamily={"styled"} className={"step--2"}>Ronan</Text>
+          <Text fontfamily={"styled"} className={"step--2"}>Ronan Scotet</Text>
         </Stack>
         <Stack width="33.3%" align={"center"} justify={"center"}>
           <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
