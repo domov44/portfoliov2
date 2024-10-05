@@ -110,6 +110,7 @@ export const useGsapAnimation = () => {
                         toggleActions: 'play none none none', 
                     },
                     duration: 1,
+                    delay: 0.4,
                     opacity: 1,
                     ease: "fade.in"
                 })
