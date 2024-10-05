@@ -6,6 +6,7 @@ const TitleComponent = styled.h1`
   font-family: var(--text-font-cashdisplay);
   text-align: ${(props) => (props.$textalign)};
   line-height: 1;
+  z-index: 1;
   color: ${(props) =>
     props.$variant === "default"
       ? "var(--color-title)"
