@@ -83,7 +83,7 @@ function Header({ isopen, toggleMenu }) {
 
   return (
     <StyledHeader $isopen={isopen}>
-      <Container direction="row" align="center" width="100%" justify="space-between" maxwidth="1800px">
+      <Container direction="row" align="center" width="100%" justify="space-between">
         <Stack width="33.3%" align={"center"}>
           <Text fontfamily={"styled"} className={"step--2"}>Ronan Scotet</Text>
         </Stack>

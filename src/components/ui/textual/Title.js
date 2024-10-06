@@ -9,7 +9,7 @@ const TitleComponent = styled.h1`
   font-family: var(--text-font-cashdisplay);
   text-align: ${(props) => props.$textalign};
   line-height: 1;
-  z-index: 1;
+  z-index: ${(props) => props.$zIndex || '1'};
   color: ${(props) =>
     props.$variant === "default"
       ? "var(--color-title)"
@@ -22,7 +22,7 @@ const TitleComponent = styled.h1`
             : "var(--color-title)"};
 `;
 
-const Title = forwardRef(({ variant, level, className, fontSize, id, onClick, children, textalign, fontfamily, ...restProps }, ref) => {
+const Title = forwardRef(({ variant, level, className, fontSize, id, onClick, children, zIndex, textalign, fontfamily, ...restProps }, ref) => {
   const HeadingTag = `h${level || 1}`;
 
   return (
@@ -34,6 +34,7 @@ const Title = forwardRef(({ variant, level, className, fontSize, id, onClick, ch
       $textalign={textalign}
       $fontfamily={fontfamily}
       ref={ref} 
+      $zIndex={zIndex}
       $fontSize={fontSize}
       {...restProps}
     >
