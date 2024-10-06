@@ -20,6 +20,14 @@ $light-success-color : #48a473;
 $light-success-bg : lighten($light-success-color, 45%);
 $light-success-bg-darker : lighten($light-success-color, 40%);
 
+:root{
+  --title-font: "Candal";
+  --text-font-light: "BeVietnam light";
+  --text-font: "BeVietnam medium";
+  --text-font-bold: "BeVietnam semi bold";
+  --text-font-cashdisplay: "ClashDisplay";
+}
+
 [data-theme="light"] {
   --bg-color: #{$light-bg-color};
   --transparent-bg-color: #{$light-transparent-bg-color};
@@ -70,10 +78,6 @@ $light-success-bg-darker : lighten($light-success-color, 40%);
   --toastify-color-progress-success: var(--toastify-color-success);
   --toastify-color-progress-warning: var(--toastify-color-warning);
   --toastify-color-progress-error: var(--toastify-color-error);
-  --title-font: "Candal";
-  --text-font-light: "BeVietnam light";
-  --text-font: "BeVietnam medium";
-  --text-font-bold: "BeVietnam semi bold";
 }
 
 //dark theme
@@ -149,9 +153,4 @@ $dark-success-bg-darker : #1a1f21;
   --toastify-color-progress-success: #{$dark-success-color};
   --toastify-color-progress-warning: #{$dark-warning-color};
   --toastify-color-progress-error: #{$dark-error-color};
-  --title-font: "Candal";
-  --text-font-light: "BeVietnam light";
-  --text-font: "BeVietnam medium";
-  --text-font-bold: "BeVietnam semi bold";
-  --text-font-cashdisplay: "ClashDisplay";
 }

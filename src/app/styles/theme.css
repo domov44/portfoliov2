@@ -1,3 +1,11 @@
+:root {
+  --title-font: "Candal";
+  --text-font-light: "BeVietnam light";
+  --text-font: "BeVietnam medium";
+  --text-font-bold: "BeVietnam semi bold";
+  --text-font-cashdisplay: "ClashDisplay";
+}
+
 [data-theme=light] {
   --bg-color: #F3F4F6;
   --transparent-bg-color: rgba(243, 244, 246, 0.95);
@@ -43,10 +51,6 @@
   --toastify-color-progress-success: var(--toastify-color-success);
   --toastify-color-progress-warning: var(--toastify-color-warning);
   --toastify-color-progress-error: var(--toastify-color-error);
-  --title-font: "Candal";
-  --text-font-light: "BeVietnam light";
-  --text-font: "BeVietnam medium";
-  --text-font-bold: "BeVietnam semi bold";
 }
 
 [data-theme=dark] {
@@ -93,9 +97,4 @@
   --toastify-color-progress-success: rgb(72, 164, 115);
   --toastify-color-progress-warning: #ff9305;
   --toastify-color-progress-error: rgb(255, 80, 80);
-  --title-font: "Candal";
-  --text-font-light: "BeVietnam light";
-  --text-font: "BeVietnam medium";
-  --text-font-bold: "BeVietnam semi bold";
-  --text-font-cashdisplay: "ClashDisplay";
 }/*# sourceMappingURL=theme.css.map */
