@@ -29,8 +29,8 @@ display: inline-block;
     }
 `;
 
-const TextLink = ({ href, children }) => (
-    <StyledLinkButton href={href}>
+const TextLink = ({ href, children, className }) => (
+    <StyledLinkButton href={href} className={className}>
         {children}
     </StyledLinkButton>
 );
