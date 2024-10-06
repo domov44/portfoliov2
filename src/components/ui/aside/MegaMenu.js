@@ -3,20 +3,19 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 import Text from '../textual/Text';
 import TextLink from '../textual/TextLink';
+import Bento from '../wrapper/Bento';
+import Stack from '../wrapper/Stack';
+import Title from '../textual/Title';
 
 const StyledAside = styled.aside`
   background: var(--bg-color);
   border-radius: 10px;
   margin-top: 10px;
   position: relative;
-  padding-top: 280px;
+  padding-top: 80px;
   width: 100%;
   border: 2px solid var(--grey-color);
   z-index: 3;
-
-  @media (max-width: 1000px) {
-    width: 80%;
-  }
 `;
 
 const Overlay = styled.div`
@@ -40,6 +39,7 @@ const StyledAsideContent = styled.div`
   z-index: 3;
   overflow-y: auto;
   height: 100%;
+  gap: 50px;
 `;
 
 const MenuRoot = styled.div`
@@ -110,12 +110,40 @@ function MegaMenu({ isopen, toggleMenu }) {
       <Overlay ref={overlayRef} $isopen={isopen} onClick={toggleMenu} />
       <StyledAside ref={asideRef} className="banner" $isAnimating={isAnimating}>
         <StyledAsideContent>
-          <Text>
-            Développé avec ❤ par
-            <TextLink href="https://www.ronanscotet.com/">
-              Ronan Scotet
-            </TextLink>
-          </Text>
+          <Stack width={"100%"} spacing={"100px"}>
+            <Stack width={"50%"}>
+              <Bento highlight={"highlight"}>
+              </Bento>
+            </Stack>
+            <Stack width={"50%"} direction={"column"} spacing={"0px"}>
+              <Title variant="colored" level={1}>
+                HOME
+              </Title>
+              <Title variant="colored" level={1}>
+                ABOUT
+              </Title>
+              <Title variant="colored" level={1}>
+                WORK
+              </Title>
+            </Stack>
+          </Stack>
+          <Stack width={"100%"}>
+            <Stack width={"33.3%"}>
+              <TextLink href={"https://github.com/domov44"} className="step-2">
+                github
+              </TextLink>
+            </Stack>
+            <Stack width={"33.3%"} justify={"center"}>
+              <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"} className="step-2">
+                linkedin
+              </TextLink>
+            </Stack>
+            <Stack width={"33.3%"} justify={"end"}>
+              <TextLink href={"https://www.instagram.com/rscotet/profilecard/?igsh=MWtieXhsNGlkdTl4eA=="} className="step-2">
+                instagram
+              </TextLink>
+            </Stack>
+          </Stack>
         </StyledAsideContent>
       </StyledAside>
     </MenuRoot>

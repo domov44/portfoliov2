@@ -219,8 +219,8 @@ const Home = () => {
                             <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>ronanscotet</TextLink>
                         </Stack>
                     </Stack>
-                    <Stack overflow={"hidden"} justify={"center"} width={"100%"}>
-                        <Title ref={titleRef} level={1} textalign="center" fontSize={"14vw"} variant="colored">
+                    <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
+                        <Title ref={titleRef} level={1} fontSize={"6vw"} variant="colored" zIndex="-1">
                             {titleText.split('').map((letter, index) => (
                                 <span
                                     key={index}
