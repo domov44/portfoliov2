@@ -27,8 +27,8 @@ const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
   z-index: 3;
   position: absolute;
-  opacity: 0; // Initial opacity for animation
-  visibility: ${props => (props.$isopen === 'open' ? 'visible' : 'hidden')}; // Change visibility based on isopen
+  opacity: 0;
+  visibility: ${props => (props.$isopen === 'open' ? 'visible' : 'hidden')}; 
 `;
 
 const StyledAsideContent = styled.div`
@@ -47,6 +47,7 @@ const MenuRoot = styled.div`
   padding: 0px 20px;
   width: 100%;
   height: 100%;
+  display: ${props => (props.$isopen === 'open' ? 'block' : 'none')}; 
   z-index: 3;
 `;
 
@@ -54,9 +55,11 @@ function MegaMenu({ isopen, toggleMenu }) {
   const asideRef = useRef(null);
   const overlayRef = useRef(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     if (isopen === 'open') {
+      setMenuVisible(true);
       setTimeout(() => {
         setIsAnimating(true);
         gsap.fromTo(
@@ -84,6 +87,11 @@ function MegaMenu({ isopen, toggleMenu }) {
         opacity: 0,
         duration: 0.6,
         ease: 'power4.in',
+        onComplete: () => {
+          setTimeout(() => {
+            setMenuVisible(false);
+          }, 600);
+        },
       });
 
       gsap.to(overlayRef.current, {
@@ -98,7 +106,7 @@ function MegaMenu({ isopen, toggleMenu }) {
   }, [isopen]);
 
   return (
-    <MenuRoot>
+    <MenuRoot $isopen={isopen} style={{ display: menuVisible ? 'block' : 'none' }}>
       <Overlay ref={overlayRef} $isopen={isopen} onClick={toggleMenu} />
       <StyledAside ref={asideRef} className="banner" $isAnimating={isAnimating}>
         <StyledAsideContent>
