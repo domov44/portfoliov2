@@ -5,6 +5,7 @@ import Container from '../wrapper/Container';
 import Text from '../textual/Text';
 import DynamicHour from '@/app/utils/DynamicHour';
 import Stack from '../wrapper/Stack';
+import Logo from '../Logo';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -13,15 +14,17 @@ const StyledHeader = styled.header`
   left: 0px;
   right: 0px;
   z-index: 4;
-  padding: 30px ;
+  padding: 40px ;
   align-items: center;
   justify-content: center;
   transition: 0.2s;
+  pointer-events: none;
 `;
 
 const StyledAsideButton = styled.button`
   position: relative;
   line-height: 1;
+  pointer-events: fill;
   z-index: 2;
   cursor: pointer;
   background: none;
@@ -39,12 +42,14 @@ const ButtonTextWrapper = styled.div`
   position: relative;
   height: 100%;
   overflow: hidden;
+  pointer-events: fill;
 `;
 
 const ButtonText = styled.span`
   position: absolute;
   left: 0;
   width: 100%;
+  pointer-events: fill;
   text-align: center;
   transition: transform 0.8s ease;
 `;
@@ -85,7 +90,7 @@ function Header({ isopen, toggleMenu }) {
     <StyledHeader $isopen={isopen}>
       <Container direction="row" align="center" width="100%" justify="space-between">
         <Stack width="33.3%" align={"center"}>
-          <Text fontfamily={"styled"} className={"step--2"}>Ronan Scotet</Text>
+          <Logo/>
         </Stack>
         <Stack width="33.3%" align={"center"} justify={"center"}>
           <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
