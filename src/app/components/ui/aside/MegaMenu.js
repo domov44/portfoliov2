@@ -10,7 +10,7 @@ import Title from '../textual/Title';
 const StyledAside = styled.aside`
   background: var(--bg-color);
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
   position: relative;
   padding-top: 80px;
   width: 100%;
