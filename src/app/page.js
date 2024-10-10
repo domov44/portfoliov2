@@ -215,7 +215,7 @@ const Page = () => {
                             <Title level={6}>Devops developer & lead dev</Title>
                         </Stack>
                         <Stack width={"33.3%"} justify={"end"}>
-                            <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>ronanscotet</TextLink>
+                            <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>@ronanscotet</TextLink>
                         </Stack>
                     </Stack>
                     <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
