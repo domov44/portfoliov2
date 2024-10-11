@@ -112,7 +112,7 @@ function LoginForm() {
             await confirmSignIn({ challengeResponse });
             notifySuccess("Mot de passe changé avec succès");
             login();
-            navigate('/administrator');
+            router.push('/administrator')
         } catch (error) {
             console.log('Erreur lors du changement du mot de passe :', error);
             setError(handleCognitoError(error));
