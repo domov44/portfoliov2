@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser } from 'aws-amplify/auth';
 import { useUser } from '../contexts/UserContext';
-import Loader from '../components/ui/loader/Loader';
+import Loader from '../components/Loader';
 
 async function checkAuthState() {
     try {
