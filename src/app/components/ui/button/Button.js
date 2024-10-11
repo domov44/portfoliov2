@@ -4,7 +4,11 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   position: relative;
-  width: fit-content;
+  width: ${props => props.$width === "fit-content"
+    ? "fit-content"
+    : props.$width === "full-width"
+      ? "100%"
+      : "fit-content"};
   overflow: hidden;
   background: none;
   color: var(--color-title);
@@ -43,7 +47,7 @@ const Circle = styled.div`
   transition: width 0.3s ease, height 0.3s ease;
 `;
 
-const Button = ({ children, onClick, className }) => {
+const Button = ({ children, onClick, className, width }) => {
   const buttonRef = useRef(null);
   const [circle, setCircle] = useState({ x: 0, y: 0, size: 0 });
 
@@ -67,6 +71,7 @@ const Button = ({ children, onClick, className }) => {
 
   return (
     <StyledButton
+      $width={width}
       ref={buttonRef}
       className={className}
       onClick={onClick}
@@ -74,7 +79,7 @@ const Button = ({ children, onClick, className }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <Circle 
+      <Circle
         style={{
           left: circle.x,
           top: circle.y,
