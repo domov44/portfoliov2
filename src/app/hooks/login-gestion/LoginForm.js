@@ -14,11 +14,12 @@ import IconButton from '@/app/components/ui/button/IconButton';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Stack from '@/app/components/ui/wrapper/Stack';
 import Tips from '@/app/components/ui/textual/Tips';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { handleCognitoError } from '@/app/utils/cognitoErrorHandler';
 
 function LoginForm() {
     const { login } = useUser();
+    const router = useRouter();
     const [disable, setDisable] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -59,7 +60,7 @@ function LoginForm() {
                 notifySuccess("Connexion établie avec succès");
                 login();
                 setDisable(false);
-                Router.push('/administrateur')
+                router.push('/administrator')
             } else {
                 console.log('La connexion a échoué.');
                 setError(handleCognitoError(error));
@@ -111,7 +112,7 @@ function LoginForm() {
             await confirmSignIn({ challengeResponse });
             notifySuccess("Mot de passe changé avec succès");
             login();
-            navigate('/administrateur');
+            navigate('/administrator');
         } catch (error) {
             console.log('Erreur lors du changement du mot de passe :', error);
             setError(handleCognitoError(error));
@@ -155,7 +156,7 @@ function LoginForm() {
             await confirmResetPassword({ username, confirmationCode, newPassword });
             notifySuccess("Mot de passe changé");
             setDisable(false);
-            Router.push('/se-connecter');
+            router.push('/se-connecter');
         } catch (error) {
             console.log('Erreur lors de la confirmation de la réinitialisation du mot de passe :', error);
             setError(handleCognitoError(error));
