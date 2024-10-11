@@ -1,3 +1,4 @@
+'use client';
 import Text from '../components/ui/textual/Text';
 import React, { useState, useEffect } from 'react';
 

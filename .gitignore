@@ -6,6 +6,12 @@
 .pnp.js
 .yarn/install-state.gz
 
+
+# cypress
+cypress.env
+/cypress/screenshots
+
+
 # testing
 /coverage
 

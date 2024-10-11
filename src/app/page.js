@@ -219,7 +219,7 @@ const Page = () => {
                         </Stack>
                     </Stack>
                     <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
-                        <Title ref={titleRef} level={1} fontSize={"6vw"} variant="colored" zIndex="-1">
+                        <Title ref={titleRef} level={1} fontSize={"6vw"} variant="colored" zIndex="-1" data_cy="name-surname">
                             {titleText.split('').map((letter, index) => (
                                 <span
                                     key={index}

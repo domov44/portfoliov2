@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getCurrentUser, fetchAuthSession } from 'aws-amplify/auth';
 import Loader from '../components/Loader';
+import ConfigureAmplifyClientSide from '../components/ConfigureAmplifyClientSide';
 
 const UserContext = createContext();
 
@@ -59,12 +60,13 @@ export const UserProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
-  if (isLoggedIn === null) {
-    return <Loader />;
-  }
+  // if (isLoggedIn === null) {
+  //   return <Loader />;
+  // }
 
   return (
     <UserContext.Provider value={{ isLoggedIn, user, login, logout, refreshUser, setLoggedIn, setUser }}>
+      <ConfigureAmplifyClientSide/>
       {children}
     </UserContext.Provider>
   );
