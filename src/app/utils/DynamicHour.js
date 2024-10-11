@@ -3,10 +3,12 @@ import Text from '../components/ui/textual/Text';
 import React, { useState, useEffect } from 'react';
 
 const DynamicHour = () => {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(null);
   const [showColon, setShowColon] = useState(true);
 
   useEffect(() => {
+    setTime(new Date());
+
     const timer = setInterval(() => {
       setTime(new Date());
       setShowColon(prev => !prev);
@@ -16,6 +18,10 @@ const DynamicHour = () => {
       clearInterval(timer);
     };
   }, []);
+
+  if (!time) {
+    return null;
+  }
 
   const formatTime = () => {
     const options = {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { gsap } from 'gsap';
 import Container from '../wrapper/Container';
 import Text from '../textual/Text';
-// import DynamicHour from '@/app/utils/DynamicHour';
+import DynamicHour from '@/app/utils/DynamicHour';
 import Stack from '../wrapper/Stack';
 import Logo from '../Logo';
 
@@ -102,7 +102,7 @@ function Header({ isopen, toggleMenu }) {
           </StyledAsideButton>
         </Stack>
         <Stack width="33.3%" align={"center"} justify={"end"}>
-          {/* <DynamicHour /> */}
+          <DynamicHour />
         </Stack>
       </Container>
     </StyledHeader>
