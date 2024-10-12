@@ -12,6 +12,7 @@ import Text from './components/ui/textual/Text';
 import Section from './components/ui/wrapper/Section';
 import Container from './components/ui/wrapper/Container';
 import Bento from './components/ui/wrapper/Bento';
+import DefaultLayout from './layouts/DefaultLayout';
 
 const ImageList = styled.ul`
     z-index: 0;
@@ -203,7 +204,7 @@ const Page = () => {
     }, [handleMouseMove]);
 
     return (
-        <>
+        <DefaultLayout>
             <Hero ref={heroRef}>
                 <ImagesList images={images} />
                 <Stack direction={"column"} width={"100%"} height={"calc(70vh - 80px)"} justify={"space-between"}>
@@ -234,7 +235,7 @@ const Page = () => {
                     </Stack>
                 </Stack>
             </Hero>
-            <Section>
+            <Section highlight={true}>
                 <Container direction={"row"} width={"100%"} maxwidth={"1200px"}>
                     <Stack width={"70%"} justify={"center"}>
                         <Bento highlight={"highlight"}>
@@ -257,7 +258,21 @@ const Page = () => {
                     </Stack>
                 </Container>
             </Section>
-        </>
+            <Section>
+                <Container direction={"column"} width={"100%"} maxwidth={"1200px"}>
+                    <Stack width={"100%"} justify={"center"}>
+                        <Title level={2} fontSize={"8vw"} variant="colored" textalign="center">
+                            PROJECT SHOWCASE
+                        </Title>
+                    </Stack>
+                    <Stack width={"100%"} justify={"center"}>
+                        <Button className={"step-1"}>
+                            all projects
+                        </Button>
+                    </Stack>
+                </Container>
+            </Section>
+        </DefaultLayout>
     );
 }
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 const StyledLinkButton = styled(Link)`
 line-height: ${props => props.$lineheight || ""};
 width: fit-content;
+pointer-events: fill;
 color:inherit;
 `;
 
