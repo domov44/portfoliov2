@@ -7,6 +7,7 @@ import Text from '../textual/Text';
 import DynamicHour from '@/app/utils/DynamicHour';
 import Stack from '../wrapper/Stack';
 import Logo from '../Logo';
+import InvisibleLink from '../button/InvisibleLink';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -91,7 +92,9 @@ function Header({ isopen, toggleMenu }) {
     <StyledHeader $isopen={isopen}>
       <Container direction="row" align="center" width="100%" justify="space-between">
         <Stack width="33.3%" align={"center"}>
-          <Logo/>
+          <InvisibleLink href={"/"} lineheight={"0"}>
+            <Logo />
+          </InvisibleLink>
         </Stack>
         <Stack width="33.3%" align={"center"} justify={"center"}>
           <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
