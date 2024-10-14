@@ -14,6 +14,7 @@ const BentoDiv = styled.div`
   justify-content: center;
   align-items: ${props => (props.$align === "center" ? "center" : "")};
   width: ${props => (props.$width ? props.$width : "100%")};
+  height: ${props => (props.$height ? props.$height : "")};
   background: ${props => (props.$highlight ? "#1f1d27" : "")};
   padding: ${props => (props.$padding ? props.$padding : "24px")};
   border-radius: ${props => (props.$highlight ? "10px" : "")};
@@ -30,7 +31,7 @@ const BentoDiv = styled.div`
   }
 `;
 
-function Bento({ children, align, position, direction, highlight, top, right, bottom, left, width, padding, responsive }) {
+function Bento({ children, align, position, direction, highlight, top, right, bottom, left, width, padding, responsive, height }) {
   return (
     <BentoDiv
       $align={align}
@@ -42,6 +43,7 @@ function Bento({ children, align, position, direction, highlight, top, right, bo
       $direction={direction}
       $highlight={highlight}
       $width={width}
+      $height={height}
       $padding={padding}
       $responsive={responsive}
     >
