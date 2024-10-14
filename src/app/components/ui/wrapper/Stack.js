@@ -11,6 +11,7 @@ const StackDiv = styled.div`
   left: ${props => props.$left || ""};
   z-index: ${props => props.$zIndex || ""};
   top: ${props => props.$top || ""};
+  margin: ${props => props.$margin || ""};
   bottom: ${props => props.$bottom || ""};
   gap: ${props => props.$spacing || "10px"};
   width: ${props => props.$width || "fit-content"};
@@ -28,7 +29,7 @@ const StackDiv = styled.div`
   ${props => props.$separator && `padding-bottom: 10px;`}
 `;
 
-function Stack({ direction, align, opacity, overflow, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
+function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
   useGsapAnimation();
   const refs = useRef();
 
@@ -62,6 +63,7 @@ function Stack({ direction, align, opacity, overflow, justify, zIndex, height, c
       $left={left}
       $bottom={bottom}
       $top={top}
+      $margin={margin}
       $padding={padding}
       $radius={radius}
       $animate={animate}
