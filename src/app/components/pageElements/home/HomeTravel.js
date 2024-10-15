@@ -28,8 +28,8 @@ const ImageItem = styled.li`
 `;
 
 const Picture = styled.picture`
-    height: 22rem;
-    width: 17rem;
+    height: 27rem;
+    width: 21rem;
     display: block;
     margin: 0;
 `;
