@@ -24,12 +24,12 @@ const ImageList = styled.ul`
 
 const ImageItem = styled.li`
     position: absolute;
-    opacity: 1;  /* Initial opacity set to 1 */
+    opacity: 1;
 `;
 
 const Picture = styled.picture`
-    height: 22rem;
-    width: 17rem;
+    height: 27rem;
+    width: 21rem;
     display: block;
     margin: 0;
 `;
@@ -45,12 +45,18 @@ const ImageBg = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.5;
+    opacity: 0.6;
+    transform: translate3d(0px, -10%, 0px);
+    will-change: transform;
 `;
 
 const ImageSection = styled.figure`
     width: 100%;
-    height: 160vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 190vh;
+    overflow: hidden;
     margin: 0;
     background: black;
 `;
@@ -69,33 +75,58 @@ const imagesData = [
 const HomeTravel = () => {
     const imageRefs = useRef([]);
     const images = useRef(imagesData);
+    const sectionRef = useRef(null);
+    const imageBgRef = useRef(null);
 
     useEffect(() => {
-        imageRefs.current = imageRefs.current.slice(0, images.current.length);
+        if (sectionRef.current && imageBgRef.current) {
+            const sectionHeight = sectionRef.current.offsetHeight;
+            const computedStyle = window.getComputedStyle(sectionRef.current);
+            const paddingTop = parseFloat(computedStyle.paddingTop);
+            const paddingBottom = parseFloat(computedStyle.paddingBottom);
+            const heightWithoutPadding = sectionHeight - paddingTop - paddingBottom;
 
-        ScrollTrigger.create({
-            trigger: '.scroll-section',
-            start: 'top top', 
-            end: 'bottom bottom',
-            onUpdate: (self) => {
-                const progress = self.progress || 0;
-                console.log('Scroll progress:', progress);
+            imageRefs.current.forEach((image, index) => {
+                if (index === 0) {
+                    gsap.set(image, { zIndex: 1 });
+                } else {
+                    gsap.set(image, { zIndex: -1 });
+                }
+            });
 
-                const totalItems = images.current.length;
-                const indexToHide = Math.floor(progress * (totalItems - 1));
+            gsap.to(imageBgRef.current, {
+                y: '10%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: 'top top',
+                    end: `bottom top`,
+                    scrub: true,
+                },
+            });
 
-                imageRefs.current.forEach((image, index) => {
-                    if (index < indexToHide) {
-                        gsap.set(image, { opacity: 0, zIndex: -1 });
-                    } else if (index === indexToHide) {
-                        gsap.set(image, { opacity: 1, zIndex: 1 });
-                    } else {
-                        gsap.set(image, { opacity: 1, zIndex: 0 });
-                    }
-                });
-            },
-            scrub: true,
-        });
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: 'top top',
+                end: () => `${heightWithoutPadding} bottom`,
+                onUpdate: (self) => {
+                    const progress = self.progress || 0;
+                    const totalItems = images.current.length;
+                    const indexToHide = Math.floor(progress * (totalItems - 1));
+
+                    imageRefs.current.forEach((image, index) => {
+                        if (index < indexToHide) {
+                            gsap.set(image, { zIndex: -1 });
+                        } else if (index === indexToHide) {
+                            gsap.set(image, { zIndex: 1 });
+                        } else {
+                            gsap.set(image, { zIndex: 0 });
+                        }
+                    });
+                },
+                scrub: true,
+            });
+        }
     }, []);
 
     return (
@@ -107,32 +138,34 @@ const HomeTravel = () => {
                     </Title>
                 </Stack>
             </Section>
-            <Section className="scroll-section" overflow height={"170vh"} justify={"start"} margin={"0px 0px 500px 0px"} padding={"0px"} spacing={"100px"}>
-                <Stack justify={"space-between"} align={"center"} width={"100%"} zIndex={2} position={"sticky"} top={"20vh"} bottom={"20vh"}>
-                    <Stack width={"33.3%"}>
-                        <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
+            <Section overflow fullWidth>
+                <Stack ref={sectionRef} className="scroll-section" position="relative" direction={"column"} overflow height={"260vh"} justify={"start"} padding={"0px 0px 40vh 0px"} spacing={"100px"} width={"100%"}>
+                    <Stack justify={"space-between"} align={"center"} width={"100%"} zIndex={2} position={"sticky"} top={"20vh"} bottom={"20vh"} padding="0px 30px">
+                        <Stack width={"33.3%"}>
+                            <Title level={5} className="step-1">TRAVEL</Title>
+                        </Stack>
+                        <Stack width={"33.3%"} justify={"center"}>
+                            <ImageList>
+                                {images.current.map((src, index) => (
+                                    <ImageItem
+                                        key={index}
+                                        ref={el => imageRefs.current[index] = el}
+                                    >
+                                        <Picture>
+                                            <Image src={src} />
+                                        </Picture>
+                                    </ImageItem>
+                                ))}
+                            </ImageList>
+                        </Stack>
+                        <Stack width={"33.3%"} justify={"end"}>
+                            <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>@ronanscotet</TextLink>
+                        </Stack>
                     </Stack>
-                    <Stack width={"33.3%"} justify={"center"}>
-                        <ImageList>
-                            {images.current.map((src, index) => (
-                                <ImageItem
-                                    key={index}
-                                    ref={el => imageRefs.current[index] = el}
-                                >
-                                    <Picture>
-                                        <Image src={src} />
-                                    </Picture>
-                                </ImageItem>
-                            ))}
-                        </ImageList>
-                    </Stack>
-                    <Stack width={"33.3%"} justify={"end"}>
-                        <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>@ronanscotet</TextLink>
-                    </Stack>
+                    <ImageSection>
+                        <ImageBg ref={imageBgRef} src='https://ranlus.fr/assets/gallery/18.webp'></ImageBg>
+                    </ImageSection>
                 </Stack>
-                <ImageSection>
-                    <ImageBg src='https://ranlus.fr/assets/gallery/18.webp'></ImageBg>
-                </ImageSection>
             </Section>
         </>
     );
