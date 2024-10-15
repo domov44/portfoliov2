@@ -66,7 +66,7 @@ const GridItem = styled.article`
 
 const HomeGrid = () => {
     return (
-        <Section>
+        <Section fullWidth>
             <Container direction="column" width="100%" maxwidth="1200px">
                 <Stack width="100%" justify="center">
                     <Title level={2} fontSize="8vw" variant="colored" textalign="center">
