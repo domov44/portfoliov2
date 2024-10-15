@@ -46,7 +46,7 @@ const ImageBg = styled.img`
     height: 100%;
     object-fit: cover;
     opacity: 0.6;
-    transform: translate3d(0px, -10%, 0px) scale(1.15);
+    transform: translate3d(0px, -10%, 0px);
     will-change: transform;
 `;
 
@@ -96,7 +96,6 @@ const HomeTravel = () => {
 
             gsap.to(imageBgRef.current, {
                 y: '10%',
-                scale: 1.15,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -140,10 +139,10 @@ const HomeTravel = () => {
                 </Stack>
             </Section>
             <Section overflow fullWidth>
-                <Stack ref={sectionRef} className="scroll-section" position="relative" direction={"column"} overflow height={"260vh"} justify={"start"} padding={"0px 0px 80vh 0px"} spacing={"100px"} width={"100%"}>
+                <Stack ref={sectionRef} className="scroll-section" position="relative" direction={"column"} overflow height={"260vh"} justify={"start"} padding={"0px 0px 40vh 0px"} spacing={"100px"} width={"100%"}>
                     <Stack justify={"space-between"} align={"center"} width={"100%"} zIndex={2} position={"sticky"} top={"20vh"} bottom={"20vh"} padding="0px 30px">
                         <Stack width={"33.3%"}>
-                            <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
+                            <Title level={5} className="step-1">TRAVEL</Title>
                         </Stack>
                         <Stack width={"33.3%"} justify={"center"}>
                             <ImageList>
