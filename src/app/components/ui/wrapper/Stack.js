@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import { useGsapAnimation } from '../../animation/AnimationGsap';
 
 const StackDiv = styled.div`
-  position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : props.$position === "sticky" ? "sticky" : "")};
+  position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : props.$position === "sticky" ? "sticky" : props.$position === "relative" ? "relative" : "")};
   right: ${props => props.$right || ""};
   overflow-y: ${props => props.$overflow || ""};
   left: ${props => props.$left || ""};
@@ -29,9 +29,34 @@ const StackDiv = styled.div`
   ${props => props.$separator && `padding-bottom: 10px;`}
 `;
 
-function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, height, children, width, spacing, position, right, left, top, bottom, padding, radius, animate, animationType, separator, flexWrap }) {
+// Ajout de forwardRef pour accepter une ref externe
+const Stack = forwardRef(({
+  className, 
+  direction, 
+  align, 
+  opacity, 
+  margin, 
+  overflow, 
+  justify, 
+  zIndex, 
+  height, 
+  children, 
+  width, 
+  spacing, 
+  position, 
+  right, 
+  left, 
+  top, 
+  bottom, 
+  padding, 
+  radius, 
+  animate, 
+  animationType, 
+  separator, 
+  flexWrap 
+}, ref) => {
+  const internalRef = useRef();
   useGsapAnimation();
-  const refs = useRef();
 
   useEffect(() => {
     const animate = async () => {
@@ -39,10 +64,10 @@ function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, h
         await new Promise(resolve => setTimeout(resolve, 100));
       }
 
-      if (animationType && refs.current) {
+      if (animationType && internalRef.current) {
         const animateFunction = window.gsapAnimations[animationType];
         if (animateFunction) {
-          animateFunction(refs.current);
+          animateFunction(internalRef.current);
         }
       }
     };
@@ -52,6 +77,7 @@ function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, h
 
   return (
     <StackDiv
+      className={className}
       $direction={direction}
       $opacity={opacity}
       $align={align}
@@ -68,8 +94,8 @@ function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, h
       $radius={radius}
       $animate={animate}
       $separator={separator}
-      $flexWrap={flexWrap} 
-      ref={refs}
+      $flexWrap={flexWrap}
+      ref={ref || internalRef} // Utilisation de la ref externe si elle est passée, sinon internalRef
       $height={height}
       $zIndex={zIndex}
       $overflow={overflow}
@@ -77,7 +103,6 @@ function Stack({ direction, align, opacity, margin, overflow, justify, zIndex, h
       {children}
     </StackDiv>
   );
-}
+});
 
 export default Stack;
-
