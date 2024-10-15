@@ -1,5 +1,3 @@
-'use client';
-
 import styled from 'styled-components';
 import Title from '../../ui/textual/Title';
 import Stack from '../../ui/wrapper/Stack';

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useGsapAnimation } from '../../animation/AnimationGsap';
 
 const StackDiv = styled.div`
-  position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : "")};
+  position: ${props => (props.$position === "fixed" ? "fixed" : props.$position === "absolute" ? "absolute" : props.$position === "sticky" ? "sticky" : "")};
   right: ${props => props.$right || ""};
   overflow-y: ${props => props.$overflow || ""};
   left: ${props => props.$left || ""};
