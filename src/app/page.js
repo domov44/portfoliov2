@@ -10,6 +10,7 @@ import Bento from './components/ui/wrapper/Bento';
 import DefaultLayout from './layouts/DefaultLayout';
 import HomeHero from './components/pageElements/home/HomeHero';
 import HomeGrid from './components/pageElements/home/HomeGrid';
+import HomeTravel from './components/pageElements/home/HomeTravel';
 
 
 const Page = () => {
@@ -41,6 +42,7 @@ const Page = () => {
                 </Container>
             </Section>
             <HomeGrid />
+            <HomeTravel/>
         </DefaultLayout>
     );
 }
