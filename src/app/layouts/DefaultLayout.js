@@ -4,6 +4,8 @@ import MegaMenu from '../components/ui/aside/MegaMenu';
 import Main from '../components/ui/main/Main';
 import Header from '../components/ui/aside/Header';
 import Footer from '../components/ui/aside/Footer';
+import Transition from '../components/ui/transition/Transition';
+import TransitionOverlay from '../components/ui/transition/TransitionOverlay';
 
 export default function DefaultLayout({ children }) {
     const [MenuOpen, setMenuOpen] = useState(false);
@@ -28,10 +30,12 @@ export default function DefaultLayout({ children }) {
 
     return (
         <>
+            <Transition />
+            <TransitionOverlay/>
             <Header toggleMenu={toggleMenu} isopen={MenuOpen ? 'open' : 'close'} />
             {MenuContent}
             <Main>{children}</Main>
-            <Footer/>
+            <Footer />
         </>
     );
 }

@@ -37,7 +37,7 @@ const Page = () => {
                                 I automate and secure your project.
                             </Text>
                         </Stack>
-                        <Button className={"step-1"} variant={"primary"}>about me</Button>
+                        <Button className={"step-1"} variant={"primary"} href="/about-me" transition>about me</Button>
                     </Stack>
                 </Container>
             </Section>
