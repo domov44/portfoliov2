@@ -1,6 +1,8 @@
 'use client';
 import React, { useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { useInstantUrlTransition } from '@/app/utils/useInstantUrlTransition';
 
 const StyledButton = styled.button`
   position: relative;
@@ -47,8 +49,9 @@ const Circle = styled.div`
   transition: width 0.3s ease, height 0.3s ease;
 `;
 
-const Button = ({ children, onClick, className, width }) => {
+const Button = ({ children, onClick, className, width, href, transition = false }) => {
   const buttonRef = useRef(null);
+  const handleTransition = useInstantUrlTransition();
   const [circle, setCircle] = useState({ x: 0, y: 0, size: 0 });
 
   const handleMouseMove = useCallback((e) => {
@@ -69,12 +72,17 @@ const Button = ({ children, onClick, className, width }) => {
     setCircle(prev => ({ ...prev, size: 0 }));
   }, []);
 
+  const Component = href ? Link : 'button';
+
   return (
     <StyledButton
+      href={href}
+      as={Component}
+      onMouseDown={transition ? (event) => event.preventDefault() : undefined}
       $width={width}
       ref={buttonRef}
       className={className}
-      onClick={onClick}
+      onClick={href && transition ? (event) => handleTransition(href, event) : onClick}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
