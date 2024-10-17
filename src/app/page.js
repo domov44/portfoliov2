@@ -11,12 +11,13 @@ import DefaultLayout from './layouts/DefaultLayout';
 import HomeHero from './components/pageElements/home/HomeHero';
 import HomeGrid from './components/pageElements/home/HomeGrid';
 import HomeTravel from './components/pageElements/home/HomeTravel';
+import MainContent from './layouts/MainContent';
 
 
 const Page = () => {
 
     return (
-        <DefaultLayout>
+        <MainContent>
             <HomeHero />
             <Section highlight={true}>
                 <Container direction={"row"} width={"100%"} maxwidth={"1200px"}>
@@ -43,7 +44,7 @@ const Page = () => {
             </Section>
             <HomeGrid />
             <HomeTravel/>
-        </DefaultLayout>
+        </MainContent>
     );
 }
 

@@ -45,13 +45,11 @@ export const useInstantUrlTransition = (delay) => {
       duration: 1,
       delay: 0.3,
       onComplete: async () => {
-        await router.push(href);
-
-        // Réinitialisation des éléments après l'animation si nécessaire
-        // gsap.set(mainElement, { translateY: '0px' });
-        // gsap.set(transitionElement, { translateY: '-100%' });
-        // gsap.set(transitionElement, { display: 'none' });
         // gsap.set(overlayElement, { visibility: 'hidden', opacity: 0 });
+        gsap.set(mainElement, { translateY: '0px' });
+        await router.push(href);
+        // gsap.set(transitionElement, { display: 'none' });
+        // gsap.set(transitionElement, { translateY: '-100%' });
       }
     });
   }, [router]);
