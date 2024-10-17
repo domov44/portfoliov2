@@ -113,16 +113,16 @@ function MegaMenu({ isopen, toggleMenu, isAnimating, setIsAnimating }) {
               </Bento>
             </Stack>
             <Stack width={"50%"} direction={"column"} spacing={"0px"}>
-              <MegaMenuItem href={"/"} transition>
+              <MegaMenuItem href={"/"} transition onClick={toggleMenu}>
                 Home
               </MegaMenuItem>
-              <MegaMenuItem href={"/about-me"} transition>
+              <MegaMenuItem href={"/about-me"} transition onClick={toggleMenu}>
                 About
               </MegaMenuItem>
-              <MegaMenuItem href={"/"} transition>
+              <MegaMenuItem href={"/"} transition onClick={toggleMenu}>
                 Work
               </MegaMenuItem>
-              <MegaMenuItem href={"/"} transition>
+              <MegaMenuItem href={"/"} transition onClick={toggleMenu}>
                 Gallery
               </MegaMenuItem>
             </Stack>

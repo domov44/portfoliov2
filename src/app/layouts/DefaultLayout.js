@@ -9,7 +9,7 @@ import TransitionOverlay from '../components/ui/transition/TransitionOverlay';
 
 export default function DefaultLayout({ children }) {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [isAnimating, setIsAnimating] = useState(false); // Nouvel état pour l'animation
+    const [isAnimating, setIsAnimating] = useState(false);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [key, setKey] = useState(0);
 
@@ -32,8 +32,8 @@ export default function DefaultLayout({ children }) {
         <MegaMenu 
             toggleMenu={toggleMenu} 
             isopen={menuOpen ? 'open' : 'close'} 
-            isAnimating={isAnimating} // Propriété partagée pour l'animation
-            setIsAnimating={setIsAnimating} // Fonction pour mettre à jour l'état d'animation
+            isAnimating={isAnimating}
+            setIsAnimating={setIsAnimating}
         />
     ) : null;
 
