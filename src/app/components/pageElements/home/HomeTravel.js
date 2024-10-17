@@ -138,8 +138,8 @@ const HomeTravel = () => {
                     </Title>
                 </Stack>
             </Section>
-            <Section overflow fullWidth>
-                <Stack ref={sectionRef} className="scroll-section" position="relative" direction={"column"} overflow height={"260vh"} justify={"start"} padding={"0px 0px 40vh 0px"} spacing={"100px"} width={"100%"}>
+            <Section overflow padding="0px" fullWidth>
+                <Stack ref={sectionRef} className="scroll-section" position="relative" direction={"column"} overflow height={"260vh"} justify={"start"} padding={"0px 0px 70vh 0px"} spacing={"100px"} width={"100%"}>
                     <Stack justify={"space-between"} align={"center"} width={"100%"} zIndex={2} position={"sticky"} top={"20vh"} bottom={"20vh"} padding="0px 30px">
                         <Stack width={"33.3%"}>
                             <Title level={5} className="step-1">TRAVEL</Title>

@@ -87,7 +87,7 @@ const HomeGrid = () => {
                         <Video src="https://ranlus.fr/assets/work/lyzis/preview.mp4" autoPlay loop muted playsInline />
                     </GridItem>
                 </ProjectGrid>
-                <Stack width="100%" justify="center" margin={"-20rem 0 0 0"}>
+                <Stack width="100%" justify="center" margin={"-30vw 0 0 0"}>
                     <Button className="step-1">all projects</Button>
                 </Stack>
             </Container>
