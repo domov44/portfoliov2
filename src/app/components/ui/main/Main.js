@@ -10,7 +10,6 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: center;
   margin-left: ${props => (props.$variant === 'wsidebar' ? '280px' : '0px')};
-  transition: 0.2s;
 
   @media (max-width: 1000px) {
     margin-left: ${props => (props.$variant === 'wsidebar' ? '0px' : '0px')};
