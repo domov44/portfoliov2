@@ -18,19 +18,26 @@ const StyledLinkButton = styled(Link)`
 ;
 `
 
-const MegaMenuItem = ({ href, children, className, transition = false, delay = 5000 }) => {
-    const handleTransition = useInstantUrlTransition(delay);
+const MegaMenuItem = ({ href, children, className, onClick, transition = false, delay = 700 }) => {
+  const handleTransition = useInstantUrlTransition(delay);
 
-    return (
-        <StyledLinkButton
-            href={href}
-            className={className}
-            onClick={transition ? (event) => handleTransition(href, event) : undefined}
-            onMouseDown={transition ? (event) => event.preventDefault() : undefined}
-        >
-            {children}
-        </StyledLinkButton>
-    );
+  return (
+    <StyledLinkButton
+      href={href}
+      className={className}
+      onClick={event => {
+        if (transition) {
+          handleTransition(href, event);
+        }
+        if (onClick) {
+          onClick();
+        }
+      }}
+      onMouseDown={transition ? (event) => event.preventDefault() : undefined}
+    >
+      {children}
+    </StyledLinkButton>
+  );
 };
 
 export default MegaMenuItem;

@@ -2,14 +2,20 @@ import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { gsap } from 'gsap';
 
-export const useInstantUrlTransition = () => {
+export const useInstantUrlTransition = (delay) => {
   const router = useRouter();
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   const handleTransition = useCallback(async (href, event) => {
     event.preventDefault();
 
     if (window.location.pathname === href) {
       return;
+    }
+
+    if (delay) {
+      await sleep(delay);
     }
 
     window.history.pushState({}, '', href);
