@@ -1,4 +1,4 @@
-'use-client'
+'use client';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
@@ -16,7 +16,7 @@ const StyledHeader = styled.header`
   left: 0px;
   right: 0px;
   z-index: 4;
-  padding: 40px ;
+  padding: 40px;
   align-items: center;
   justify-content: center;
   transition: 0.2s;
@@ -56,7 +56,7 @@ const ButtonText = styled.span`
   transition: transform 0.8s ease;
 `;
 
-function Header({ isopen, toggleMenu }) {
+function Header({ isopen, toggleMenu, isAnimating }) {
   const buttonRef = useRef(null);
   const menuTextRef = useRef(null);
   const closeTextRef = useRef(null);
@@ -81,11 +81,11 @@ function Header({ isopen, toggleMenu }) {
   }, [isopen]);
 
   const handleClick = () => {
+    if (isAnimating) return; // Ne rien faire si l'animation est en cours
+
     const tl = timelineRef.current;
-    setTimeout(() => {
-      tl.play();
-      toggleMenu();
-    }, 100);
+    tl.play(); // Joue l'animation
+    toggleMenu(); // Appelle toggleMenu pour changer l'état
   };
 
   return (
@@ -97,7 +97,11 @@ function Header({ isopen, toggleMenu }) {
           </InvisibleLink>
         </Stack>
         <Stack width="33.3%" align={"center"} justify={"center"}>
-          <StyledAsideButton ref={buttonRef} onClick={handleClick} className='space-0'>
+          <StyledAsideButton
+            ref={buttonRef}
+            onClick={handleClick}
+            className='space-0'
+          >
             <ButtonTextWrapper>
               <ButtonText ref={menuTextRef}>menu</ButtonText>
               <ButtonText ref={closeTextRef}>close</ButtonText>
