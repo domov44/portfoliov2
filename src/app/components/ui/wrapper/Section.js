@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionContainer = styled.section`
-    padding: ${props => props.$fullWidth ? "100px 0" : props.$padding || "100px 30px"}; 
+padding: ${props => props.$fullWidth ? (props.$padding || "100px 0") : (props.$padding || "100px 30px")};
     max-width: ${props => props.$fullWidth ? "100%" : "calc((100% - 30px))"};
     gap: ${props => props.$spacing || "10px"};
     overflow: ${props => props.$overflow ? "visible" : "hidden"};
