@@ -8,12 +8,16 @@ import Transition from '../components/ui/transition/Transition';
 import TransitionOverlay from '../components/ui/transition/TransitionOverlay';
 
 export default function DefaultLayout({ children }) {
-    const [MenuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false); // Nouvel état pour l'animation
     const [pageLoaded, setPageLoaded] = useState(false);
     const [key, setKey] = useState(0);
 
     const toggleMenu = () => {
-        setMenuOpen(!MenuOpen);
+        if (!isAnimating) {
+            setIsAnimating(true);
+            setMenuOpen(prev => !prev);
+        }
     };
 
     useEffect(() => {
@@ -25,14 +29,19 @@ export default function DefaultLayout({ children }) {
     }, [children]);
 
     const MenuContent = pageLoaded ? (
-        <MegaMenu toggleMenu={toggleMenu} isopen={MenuOpen ? 'open' : 'close'} />
+        <MegaMenu 
+            toggleMenu={toggleMenu} 
+            isopen={menuOpen ? 'open' : 'close'} 
+            isAnimating={isAnimating} // Propriété partagée pour l'animation
+            setIsAnimating={setIsAnimating} // Fonction pour mettre à jour l'état d'animation
+        />
     ) : null;
 
     return (
         <>
             <Transition />
-            <TransitionOverlay/>
-            <Header toggleMenu={toggleMenu} isopen={MenuOpen ? 'open' : 'close'} />
+            <TransitionOverlay />
+            <Header toggleMenu={toggleMenu} isopen={menuOpen ? 'open' : 'close'} isAnimating={isAnimating} />
             {MenuContent}
             <Main>{children}</Main>
             <Footer />
