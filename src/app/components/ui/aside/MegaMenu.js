@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
-import Text from '../textual/Text';
 import TextLink from '../textual/TextLink';
 import Bento from '../wrapper/Bento';
 import Stack from '../wrapper/Stack';
-import Title from '../textual/Title';
+import MegaMenuItem from './MegaMenuItem';
 
 const StyledAside = styled.aside`
   background: var(--bg-color);
   border-radius: 10px;
-  margin-top: 20px;
   position: relative;
   padding-top: 80px;
   width: 100%;
@@ -27,7 +25,7 @@ const Overlay = styled.div`
   z-index: 3;
   position: absolute;
   opacity: 0;
-  visibility: ${props => (props.$isopen === 'open' ? 'visible' : 'hidden')}; 
+  visibility: ${props => (props.$isopen === 'open' ? 'visible' : 'hidden')};
 `;
 
 const StyledAsideContent = styled.div`
@@ -47,50 +45,48 @@ const MenuRoot = styled.div`
   padding: 0px 20px;
   width: 100%;
   height: 100%;
-  display: ${props => (props.$isopen === 'open' ? 'block' : 'none')}; 
   z-index: 3;
 `;
 
-function MegaMenu({ isopen, toggleMenu }) {
+function MegaMenu({ isopen, toggleMenu, isAnimating, setIsAnimating }) {
+  const rootMenu = useRef(null);
   const asideRef = useRef(null);
   const overlayRef = useRef(null);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     if (isopen === 'open') {
-      setMenuVisible(true);
-      setTimeout(() => {
-        setIsAnimating(true);
-        gsap.fromTo(
-          asideRef.current,
-          { y: '-100%', opacity: 0 },
-          {
-            y: '0%',
-            opacity: 1,
-            duration: 1,
-            ease: 'power4.out',
-          }
-        );
+      setMenuVisible(true); // Rendre le menu visible
 
-        gsap.to(overlayRef.current, {
-          opacity: 1,
-          duration: 0.6,
+      gsap.fromTo(
+        asideRef.current,
+        { y: '-100%' },
+        {
+          delay: 0.5,
+          y: '20px',
+          duration: 1,
           ease: 'power4.out',
-          visibility: 'visible',
-        });
-      }, 400);
+          onComplete: () => {
+            setIsAnimating(false);
+          },
+        }
+      );
+
+      gsap.to(overlayRef.current, {
+        opacity: 1,
+        delay: 0.5,
+        duration: 0.6,
+        ease: 'power4.out',
+        visibility: 'visible',
+      });
     } else {
-      setIsAnimating(false);
       gsap.to(asideRef.current, {
         y: '-100%',
-        opacity: 0,
         duration: 0.6,
         ease: 'power4.in',
         onComplete: () => {
-          setTimeout(() => {
-            setMenuVisible(false);
-          }, 600);
+          setMenuVisible(false);
+          setIsAnimating(false);
         },
       });
 
@@ -99,32 +95,36 @@ function MegaMenu({ isopen, toggleMenu }) {
         duration: 0.6,
         ease: 'power4.in',
         onComplete: () => {
-          gsap.set(overlayRef.current, { visibility: 'hidden' });
+          overlayRef.current.style.visibility = 'hidden'; // Masquer l'overlay après l'animation
         },
       });
     }
   }, [isopen]);
 
   return (
-    <MenuRoot $isopen={isopen} style={{ display: menuVisible ? 'block' : 'none' }}>
+    <MenuRoot ref={rootMenu} style={{ display: menuVisible ? 'block' : 'none' }}>
       <Overlay ref={overlayRef} $isopen={isopen} onClick={toggleMenu} />
-      <StyledAside ref={asideRef} className="banner" $isAnimating={isAnimating}>
+      <StyledAside ref={asideRef} style={{ visibility: menuVisible ? 'visible' : 'hidden' }}>
         <StyledAsideContent>
           <Stack width={"100%"} spacing={"100px"}>
             <Stack width={"50%"}>
               <Bento highlight={"highlight"}>
+                {/* Contenu du menu ici */}
               </Bento>
             </Stack>
             <Stack width={"50%"} direction={"column"} spacing={"0px"}>
-              <Title variant="colored" level={1}>
-                HOME
-              </Title>
-              <Title variant="colored" level={1}>
-                ABOUT
-              </Title>
-              <Title variant="colored" level={1}>
-                WORK
-              </Title>
+              <MegaMenuItem href={"/"} transition>
+                Home
+              </MegaMenuItem>
+              <MegaMenuItem href={"/about-me"} transition>
+                About
+              </MegaMenuItem>
+              <MegaMenuItem href={"/"} transition>
+                Work
+              </MegaMenuItem>
+              <MegaMenuItem href={"/"} transition>
+                Gallery
+              </MegaMenuItem>
             </Stack>
           </Stack>
           <Stack width={"100%"}>

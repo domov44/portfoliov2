@@ -7,6 +7,11 @@ export const useInstantUrlTransition = () => {
 
   const handleTransition = useCallback(async (href, event) => {
     event.preventDefault();
+
+    if (window.location.pathname === href) {
+      return;
+    }
+
     window.history.pushState({}, '', href);
 
     const mainElement = document.querySelector('main');
@@ -40,11 +45,10 @@ export const useInstantUrlTransition = () => {
         // gsap.set(mainElement, { translateY: '0px' });
         // gsap.set(transitionElement, { translateY: '-100%' });
         // gsap.set(transitionElement, { display: 'none' });
-        // gsap.set(overlayElement, { visibility: 'hidden', opacity: 0 }); // Masquer à nouveau l'overlay
+        // gsap.set(overlayElement, { visibility: 'hidden', opacity: 0 });
       }
     });
   }, [router]);
 
   return handleTransition;
 };
-
