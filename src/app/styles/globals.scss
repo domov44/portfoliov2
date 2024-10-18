@@ -72,3 +72,8 @@ p {
   margin: 0;
   font-size: var(--_component-paragraph-fontsize, var(--step-0, 1.5rem));
 }
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
