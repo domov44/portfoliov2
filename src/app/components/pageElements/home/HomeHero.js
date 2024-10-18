@@ -42,7 +42,7 @@ const ImagesList = ({ images }) => {
             {images.map((src, index) => (
                 <ImageItem
                     key={index}
-                    className={`image-container-${index}`}
+                    className={`image-container-${index} hidden`}
                 >
                     <StyledImage
                         src={src}
@@ -65,6 +65,7 @@ const HomeHero = () => {
 
     const animateTitle = useCallback(() => {
         const letters = titleRef.current.children;
+        titleRef.current.classList.remove('hidden');
 
         gsap.fromTo(
             letters,
@@ -78,6 +79,7 @@ const HomeHero = () => {
             }
         );
     }, []);
+
 
     useEffect(() => {
         animateTitle();
@@ -138,6 +140,7 @@ const HomeHero = () => {
                     const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
                     const randomImageClass = `.image-container-${randomIndex}`;
                     const liElement = heroRef.current.querySelector(randomImageClass);
+                    liElement.classList.remove('hidden');
 
                     if (liElement) {
                         const imageWidth = liElement.offsetWidth;
@@ -214,7 +217,7 @@ const HomeHero = () => {
                     </Stack>
                 </Stack>
                 <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
-                    <Title ref={titleRef} level={1} fontSize={"6vw"} variant="colored" zIndex="-1" data_cy="name-surname">
+                    <Title ref={titleRef} level={1} fontSize={"14vw"} variant="colored" zIndex="-1" data_cy="name-surname" className="hidden">
                         {titleText.split('').map((letter, index) => (
                             <span
                                 key={index}
