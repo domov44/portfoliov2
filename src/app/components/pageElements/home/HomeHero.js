@@ -122,7 +122,7 @@ const HomeHero = () => {
 
             const velocity = distance / timeDelta || 1;
 
-            if (distanceVW >= 5) { 
+            if (distanceVW >= 7) { 
                 const availableIndices = images.map((_, index) => index)
                     .filter(index => !visibleImages.includes(index));
 
