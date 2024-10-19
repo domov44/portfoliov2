@@ -25,14 +25,14 @@ const ImageList = styled.ul`
 const ImageItem = styled.li`
     position: absolute;
     opacity: 0;
-    width: 15rem;
+    width: 16vw;
     transition: width 0.3s ease, height 0.3s ease;
 `;
 
 const StyledImage = styled.img`
     width: 100%;
     height: 100%;
-    border-radius: 0.5rem;
+    border-radius: 1vw;
     object-fit: cover;
 `;
 
@@ -118,9 +118,11 @@ const HomeHero = () => {
             const deltaY = adjustedY - lastImagePosition.current.y;
             const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
+            const distanceVW = (distance / window.innerWidth) * 100;
+
             const velocity = distance / timeDelta || 1;
 
-            if (distance >= 100) {
+            if (distanceVW >= 7) { 
                 const availableIndices = images.map((_, index) => index)
                     .filter(index => !visibleImages.includes(index));
 
@@ -189,6 +191,7 @@ const HomeHero = () => {
             }
         }
     }, [visibleImages, images]);
+
 
     useEffect(() => {
         const currentHero = heroRef.current;
