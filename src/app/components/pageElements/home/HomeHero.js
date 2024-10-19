@@ -90,6 +90,7 @@ const HomeHero = () => {
         'https://ranlus.fr/assets/home-trail/2.jpeg',
         'https://ranlus.fr/assets/home-trail/3.jpeg',
         'https://ranlus.fr/assets/home-trail/4.jpeg',
+        'https://ranlus.fr/assets/home-trail/5.jpeg',
         'https://ranlus.fr/assets/home-trail/6.jpeg',
         'https://ranlus.fr/assets/home-trail/7.jpeg',
         'https://ranlus.fr/assets/home-trail/8.jpeg',
