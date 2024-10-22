@@ -1,5 +1,5 @@
 async function getGithubProfile() {
-  const res = await fetch(`${process.env.BASE_URL}/api/github`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/github`, {
     cache: 'no-store'
   });
 
