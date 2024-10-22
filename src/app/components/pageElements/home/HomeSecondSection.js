@@ -24,7 +24,7 @@ const BentoDiv = styled.figure`
   border-radius: 10px;
   border: 2px solid #2b2930;
   transform-origin: center;
-  transform: translate3d(-10px, -100px, 0px) rotate(20deg);
+  transform: translate3d(-10px, -100px, 0px) rotate(10deg);
 `;
 
 const Video = styled.video`
@@ -43,9 +43,9 @@ const HomeSecondSection = () => {
     const section = sectionRef.current;
 
     gsap.to(bentoDiv, {
-      rotation: -20, 
+      rotation: -10, 
       x: 10,
-      y: 10,
+      y: 20,
       ease: "none",
       scrollTrigger: {
         trigger: section,
