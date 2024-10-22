@@ -1,33 +1,18 @@
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET() {
   const githubUsername = 'domov44'; 
 
-  try {
-    const response = await fetch(`https://api.github.com/users/${githubUsername}`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`
-      },
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      console.error('GitHub API error:', await response.text());
-      return NextResponse.json(
-        { message: 'Erreur lors de la récupération des données GitHub' }, 
-        { status: response.status }
-      );
+  const response = await fetch(`https://api.github.com/users/${githubUsername}`, {
+    headers: {
+      Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`
     }
+  });
 
-    const data = await response.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return NextResponse.json(
-      { message: 'Erreur serveur' }, 
-      { status: 500 }
-    );
+  if (!response.ok) {
+    return NextResponse.json({ message: 'Erreur lors de la récupération des données GitHub' }, { status: 500 });
   }
+
+  const data = await response.json();
+  return NextResponse.json(data);
 }
