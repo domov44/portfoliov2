@@ -1,5 +1,3 @@
-// app/page.js
-
 async function getGithubProfile() {
   const githubUsername = 'domov44';
   const token = process.env.GITHUB_ACCESS_TOKEN;
@@ -9,7 +7,6 @@ async function getGithubProfile() {
       Authorization: `token ${token}`,
       'Accept': 'application/vnd.github.v3+json',
     },
-    cache: 'no-store',
   });
 
   if (!response.ok) {
