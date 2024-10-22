@@ -12,6 +12,7 @@ import HomeHero from './components/pageElements/home/HomeHero';
 import HomeGrid from './components/pageElements/home/HomeGrid';
 import HomeTravel from './components/pageElements/home/HomeTravel';
 import MainContent from './layouts/MainContent';
+import HomeSecondSection from './components/pageElements/home/HomeSecondSection';
 
 
 const Page = () => {
@@ -19,29 +20,7 @@ const Page = () => {
     return (
         <MainContent>
             <HomeHero />
-            <Section highlight={true}>
-                <Container direction={"row"} width={"100%"} maxwidth={"1200px"}>
-                    <Stack width={"70%"} justify={"center"}>
-                        <Bento highlight={"highlight"}>
-                            block 1
-                        </Bento>
-                    </Stack>
-                    <Stack direction={"column"} width={"30%"} spacing={"20px"}>
-                        <Title level={3} className={"step-1"}>
-                            What do I do as a devops developer & as a lead developer?
-                        </Title>
-                        <Stack direction={"column"}>
-                            <Text>
-                                I manage web applications from A to Z, throughout the devops cycle.
-                            </Text>
-                            <Text>
-                                I automate and secure your project.
-                            </Text>
-                        </Stack>
-                        <Button className={"step-1"} variant={"primary"} href="/about-me" transition>about me</Button>
-                    </Stack>
-                </Container>
-            </Section>
+            <HomeSecondSection />
             <HomeGrid />
             <HomeTravel />
             <Section>
