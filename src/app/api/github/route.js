@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export async function GET() {
   const githubUsername = 'domov44'; 
 
@@ -12,7 +9,6 @@ export async function GET() {
         Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`
       },
       cache: 'no-store',
-      next: { revalidate: 0 }
     });
 
     if (!response.ok) {
