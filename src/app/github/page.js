@@ -1,22 +1,43 @@
+// app/page.js
+
 async function getGithubProfile() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/github`, {
-    cache: 'no-store'
+  const githubUsername = 'domov44';
+  const token = process.env.GITHUB_ACCESS_TOKEN;
+
+  const response = await fetch(`https://api.github.com/users/${githubUsername}`, {
+    headers: {
+      Authorization: `token ${token}`,
+      'Accept': 'application/vnd.github.v3+json',
+    },
+    cache: 'no-store',
   });
 
-  if (!res.ok) {
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Erreur lors de la récupération des données GitHub:', errorText);
     throw new Error('Erreur lors de la récupération des données GitHub');
   }
 
-  return res.json();
+  return response.json();
 }
 
 export default async function Home() {
-  const profile = await getGithubProfile();
+  let profile;
+  
+  try {
+    profile = await getGithubProfile();
+  } catch (error) {
+    return (
+      <div>
+        <h1>Erreur</h1>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
       <h1>{profile.name}</h1>
-      <h1>{process.env.BASE_URL}</h1>
       <p>Pseudo: {profile.login}</p>
       <p>Nombre de repos: {profile.public_repos}</p>
       <img 
