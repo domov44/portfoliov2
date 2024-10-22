@@ -1,5 +1,5 @@
 async function getGithubProfile() {
-  const res = await fetch(`${process.env.BASE_URL}/api/github`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/github`, {
     cache: 'no-store'
   });
 
@@ -16,6 +16,7 @@ export default async function Home() {
   return (
     <div>
       <h1>{profile.name}</h1>
+      <h1>{process.env.BASE_URL}</h1>
       <p>Pseudo: {profile.login}</p>
       <p>Nombre de repos: {profile.public_repos}</p>
       <img 
