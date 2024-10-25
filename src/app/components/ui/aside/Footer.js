@@ -24,11 +24,13 @@ function Footer() {
 
     return (
         <StyledFooter>
-            <Container>
-                <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
-                    <Logo/>
-                </Stack>
-            </Container>
+            <Section>
+                <Container>
+                    <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
+                        <Logo />
+                    </Stack>
+                </Container>
+            </Section>
         </StyledFooter>
     );
 }
