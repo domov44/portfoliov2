@@ -9,6 +9,7 @@ const ProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-column-gap: 1rem;
+  grid-row-gap: calc((100vw / 12) - (1rem / 12 * 4));
   width: 100vw;
   position: relative;
   left: 50%;
@@ -16,7 +17,7 @@ const ProjectGrid = styled.div`
   padding-top: 80px;
   margin-left: -50vw;
   margin-right: -50vw;
-  row-gap: calc((100vw / 12) - (1rem / 12 * 4));;
+  row-gap: calc((100vw / 12) - (1rem / 12 * 4));
 `;
 
 const Video = styled.video`
