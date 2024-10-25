@@ -7,11 +7,12 @@ const TitleComponent = styled.h1.withConfig({
 })`
   margin: 0;
   overflow: hidden;
+  line-height: ${(props) => props.$lineHeight || ''};
   font-size: ${(props) => props.$fontSize || ''};
   position: relative;
   font-family: ${(props) => props.$fontfamily || 'var(--text-font-cashdisplay)'};
   text-align: ${(props) => props.$textalign || 'left'};
-  line-height: 1;
+  width: ${(props) => props.$width || ''};
   z-index: ${(props) => props.$zIndex || '1'};
   color: ${(props) =>
     props.$variant === "default"
@@ -25,14 +26,16 @@ const TitleComponent = styled.h1.withConfig({
             : "var(--color-title)"};
 `;
 
-const Title = forwardRef(({ data_cy, variant, level, className, fontSize, id, onClick, children, zIndex, textalign, fontfamily, ...restProps }, ref) => {
+const Title = forwardRef(({ data_cy, variant, lineHeight, level, width, className, fontSize, id, onClick, children, zIndex, textalign, fontfamily, ...restProps }, ref) => {
   const HeadingTag = `h${level || 1}`;
 
   return (
     <TitleComponent
       as={HeadingTag}
+      $lineHeight={lineHeight}
       className={className}
       $variant={variant}
+      $width={width}
       $level={level}
       $textalign={textalign}
       $fontfamily={fontfamily}
