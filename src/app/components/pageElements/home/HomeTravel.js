@@ -133,7 +133,7 @@ const HomeTravel = () => {
         <>
             <Section>
                 <Stack width="100%" justify="center">
-                    <Title level={2} fontSize="8vw" variant="colored" textalign="center">
+                    <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="70vw" lineHeight="0.8">
                         BEYOND CODE. CAPTURING MOMENTS
                     </Title>
                 </Stack>
