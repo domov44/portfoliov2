@@ -33,7 +33,7 @@ const GridItem = styled.article`
 
   &:nth-child(1) {
     grid-column: 1 / 7;
-    transform: translate(-33vw, 25%);
+    transform: translate(-33vw, 10vw);
     grid-row: 1;
   }
 
@@ -43,14 +43,14 @@ const GridItem = styled.article`
   }
 
   &:nth-child(3) {
-    transform: translate(33vw, -75%);
+    transform: translate(33vw, -25vw);
     grid-column: 7 / 13;
     grid-row: 1;
   }
 
   &:nth-child(4) {
     grid-column: 7 / 13;
-    transform: translate(33vw, -75%);
+    transform: translate(33vw, -25vw);
     grid-row: 2;
   }
 
