@@ -16,7 +16,7 @@ const ProjectGrid = styled.div`
   padding-top: 80px;
   margin-left: -50vw;
   margin-right: -50vw;
-  row-gap: calc((100vw / 12) - (1rem / 12 * 4));;
+  row-gap: calc((100vw / 12) - (1rem / 12 * 4));
 `;
 
 const Video = styled.video`
