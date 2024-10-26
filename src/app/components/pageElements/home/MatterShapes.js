@@ -28,7 +28,7 @@ const MatterShapes = () => {
         width: width,
         height: height,
         wireframes: false,
-        background: '#121016', // Fond conforme
+        background: '#121016',
       },
     });
     Render.run(render);
@@ -37,19 +37,19 @@ const MatterShapes = () => {
     Runner.run(runner, engine);
 
     Composite.add(world, [
-      Bodies.rectangle(width / 2, 0, width, 50, {  // Mur du haut, hauteur de 10px
+      Bodies.rectangle(width / 2, 0, width, 50, { 
         isStatic: true,
         render: { visible: false }
       }),
-      Bodies.rectangle(width / 2, height, width, 50, {  // Mur du bas, hauteur de 10px
+      Bodies.rectangle(width / 2, height, width, 50, { 
         isStatic: true,
         render: { visible: false }
       }),
-      Bodies.rectangle(width, height / 2, 50, height, {  // Mur de droite, largeur de 10px
+      Bodies.rectangle(width, height / 2, 50, height, { 
         isStatic: true,
         render: { visible: false }
       }),
-      Bodies.rectangle(0, height / 2, 50, height, {  // Mur de gauche, largeur de 10px
+      Bodies.rectangle(0, height / 2, 50, height, {
         isStatic: true,
         render: { visible: false }
       })
