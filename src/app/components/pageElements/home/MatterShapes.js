@@ -8,13 +8,43 @@ import Section from '../../ui/wrapper/Section';
 
 const MatterShapes = () => {
   const sceneRef = useRef(null);
+  // Tableau d'images
+  const imageSources = [
+    '/svg/aws.png',
+    '/svg/bubble.png',
+    '/svg/cpanel.png',
+    '/svg/dato.png',
+    '/svg/divi.png',
+    '/svg/docker.png',
+    '/svg/elementor.png',
+    '/svg/express.png',
+    '/svg/figma.png',
+    '/svg/firebase.png',
+    '/svg/graphql.png',
+    '/svg/html.png',
+    '/svg/javascript.png',
+    '/svg/laravel.png',
+    '/svg/mui.png',
+    '/svg/mysql.png',
+    '/svg/next.png',
+    '/svg/node.png',
+    '/svg/nuxt.png',
+    '/svg/php.png',
+    '/svg/python.png',
+    '/svg/react.png',
+    '/svg/sequelize.png',
+    '/svg/symfony.png',
+    '/svg/vue.png',
+    '/svg/vuetify.png',
+    '/svg/wordpress.png',
+  ];
 
   useEffect(() => {
     if (!sceneRef.current) return;
 
     Matter.Common.setDecomp(decomp);
 
-    const { Engine, Render, Runner, Composites, Common, MouseConstraint, Mouse, Composite, Vertices, Bodies } = Matter;
+    const { Engine, Render, Runner, MouseConstraint, Mouse, Composite, Bodies } = Matter;
 
     const engine = Engine.create();
     const world = engine.world;
@@ -36,6 +66,7 @@ const MatterShapes = () => {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
+    // Création des murs
     Composite.add(world, [
       Bodies.rectangle(width / 2, 0, width, 50, { 
         isStatic: true,
@@ -55,23 +86,22 @@ const MatterShapes = () => {
       })
     ]);
 
+    const radius = 50;
 
-    const arrow = Vertices.fromPath('40 0 40 20 100 20 100 80 40 80 40 100 0 50');
-    const chevron = Vertices.fromPath('100 0 75 50 100 100 25 100 0 50 25 0');
-    const star = Vertices.fromPath('50 0 63 38 100 38 69 59 82 100 50 75 18 100 31 59 0 38 37 38');
-    const horseShoe = Vertices.fromPath('35 7 19 17 14 38 14 58 25 79 45 85 65 84 65 66 46 67 34 59 30 44 33 29 45 23 66 23 66 7 53 7');
+    imageSources.forEach((imageSrc, index) => {
+      const x = 100 + (index % 6) * 120;
+      const y = 100 + Math.floor(index / 6) * 120;
 
-    const stack = Composites.stack(50, 50, 6, 4, 10, 10, (x, y) => {
-      const color = Common.choose(['#f19648', '#f5d259', '#f55a3c', '#063e7b', '#ececd1']);
-      return Bodies.fromVertices(x, y, Common.choose([arrow, chevron, star, horseShoe]), {
+      Composite.add(world, Bodies.circle(x, y, radius, {
         render: {
-          fillStyle: color,
-          strokeStyle: color,
-          lineWidth: 1,
+          sprite: {
+            texture: imageSrc,
+            xScale: radius / 200,
+            yScale: radius / 200,
+          },
         },
-      }, true);
+      }));
     });
-    Composite.add(world, stack);
 
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
@@ -103,10 +133,10 @@ const MatterShapes = () => {
 
   return (
     <Section highlight>
-    <Title>Test colision</Title>
+      <Title level={2}>Which technologies?</Title>
       <div ref={sceneRef} style={{ width: '100%', height: '100vh', overflow: 'hidden' }} />
     </Section>
-  )
+  );
 };
 
 export default MatterShapes;
