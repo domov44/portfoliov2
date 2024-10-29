@@ -3,6 +3,6 @@ import styles from './TransitionOverlay.module.css';
 
 export default function TransitionOverlay() {
     return (
-      <div className={`transition ${styles.transition_overlay}`}></div>
+      <div className={`transition-overlay ${styles.transition_overlay}`}></div>
     )
 }
