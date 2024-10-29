@@ -1,6 +1,7 @@
 import './styles/globals.css';
 import './styles/styles.css';
 import './styles/theme.css';
+import './styles/generique.css';
 import './fonts/fonts.css';
 import LayoutStructure from './layouts/LayoutStructure';
 import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide';
