@@ -1,5 +1,5 @@
 // import MegaMenu from '../components/ui/aside/MegaMenu';
-// import Header from '../components/ui/aside/Header';
+import Header from '../components/ui/aside/Header';
 import Footer from '../components/ui/aside/Footer';
 // import { useMenuContext } from '../contexts/MenuContext';
 
@@ -17,8 +17,8 @@ export default function LayoutStructure({children}) {
 
     return (
         <>
-            {/* <Header toggleMenu={toggleMenu} isopen={menuOpen ? 'open' : 'close'} isAnimating={isAnimating} />
-            {MenuContent} */}
+            <Header  />
+            {/* {MenuContent} */}
             {children}
             <Footer />
         </>
