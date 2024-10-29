@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "portfoliof761da64_identitypool_f761da64",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "portfof761da64",
     "userPoolName": "portfoliof761da64_userpool_f761da64",
     "autoVerifiedAttributes": [
@@ -58,6 +58,11 @@
     "adminQueries": false,
     "thirdPartyAuth": false,
     "authProviders": [],
-    "hostedUI": false
+    "hostedUI": false,
+    "triggers": {},
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }

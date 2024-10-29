@@ -1,22 +1,58 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+type Project @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
+  id: ID!
+  name: String! @index(name: "byName", queryField: "ProjectByName")
+  slug: String! @index(name: "bySlug", queryField: "ProjectBySlug")
+  image: String
+  video: String
+  top4: Boolean!
+  href: String
+  github: String
+  steps: AWSJSON
+  description: String
+  years: Int
+  skills: [Skill] @hasMany
+  category: Category @hasOne
+}
 
-type Blog @model {
+type Skill @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
+  id: ID!
+  name: String! @index(name: "byName", queryField: "SkillByname")
+  logo: String
+  colisionLogo: String
+  typeID: String!
+  type: SkillType @hasOne
+}
+
+type SkillType @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
   id: ID!
   name: String!
-  posts: [Post] @hasMany
 }
 
-type Post @model {
+type Category @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
   id: ID!
-  title: String!
-  blog: Blog @belongsTo
-  comments: [Comment] @hasMany
+  name: String! @index(name: "byName", queryField: "CategoryByname")
+  slug: String! @index(name: "bySlug", queryField: "CategoryBySlug")
+  project: [Project] @hasMany
 }
 
-type Comment @model {
+type Trip @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
   id: ID!
-  post: Post @belongsTo
-  content: String!
+  place: String
+  date: AWSDate
+  picture: String
 }
