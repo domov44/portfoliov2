@@ -1,203 +1,338 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createBlog = /* GraphQL */ `
-  mutation CreateBlog(
-    $input: CreateBlogInput!
-    $condition: ModelBlogConditionInput
+export const createProject = /* GraphQL */ `
+  mutation CreateProject(
+    $input: CreateProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    createBlog(input: $input, condition: $condition) {
+    createProject(input: $input, condition: $condition) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const updateBlog = /* GraphQL */ `
-  mutation UpdateBlog(
-    $input: UpdateBlogInput!
-    $condition: ModelBlogConditionInput
+export const updateProject = /* GraphQL */ `
+  mutation UpdateProject(
+    $input: UpdateProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    updateBlog(input: $input, condition: $condition) {
+    updateProject(input: $input, condition: $condition) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const deleteBlog = /* GraphQL */ `
-  mutation DeleteBlog(
-    $input: DeleteBlogInput!
-    $condition: ModelBlogConditionInput
+export const deleteProject = /* GraphQL */ `
+  mutation DeleteProject(
+    $input: DeleteProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    deleteBlog(input: $input, condition: $condition) {
+    deleteProject(input: $input, condition: $condition) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
+export const createSkill = /* GraphQL */ `
+  mutation CreateSkill(
+    $input: CreateSkillInput!
+    $condition: ModelSkillConditionInput
   ) {
-    createPost(input: $input, condition: $condition) {
+    createSkill(input: $input, condition: $condition) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
-      blogPostsId
+      projectSkillsId
+      skillTypeId
       __typename
     }
   }
 `;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
+export const updateSkill = /* GraphQL */ `
+  mutation UpdateSkill(
+    $input: UpdateSkillInput!
+    $condition: ModelSkillConditionInput
   ) {
-    updatePost(input: $input, condition: $condition) {
+    updateSkill(input: $input, condition: $condition) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
-      blogPostsId
+      projectSkillsId
+      skillTypeId
       __typename
     }
   }
 `;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
+export const deleteSkill = /* GraphQL */ `
+  mutation DeleteSkill(
+    $input: DeleteSkillInput!
+    $condition: ModelSkillConditionInput
   ) {
-    deletePost(input: $input, condition: $condition) {
+    deleteSkill(input: $input, condition: $condition) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
+      createdAt
+      updatedAt
+      projectSkillsId
+      skillTypeId
+      __typename
+    }
+  }
+`;
+export const createSkillType = /* GraphQL */ `
+  mutation CreateSkillType(
+    $input: CreateSkillTypeInput!
+    $condition: ModelSkillTypeConditionInput
+  ) {
+    createSkillType(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateSkillType = /* GraphQL */ `
+  mutation UpdateSkillType(
+    $input: UpdateSkillTypeInput!
+    $condition: ModelSkillTypeConditionInput
+  ) {
+    updateSkillType(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteSkillType = /* GraphQL */ `
+  mutation DeleteSkillType(
+    $input: DeleteSkillTypeInput!
+    $condition: ModelSkillTypeConditionInput
+  ) {
+    deleteSkillType(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    createCategory(input: $input, condition: $condition) {
+      id
+      name
+      slug
+      project {
         nextToken
         __typename
       }
       createdAt
       updatedAt
-      blogPostsId
       __typename
     }
   }
 `;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
   ) {
-    createComment(input: $input, condition: $condition) {
+    updateCategory(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
+      name
+      slug
+      project {
+        nextToken
         __typename
       }
-      content
       createdAt
       updatedAt
-      postCommentsId
       __typename
     }
   }
 `;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
   ) {
-    updateComment(input: $input, condition: $condition) {
+    deleteCategory(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
+      name
+      slug
+      project {
+        nextToken
         __typename
       }
-      content
       createdAt
       updatedAt
-      postCommentsId
       __typename
     }
   }
 `;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
+export const createTrip = /* GraphQL */ `
+  mutation CreateTrip(
+    $input: CreateTripInput!
+    $condition: ModelTripConditionInput
   ) {
-    deleteComment(input: $input, condition: $condition) {
+    createTrip(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
+      place
+      date
+      picture
       createdAt
       updatedAt
-      postCommentsId
+      __typename
+    }
+  }
+`;
+export const updateTrip = /* GraphQL */ `
+  mutation UpdateTrip(
+    $input: UpdateTripInput!
+    $condition: ModelTripConditionInput
+  ) {
+    updateTrip(input: $input, condition: $condition) {
+      id
+      place
+      date
+      picture
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteTrip = /* GraphQL */ `
+  mutation DeleteTrip(
+    $input: DeleteTripInput!
+    $condition: ModelTripConditionInput
+  ) {
+    deleteTrip(input: $input, condition: $condition) {
+      id
+      place
+      date
+      picture
+      createdAt
+      updatedAt
       __typename
     }
   }
