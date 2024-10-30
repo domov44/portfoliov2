@@ -5,7 +5,6 @@ import './styles/generique.css';
 import './fonts/fonts.css';
 import LayoutStructure from './layouts/LayoutStructure';
 import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide';
-// import { MenuProvider } from './contexts/MenuContext';
 
 export const metadata = {
   title: 'Ronan Scotet - devops developer and lead developer',
@@ -17,11 +16,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <ConfigureAmplifyClientSide />
       <body data-theme="dark">
-        {/* <MenuProvider> */}
         <LayoutStructure>
           {children}
         </LayoutStructure>
-        {/* </MenuProvider> */}
       </body>
     </html>
   );

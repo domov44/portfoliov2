@@ -10,35 +10,35 @@ import InvisibleLink from '../button/InvisibleLink';
 import styles from './Header.module.css';
 
 function Header({ isopen, toggleMenu, isAnimating }) {
-  const buttonRef = useRef(null);
-  const menuTextRef = useRef(null);
-  const closeTextRef = useRef(null);
-  const timelineRef = useRef(null);
+    const buttonRef = useRef(null);
+    const menuTextRef = useRef(null);
+    const closeTextRef = useRef(null);
+    const timelineRef = useRef(null);
 
-  useEffect(() => {
-    const menuSpan = menuTextRef.current;
-    const closeSpan = closeTextRef.current;
+    useEffect(() => {
+        const menuSpan = menuTextRef.current;
+        const closeSpan = closeTextRef.current;
 
-    gsap.set(menuSpan, { yPercent: isopen === 'open' ? -200 : 0 });
-    gsap.set(closeSpan, { yPercent: isopen === 'open' ? 0 : 200 });
+        gsap.set(menuSpan, { yPercent: isopen === 'open' ? -200 : 0 });
+        gsap.set(closeSpan, { yPercent: isopen === 'open' ? 0 : 200 });
 
-    const tl = gsap.timeline({ paused: true });
-    tl.to(menuSpan, { duration: 0.2, yPercent: -200, ease: 'power2.inOut' })
-      .to(closeSpan, { duration: 0.2, yPercent: 0, ease: 'power2.inOut' }, 0);
+        const tl = gsap.timeline({ paused: true });
+        tl.to(menuSpan, { duration: 0.2, yPercent: -200, ease: 'power2.inOut' })
+          .to(closeSpan, { duration: 0.2, yPercent: 0, ease: 'power2.inOut' }, 0);
 
-    timelineRef.current = tl;
+        timelineRef.current = tl;
 
-    return () => {
-      tl.kill();
+        return () => {
+            tl.kill();
+        };
+    }, [isopen]);
+
+    const handleClick = () => {
+        if (isAnimating) return;
+        const tl = timelineRef.current;
+        tl.play();
+        toggleMenu();
     };
-  }, [isopen]);
-
-  const handleClick = () => {
-    if (isAnimating) return;
-    const tl = timelineRef.current;
-    tl.play();
-    // toggleMenu();
-  };
 
   return (
     <header className={styles.header}>

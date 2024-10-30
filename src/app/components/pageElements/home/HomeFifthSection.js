@@ -111,7 +111,7 @@ const HomeFifthSection = () => {
       <Container direction={"row"} width={"100%"} maxwidth={"1200px"} align={"center"}>
         <Stack width={"70%"} justify={"center"}>
           <BentoParentdiv ref={parentBentoDivRef}>
-            <BentoDiv ref={bentoDivRef} highlight={"highlight"}>
+            <BentoDiv ref={bentoDivRef}>
               <Video src="https://ranlus.fr/assets/instagram-card/3.mp4" autoPlay loop muted playsInline />
               <Stack>
                 <Text>@rscotet</Text>
