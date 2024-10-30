@@ -1,176 +1,299 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onCreateBlog(filter: $filter) {
+export const onCreateProject = /* GraphQL */ `
+  subscription OnCreateProject($filter: ModelSubscriptionProjectFilterInput) {
+    onCreateProject(filter: $filter) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onUpdateBlog(filter: $filter) {
+export const onUpdateProject = /* GraphQL */ `
+  subscription OnUpdateProject($filter: ModelSubscriptionProjectFilterInput) {
+    onUpdateProject(filter: $filter) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onDeleteBlog(filter: $filter) {
+export const onDeleteProject = /* GraphQL */ `
+  subscription OnDeleteProject($filter: ModelSubscriptionProjectFilterInput) {
+    onDeleteProject(filter: $filter) {
       id
       name
-      posts {
+      slug
+      image
+      video
+      top4
+      href
+      github
+      steps
+      description
+      years
+      skills {
         nextToken
+        __typename
+      }
+      category {
+        id
+        name
+        slug
+        createdAt
+        updatedAt
         __typename
       }
       createdAt
       updatedAt
+      categoryProjectId
+      projectCategoryId
       __typename
     }
   }
 `;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
-    onCreatePost(filter: $filter) {
+export const onCreateSkill = /* GraphQL */ `
+  subscription OnCreateSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onCreateSkill(filter: $filter) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
-      blogPostsId
+      projectSkillsId
+      skillTypeId
       __typename
     }
   }
 `;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
-    onUpdatePost(filter: $filter) {
+export const onUpdateSkill = /* GraphQL */ `
+  subscription OnUpdateSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onUpdateSkill(filter: $filter) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
-      blogPostsId
+      projectSkillsId
+      skillTypeId
       __typename
     }
   }
 `;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
-    onDeletePost(filter: $filter) {
+export const onDeleteSkill = /* GraphQL */ `
+  subscription OnDeleteSkill($filter: ModelSubscriptionSkillFilterInput) {
+    onDeleteSkill(filter: $filter) {
       id
-      title
-      blog {
+      name
+      logo
+      colisionLogo
+      typeID
+      type {
         id
         name
         createdAt
         updatedAt
         __typename
       }
-      comments {
+      createdAt
+      updatedAt
+      projectSkillsId
+      skillTypeId
+      __typename
+    }
+  }
+`;
+export const onCreateSkillType = /* GraphQL */ `
+  subscription OnCreateSkillType(
+    $filter: ModelSubscriptionSkillTypeFilterInput
+  ) {
+    onCreateSkillType(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateSkillType = /* GraphQL */ `
+  subscription OnUpdateSkillType(
+    $filter: ModelSubscriptionSkillTypeFilterInput
+  ) {
+    onUpdateSkillType(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteSkillType = /* GraphQL */ `
+  subscription OnDeleteSkillType(
+    $filter: ModelSubscriptionSkillTypeFilterInput
+  ) {
+    onDeleteSkillType(filter: $filter) {
+      id
+      name
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateCategory = /* GraphQL */ `
+  subscription OnCreateCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onCreateCategory(filter: $filter) {
+      id
+      name
+      slug
+      project {
         nextToken
         __typename
       }
       createdAt
       updatedAt
-      blogPostsId
       __typename
     }
   }
 `;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
+export const onUpdateCategory = /* GraphQL */ `
+  subscription OnUpdateCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onUpdateCategory(filter: $filter) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
+      name
+      slug
+      project {
+        nextToken
         __typename
       }
-      content
       createdAt
       updatedAt
-      postCommentsId
       __typename
     }
   }
 `;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
+export const onDeleteCategory = /* GraphQL */ `
+  subscription OnDeleteCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onDeleteCategory(filter: $filter) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
+      name
+      slug
+      project {
+        nextToken
         __typename
       }
-      content
       createdAt
       updatedAt
-      postCommentsId
       __typename
     }
   }
 `;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
+export const onCreateTrip = /* GraphQL */ `
+  subscription OnCreateTrip($filter: ModelSubscriptionTripFilterInput) {
+    onCreateTrip(filter: $filter) {
       id
-      post {
-        id
-        title
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
+      place
+      date
+      picture
       createdAt
       updatedAt
-      postCommentsId
+      __typename
+    }
+  }
+`;
+export const onUpdateTrip = /* GraphQL */ `
+  subscription OnUpdateTrip($filter: ModelSubscriptionTripFilterInput) {
+    onUpdateTrip(filter: $filter) {
+      id
+      place
+      date
+      picture
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteTrip = /* GraphQL */ `
+  subscription OnDeleteTrip($filter: ModelSubscriptionTripFilterInput) {
+    onDeleteTrip(filter: $filter) {
+      id
+      place
+      date
+      picture
+      createdAt
+      updatedAt
       __typename
     }
   }

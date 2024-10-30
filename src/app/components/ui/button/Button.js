@@ -1,53 +1,8 @@
 'use client';
 import React, { useRef, useState, useCallback } from 'react';
-import styled from 'styled-components';
 import Link from 'next/link';
 import { useInstantUrlTransition } from '@/app/utils/useInstantUrlTransition';
-
-const StyledButton = styled.button`
-  position: relative;
-  width: ${props => props.$width === "fit-content"
-    ? "fit-content"
-    : props.$width === "full-width"
-      ? "100%"
-      : "fit-content"};
-  overflow: hidden;
-  background: none;
-  color: var(--color-title);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  outline: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  border: 2px solid var(--main-color);
-  padding: 10px 20px;
-  z-index: 1;
-
-  span {
-    z-index: 1;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-
-  &:hover {
-    span {
-      color: var(--bg-color);
-    }
-  }
-`;
-
-const Circle = styled.div`
-  position: absolute;
-  background-color: var(--main-color);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-  transition: width 0.3s ease, height 0.3s ease;
-`;
+import styles from './Button.module.css';
 
 const Button = ({ children, onClick, className, width, href, transition = false }) => {
   const buttonRef = useRef(null);
@@ -75,19 +30,18 @@ const Button = ({ children, onClick, className, width, href, transition = false 
   const Component = href ? Link : 'button';
 
   return (
-    <StyledButton
+    <Component
       href={href}
-      as={Component}
+      className={`${styles.button} ${width === "fit-content" ? styles.fitContent : width === "full-width" ? styles.fullWidth : ""} ${className}`}
       onMouseDown={transition ? (event) => event.preventDefault() : undefined}
-      $width={width}
-      ref={buttonRef}
-      className={className}
       onClick={href && transition ? (event) => handleTransition(href, event) : onClick}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      ref={buttonRef}
     >
-      <Circle
+      <div
+        className={styles.circle}
         style={{
           left: circle.x,
           top: circle.y,
@@ -96,7 +50,7 @@ const Button = ({ children, onClick, className, width, href, transition = false 
         }}
       />
       <span>{children}</span>
-    </StyledButton>
+    </Component>
   );
 };
 

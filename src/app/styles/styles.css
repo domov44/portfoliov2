@@ -7,14 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
-body.no-scroll {
-  overflow: hidden;
-}
-
 * {
   box-sizing: border-box;
 }

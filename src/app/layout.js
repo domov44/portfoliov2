@@ -1,9 +1,10 @@
 import './styles/globals.css';
 import './styles/styles.css';
 import './styles/theme.css';
+import './styles/generique.css';
 import './fonts/fonts.css';
 import LayoutStructure from './layouts/LayoutStructure';
-import { MenuProvider } from './contexts/MenuContext';
+import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide';
 
 export const metadata = {
   title: 'Ronan Scotet - devops developer and lead developer',
@@ -13,12 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <ConfigureAmplifyClientSide />
       <body data-theme="dark">
-        <MenuProvider>
-          <LayoutStructure>
-            {children}
-          </LayoutStructure>
-        </MenuProvider>
+        <LayoutStructure>
+          {children}
+        </LayoutStructure>
       </body>
     </html>
   );
