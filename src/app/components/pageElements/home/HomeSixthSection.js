@@ -113,8 +113,8 @@ const HomeSixthSection = () => {
           LET'S DO SOMETHING AWESOME TOGETHER
         </Title>
       </Stack>
-      <Container direction={"row"} width={"100%"} maxwidth={"1200px"} align={"center"}>
-        <Stack width={"70%"} justify={"center"}>
+      <Container direction={"row"} width={"full"} maxwidth={"xl"} align={"center"}>
+        <Stack width={"60%"} justify={"center"}>
           <BentoParentdiv ref={parentBentoDivRef}>
             <BentoDiv ref={bentoDivRef}>
               <Video src="https://ranlus.fr/assets/instagram-card/1.mp4" autoPlay loop muted playsInline />
@@ -124,7 +124,7 @@ const HomeSixthSection = () => {
             </BentoDiv>
           </BentoParentdiv>
         </Stack>
-        <Stack direction={"column"} width={"30%"} spacing={"20px"}>
+        <Stack direction={"column"} width={"40%"} spacing={"20px"}>
           <Title level={3} className={"step-1"}>
             I'm excited just to imagine our future collaboration.
           </Title>
