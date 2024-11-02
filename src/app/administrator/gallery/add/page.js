@@ -7,41 +7,38 @@ import TextInput from '@/app/components/ui/form/TextInput';
 import { useState } from 'react';
 import Button from '@/app/components/ui/button/Button';
 import { generateClient } from 'aws-amplify/api';
-import { createProject } from '@/graphql/mutations';
+import { createGallery } from '@/graphql/mutations';
 
 const client = generateClient();
 
 function Page() {
-    const [name, setName] = useState('');
-    const [slug, setSlug] = useState('');
+    const [place, setPlace] = useState('');
+    const [date, setDate] = useState('');
 
     const handleSubmit = async () => {
         try {
-
             await client.graphql({
-                query: createProject,
+                query: createGallery,
                 variables: {
                     input: {
-                        name: name.toLowerCase(),
-                        slug: slug,
-                        top4: false
+                        place: place.toLowerCase(),
+                        date: date
                     }
                 }
             });
 
-            console.log("success")
+            console.log("success");
 
         } catch (error) {
-            console.error("error during submit", error)
+            console.error("error during submit", error);
         }
     };
-
 
     return (
         <>
             <Head>
-                <title>Connectez-vous à votre compte Miamze</title>
-                <meta name="description" content="Description de la page" />
+                <title>Add a trip into database</title>
+                <meta place="description" content="Description de la page" />
                 <meta property="og:image" content="URL_de_votre_image" />
             </Head>
             <Hero>
@@ -52,20 +49,13 @@ function Page() {
                         }}>
                         <TextInput
                             type="text"
-                            label="Name"
-                            value={name}
-                            onChange={(e) => { setName(e.target.value); }}
+                            label="Place"
+                            value={place}
+                            onChange={(e) => setPlace(e.target.value)}
                             required
                             variant="blue"
                         />
-                        <TextInput
-                            type="text"
-                            label="slug"
-                            value={slug}
-                            onChange={(e) => { setSlug(e.target.value); }}
-                            required
-                            variant="blue"
-                        />
+                        <input type='date'  onChange={(e) => setDate(e.target.value)}/>
                         <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                     </Bento>
                 </FormContainer>

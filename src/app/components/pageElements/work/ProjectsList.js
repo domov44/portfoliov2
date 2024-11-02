@@ -1,5 +1,7 @@
 import { generateClient } from 'aws-amplify/api';
 import { listProjects } from "@/graphql/queries";
+import Section from '../../ui/wrapper/Section';
+import Button from '../../ui/button/Button';
 
 const client = generateClient();
 
@@ -18,18 +20,18 @@ async function ProjectsList() {
     }
 
     return (
-        <>
+        <Section>
             <h1>All Projects</h1>
             {projects.length > 0 ? (
                 <ul>
                     {projects.map((project) => (
-                        <li key={project.id}>{project.name}</li>
+                        <li key={project.id}><Button transition href={`/work/${project.slug}`}>{project.name}</Button></li>
                     ))}
                 </ul>
             ) : (
                 <p>No projects found</p>
             )}
-        </>
+        </Section>
     );
 }
 
