@@ -275,6 +275,8 @@ export const onCreateGallery = /* GraphQL */ `
       place
       date
       picture
+      homeBackground
+      onHome
       createdAt
       updatedAt
       __typename
@@ -288,6 +290,8 @@ export const onUpdateGallery = /* GraphQL */ `
       place
       date
       picture
+      homeBackground
+      onHome
       createdAt
       updatedAt
       __typename
@@ -301,6 +305,8 @@ export const onDeleteGallery = /* GraphQL */ `
       place
       date
       picture
+      homeBackground
+      onHome
       createdAt
       updatedAt
       __typename

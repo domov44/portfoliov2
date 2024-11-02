@@ -1,21 +1,11 @@
-'use client';
-
-import Title from './components/ui/textual/Title';
-import Button from './components/ui/button/Button';
-import Stack from './components/ui/wrapper/Stack';
-import Text from './components/ui/textual/Text';
-import Section from './components/ui/wrapper/Section';
-import Container from './components/ui/wrapper/Container';
-import Bento from './components/ui/wrapper/Bento';
-import DefaultLayout from './layouts/DefaultLayout';
 import HomeHero from './components/pageElements/home/HomeHero';
 import HomeGrid from './components/pageElements/home/HomeGrid';
-import HomeTravel from './components/pageElements/home/HomeTravel';
 import MainContent from './layouts/MainContent';
 import HomeSecondSection from './components/pageElements/home/HomeSecondSection';
 import HomeFifthSection from './components/pageElements/home/HomeFifthSection';
 import HomeSixthSection from './components/pageElements/home/HomeSixthSection';
 import MatterShapes from './components/pageElements/home/MatterShapes';
+import HomeTravelServer from './components/pageElements/home/serverSide/HomeTravelServer';
 
 
 const Page = () => {
@@ -25,12 +15,13 @@ const Page = () => {
             <HomeHero />
             <HomeSecondSection />
             <MatterShapes />
-            <HomeGrid />
-            <HomeTravel />
+            <HomeGrid /> 
+            <HomeTravelServer />
             <HomeFifthSection />
             <HomeSixthSection />
         </MainContent>
     );
 }
+export const dynamic = 'force-dynamic'
 
 export default Page;
