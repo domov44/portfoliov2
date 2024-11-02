@@ -98,7 +98,7 @@ function Page() {
                             variant="blue"
                         />
                         <input type='date' onChange={(e) => setDate(e.target.value)} />
-                        <UploadGallery onFileSelect={handleFileSelect} maxSize={10 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/PNG, application/pdf, text/plain, text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/msword, application/vnd.ms-powerpoint" />
+                        <UploadGallery onFileSelect={handleFileSelect} maxSize={10 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/PNG, image/avif, image/webp" />
                         
                         <div>
                             <label>
