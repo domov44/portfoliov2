@@ -7,11 +7,14 @@ export const getProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -46,11 +49,14 @@ export const listProjects = /* GraphQL */ `
         id
         name
         slug
-        image
+        images
+        thumbnail
         video
         top4
         href
         github
+        role
+        context
         steps
         description
         years
@@ -84,11 +90,14 @@ export const ProjectByName = /* GraphQL */ `
         id
         name
         slug
-        image
+        images
+        thumbnail
         video
         top4
         href
         github
+        role
+        context
         steps
         description
         years
@@ -122,11 +131,14 @@ export const ProjectBySlug = /* GraphQL */ `
         id
         name
         slug
-        image
+        images
+        thumbnail
         video
         top4
         href
         github
+        role
+        context
         steps
         description
         years
@@ -342,9 +354,9 @@ export const CategoryBySlug = /* GraphQL */ `
     }
   }
 `;
-export const getTrip = /* GraphQL */ `
-  query GetTrip($id: ID!) {
-    getTrip(id: $id) {
+export const getGallery = /* GraphQL */ `
+  query GetGallery($id: ID!) {
+    getGallery(id: $id) {
       id
       place
       date
@@ -355,13 +367,13 @@ export const getTrip = /* GraphQL */ `
     }
   }
 `;
-export const listTrips = /* GraphQL */ `
-  query ListTrips(
-    $filter: ModelTripFilterInput
+export const listGalleries = /* GraphQL */ `
+  query ListGalleries(
+    $filter: ModelGalleryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTrips(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGalleries(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         place

@@ -10,11 +10,14 @@ export const createProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -47,11 +50,14 @@ export const updateProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -84,11 +90,14 @@ export const deleteProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -289,12 +298,12 @@ export const deleteCategory = /* GraphQL */ `
     }
   }
 `;
-export const createTrip = /* GraphQL */ `
-  mutation CreateTrip(
-    $input: CreateTripInput!
-    $condition: ModelTripConditionInput
+export const createGallery = /* GraphQL */ `
+  mutation CreateGallery(
+    $input: CreateGalleryInput!
+    $condition: ModelGalleryConditionInput
   ) {
-    createTrip(input: $input, condition: $condition) {
+    createGallery(input: $input, condition: $condition) {
       id
       place
       date
@@ -305,12 +314,12 @@ export const createTrip = /* GraphQL */ `
     }
   }
 `;
-export const updateTrip = /* GraphQL */ `
-  mutation UpdateTrip(
-    $input: UpdateTripInput!
-    $condition: ModelTripConditionInput
+export const updateGallery = /* GraphQL */ `
+  mutation UpdateGallery(
+    $input: UpdateGalleryInput!
+    $condition: ModelGalleryConditionInput
   ) {
-    updateTrip(input: $input, condition: $condition) {
+    updateGallery(input: $input, condition: $condition) {
       id
       place
       date
@@ -321,12 +330,12 @@ export const updateTrip = /* GraphQL */ `
     }
   }
 `;
-export const deleteTrip = /* GraphQL */ `
-  mutation DeleteTrip(
-    $input: DeleteTripInput!
-    $condition: ModelTripConditionInput
+export const deleteGallery = /* GraphQL */ `
+  mutation DeleteGallery(
+    $input: DeleteGalleryInput!
+    $condition: ModelGalleryConditionInput
   ) {
-    deleteTrip(input: $input, condition: $condition) {
+    deleteGallery(input: $input, condition: $condition) {
       id
       place
       date

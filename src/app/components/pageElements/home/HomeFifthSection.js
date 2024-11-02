@@ -128,7 +128,7 @@ const HomeFifthSection = () => {
               This portfolio is the proof, including dynamic animations and vibrant effects, but also my travel stories.
             </Text>
           </Stack>
-          <Button className={"step-1"} variant={"primary"} href="/about-me" transition>gallery</Button>
+          <Button className={"step-1"} variant={"primary"} href="/gallery" transition>gallery</Button>
         </Stack>
       </Container>
     </Section>

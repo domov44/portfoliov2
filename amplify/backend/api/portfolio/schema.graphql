@@ -5,11 +5,14 @@ type Project @model @auth(rules: [
   id: ID!
   name: String! @index(name: "byName", queryField: "ProjectByName")
   slug: String! @index(name: "bySlug", queryField: "ProjectBySlug")
-  image: String
+  images: AWSJSON
+  thumbnail: String
   video: String
   top4: Boolean!
   href: String
   github: String
+  role: String
+  context: String
   steps: AWSJSON
   description: String
   years: Int
@@ -47,7 +50,7 @@ type Category @model @auth(rules: [
   project: [Project] @hasMany
 }
 
-type Trip @model @auth(rules: [
+type Gallery @model @auth(rules: [
   {allow: public, provider: identityPool, operations: [read]}
   {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
 ]) {

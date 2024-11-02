@@ -75,10 +75,10 @@ function MegaMenu({ isopen, toggleMenu, isAnimating, setIsAnimating }) {
               <MegaMenuItem href={"/about-me"} transition onClick={toggleMenu}>
                 About
               </MegaMenuItem>
-              <MegaMenuItem href={"/"} transition onClick={toggleMenu}>
+              <MegaMenuItem href={"/work"} transition onClick={toggleMenu}>
                 Work
               </MegaMenuItem>
-              <MegaMenuItem href={"/"} transition onClick={toggleMenu}>
+              <MegaMenuItem href={"/gallery"} transition onClick={toggleMenu}>
                 Gallery
               </MegaMenuItem>
             </Stack>
