@@ -7,11 +7,14 @@ export const onCreateProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -41,11 +44,14 @@ export const onUpdateProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -75,11 +81,14 @@ export const onDeleteProject = /* GraphQL */ `
       id
       name
       slug
-      image
+      images
+      thumbnail
       video
       top4
       href
       github
+      role
+      context
       steps
       description
       years
@@ -259,9 +268,9 @@ export const onDeleteCategory = /* GraphQL */ `
     }
   }
 `;
-export const onCreateTrip = /* GraphQL */ `
-  subscription OnCreateTrip($filter: ModelSubscriptionTripFilterInput) {
-    onCreateTrip(filter: $filter) {
+export const onCreateGallery = /* GraphQL */ `
+  subscription OnCreateGallery($filter: ModelSubscriptionGalleryFilterInput) {
+    onCreateGallery(filter: $filter) {
       id
       place
       date
@@ -272,9 +281,9 @@ export const onCreateTrip = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTrip = /* GraphQL */ `
-  subscription OnUpdateTrip($filter: ModelSubscriptionTripFilterInput) {
-    onUpdateTrip(filter: $filter) {
+export const onUpdateGallery = /* GraphQL */ `
+  subscription OnUpdateGallery($filter: ModelSubscriptionGalleryFilterInput) {
+    onUpdateGallery(filter: $filter) {
       id
       place
       date
@@ -285,9 +294,9 @@ export const onUpdateTrip = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTrip = /* GraphQL */ `
-  subscription OnDeleteTrip($filter: ModelSubscriptionTripFilterInput) {
-    onDeleteTrip(filter: $filter) {
+export const onDeleteGallery = /* GraphQL */ `
+  subscription OnDeleteGallery($filter: ModelSubscriptionGalleryFilterInput) {
+    onDeleteGallery(filter: $filter) {
       id
       place
       date

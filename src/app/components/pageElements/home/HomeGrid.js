@@ -88,7 +88,7 @@ const HomeGrid = () => {
                     </GridItem>
                 </ProjectGrid>
                 <Stack width="100%" justify="center" margin={"-30vw 0 0 0"}>
-                    <Button className="step-1">all projects</Button>
+                    <Button transition className="step-1" href={"/work"}>all projects</Button>
                 </Stack>
             </Container>
         </Section>
