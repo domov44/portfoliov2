@@ -1,6 +1,7 @@
 import { generateClient } from 'aws-amplify/api';
 import { listGalleries } from "@/graphql/queries";
 import Section from '../../ui/wrapper/Section';
+import fetchS3File from '@/app/utils/fetchS3File';
 
 const client = generateClient();
 
@@ -13,7 +14,14 @@ async function GalleriesList() {
             authMode: 'identityPool'
         });
 
-        galleries = galleriesResult.data?.listGalleries?.items || [];
+        const galleriesData = galleriesResult.data?.listGalleries?.items || [];
+
+        galleries = await Promise.all(
+            galleriesData.map(async (gallery) => ({
+                ...gallery,
+                pictureUrl: await fetchS3File(gallery.picture)
+            }))
+        );
     } catch (error) {
         console.error('Erreur lors de la récupération des projets:', error);
     }
@@ -24,7 +32,10 @@ async function GalleriesList() {
             {galleries.length > 0 ? (
                 <ul>
                     {galleries.map((gallery) => (
-                        <li key={gallery.id}>{gallery.place} {gallery.date}</li>
+                        <li key={gallery.id}>
+                            <img src={gallery.pictureUrl} alt={`${gallery.place} - ${gallery.date}`} />
+                            <p>{gallery.place} {gallery.date}</p>
+                        </li>
                     ))}
                 </ul>
             ) : (

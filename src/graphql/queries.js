@@ -361,6 +361,8 @@ export const getGallery = /* GraphQL */ `
       place
       date
       picture
+      homeBackground
+      onHome
       createdAt
       updatedAt
       __typename
@@ -379,6 +381,8 @@ export const listGalleries = /* GraphQL */ `
         place
         date
         picture
+        homeBackground
+        onHome
         createdAt
         updatedAt
         __typename
