@@ -27,7 +27,7 @@ const Stack = forwardRef(({
   animate, 
   animationType, 
   separator, 
-  flexWrap 
+  flexWrap,
 }, ref) => {
   const internalRef = useRef();
   useGsapAnimation();
