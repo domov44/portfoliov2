@@ -81,7 +81,7 @@ const HomeTravel = ({ images, background }) => {
                                         style={{ opacity: index === 0 ? 1 : 0 }}
                                     >
                                         <picture className={styles.picture}>
-                                            <img className={styles.image} src={src} alt={`Gallery image ${index + 1}`} />
+                                            <img className={styles.image} src={src} alt={`Gallery`} />
                                         </picture>
                                     </li>
                                 ))}
