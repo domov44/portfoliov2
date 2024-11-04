@@ -34,7 +34,6 @@ const HomeTravel = ({ images, background }) => {
                 },
             });
 
-            // Création de ScrollTrigger pour gérer l'opacité des images
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
@@ -79,7 +78,7 @@ const HomeTravel = ({ images, background }) => {
                                         className={styles.image_item}
                                         key={index}
                                         ref={el => imageRefs.current[index] = el}
-                                        style={{ opacity: 1 }}
+                                        style={{ opacity: index === 0 ? 1 : 0 }}
                                     >
                                         <picture className={styles.picture}>
                                             <img className={styles.image} src={src} alt={`Gallery image ${index + 1}`} />
