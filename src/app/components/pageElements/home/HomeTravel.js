@@ -23,14 +23,6 @@ const HomeTravel = ({ images, background }) => {
             const paddingBottom = parseFloat(computedStyle.paddingBottom);
             const heightWithoutPadding = sectionHeight - paddingTop - paddingBottom;
 
-            imageRefs.current.forEach((image, index) => {
-                if (index === 0) {
-                    gsap.set(image, { zIndex: 1 });
-                } else {
-                    gsap.set(image, { zIndex: -1 });
-                }
-            });
-
             gsap.to(imageBgRef.current, {
                 y: '10%',
                 ease: 'none',
@@ -42,6 +34,7 @@ const HomeTravel = ({ images, background }) => {
                 },
             });
 
+            // Création de ScrollTrigger pour gérer l'opacité des images
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
@@ -52,12 +45,10 @@ const HomeTravel = ({ images, background }) => {
                     const indexToHide = Math.floor(progress * (totalItems - 1));
 
                     imageRefs.current.forEach((image, index) => {
-                        if (index < indexToHide) {
-                            gsap.set(image, { zIndex: -1 });
-                        } else if (index === indexToHide) {
-                            gsap.set(image, { zIndex: 1 });
+                        if (index <= indexToHide) {
+                            gsap.set(image, { opacity: 1 });
                         } else {
-                            gsap.set(image, { zIndex: 0 });
+                            gsap.set(image, { opacity: 0 });
                         }
                     });
                 },
@@ -77,7 +68,7 @@ const HomeTravel = ({ images, background }) => {
             </Section>
             <Section overflow padding="0px" fullWidth>
                 <Stack ref={sectionRef} className="scroll-section" position="relative" direction="column" overflow height="260vh" justify="start" padding="0px 0px 70vh 0px" spacing="100px" width="100%">
-                    <Stack justify="space-between" align="center" width="100%" zIndex={2} position="sticky" top="30vh" padding="0px 30px">
+                    <Stack zIndex={2} justify="space-between" align="center" width="100%" position="sticky" top="30vh" padding="0px 30px">
                         <Stack width="33.3%">
                             <Title level={5} className="step-1">TRAVEL</Title>
                         </Stack>
@@ -88,6 +79,7 @@ const HomeTravel = ({ images, background }) => {
                                         className={styles.image_item}
                                         key={index}
                                         ref={el => imageRefs.current[index] = el}
+                                        style={{ opacity: 1 }}
                                     >
                                         <picture className={styles.picture}>
                                             <img className={styles.image} src={src} alt={`Gallery image ${index + 1}`} />
