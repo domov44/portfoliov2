@@ -16,10 +16,24 @@
 }
 
 .picture {
-    height: 27rem;
-    width: 21rem;
+    height: 27vw;
+    width: 21vw;
     display: block;
     margin: 0;
+}
+
+@media (max-width: 1200px) {
+    .picture {
+        height: 45vw;
+        width: 33vw;
+    }
+}
+
+@media (max-width: 550px) {
+    .picture {
+        height: 75vw;
+        width: 60vw;
+    }
 }
 
 .image {
