@@ -17,6 +17,9 @@
       },
       "api": {
         "portfolio": {}
+      },
+      "storage": {
+        "s3portfolio": {}
       }
     }
   },
