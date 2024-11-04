@@ -58,6 +58,7 @@ type Gallery @model @auth(rules: [
   place: String
   date: AWSDate
   picture: String
+  fullPicture: String
   homeBackground: Boolean
   onHome: Boolean
 }

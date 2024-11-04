@@ -16,30 +16,31 @@ const client = generateClient();
 function Page() {
     const [place, setPlace] = useState('');
     const [date, setDate] = useState('');
+    const [selectedCompressedFile, setSelectedCompressedFile] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [onHome, setOnHome] = useState(true);
     const [homeBackground, setHomeBackground] = useState(false);
+
+    const handleCompressedFileSelect = (file) => {
+        setSelectedCompressedFile(file);
+    };
 
     const handleFileSelect = (file) => {
         setSelectedFile(file);
     };
 
-    const uploadFileToS3 = async () => {
-        if (!selectedFile) {
-            throw new Error("Aucun fichier sélectionné");
-        }
-
+    const uploadFileToS3 = async (file) => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
+        const key = `gallery/${year}/${month}/${file.name}`;
 
-        const key = `gallery/${year}/${month}/${selectedFile.name}`;
         try {
             await uploadData({
                 path: `public/${key}`,
-                data: selectedFile,
+                data: file,
                 options: {
-                    contentType: selectedFile.type,
+                    contentType: file.type,
                 },
             });
             return { key };
@@ -49,13 +50,19 @@ function Page() {
     };
 
     async function handleGalleryCreation() {
-        if (!place || !date || !selectedFile) {
-            console.error('Veuillez remplir tous les champs et importer un document');
+        if (!place || !date || !selectedCompressedFile) {
+            console.error('Veuillez remplir tous les champs requis et importer un fichier compressé');
             return;
         }
 
         try {
-            const { key } = await uploadFileToS3();
+            const { key: compressedKey } = await uploadFileToS3(selectedCompressedFile);
+
+            let fullPictureKey = null;
+            if (selectedFile) {
+                const { key } = await uploadFileToS3(selectedFile);
+                fullPictureKey = key;
+            }
 
             await client.graphql({
                 query: createGallery,
@@ -63,7 +70,8 @@ function Page() {
                     input: {
                         place: place.toLowerCase(),
                         date: date,
-                        picture: key,
+                        picture: compressedKey,
+                        fullPicture: fullPictureKey,
                         onHome: onHome,
                         homeBackground: homeBackground
                     }
@@ -72,7 +80,7 @@ function Page() {
             console.log("success");
 
         } catch (error) {
-            console.error("error during submit", error);
+            console.error("Erreur lors de la soumission", error);
         }
     }
 
@@ -97,9 +105,12 @@ function Page() {
                             required
                             variant="blue"
                         />
-                        <input type='date' onChange={(e) => setDate(e.target.value)} />
-                        <UploadGallery onFileSelect={handleFileSelect} maxSize={10 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/PNG, image/avif, image/webp" />
+                        <input type='date' onChange={(e) => setDate(e.target.value)} required />
                         
+                        <UploadGallery onFileSelect={handleCompressedFileSelect} maxSize={2 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp" />
+                        
+                        <UploadGallery onFileSelect={handleFileSelect} maxSize={5 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp" />
+
                         <div>
                             <label>
                                 <input
@@ -130,4 +141,3 @@ function Page() {
 }
 
 export default Page;
-

@@ -25,7 +25,7 @@ export default async function HomeTravelServer() {
         const galleryWithBackground = galleriesData.find(gallery => gallery.homeBackground === true);
 
         if (galleryWithBackground) {
-            const fetchedBackgroundUrl = await fetchS3File(galleryWithBackground.picture);
+            const fetchedBackgroundUrl = await fetchS3File(galleryWithBackground.fullPicture);
             backgroundUrl = fetchedBackgroundUrl.toString();
         }
 

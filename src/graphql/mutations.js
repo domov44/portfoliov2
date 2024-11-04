@@ -308,6 +308,7 @@ export const createGallery = /* GraphQL */ `
       place
       date
       picture
+      fullPicture
       homeBackground
       onHome
       createdAt
@@ -326,6 +327,7 @@ export const updateGallery = /* GraphQL */ `
       place
       date
       picture
+      fullPicture
       homeBackground
       onHome
       createdAt
@@ -344,6 +346,7 @@ export const deleteGallery = /* GraphQL */ `
       place
       date
       picture
+      fullPicture
       homeBackground
       onHome
       createdAt
