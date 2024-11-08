@@ -23,35 +23,30 @@ const GalleriesGrid = ({ galleries }) => {
 
         window.addEventListener("resize", updateDimensions);
 
-        // Configuration de l'animation
         const animationConfig = {
-            duration: 1.2, // Durée augmentée pour une animation plus lente
-            ease: "power4.out", // Utilisation de power4 pour un ralentissement plus prononcé à la fin
-            // Alternative: ease: "expo.out" pour un ralentissement encore plus prononcé
+            duration: 1.2,
+            ease: "power4.out",
         };
 
         const handleMouseMove = (e) => {
             const mouseXRatio = e.clientX / viewportWidth;
             const mouseYRatio = e.clientY / viewportHeight;
 
-            // Calcul des positions cibles avec une légère modification pour rendre le mouvement plus fluide
             const targetX = Math.min(0, Math.max(-(gridWidth - viewportWidth), 
-                -(gridWidth - viewportWidth) * (mouseXRatio * 0.95))); // Légère réduction de l'amplitude
+                -(gridWidth - viewportWidth) * (mouseXRatio * 0.95)));
             const targetY = Math.min(0, Math.max(-(gridHeight - viewportHeight), 
                 -(gridHeight - viewportHeight) * (mouseYRatio * 0.95)));
 
-            // Animation avec les nouveaux paramètres
             gsap.to(ulElement, {
                 x: targetX,
                 y: targetY,
                 ...animationConfig,
-                overwrite: true, // Assure que les animations précédentes sont annulées
+                overwrite: true, 
             });
         };
 
-        // Ajout d'un debounce simple pour l'optimisation
         let lastTime = 0;
-        const throttleDelay = 16; // environ 60fps
+        const throttleDelay = 16;
 
         const throttledHandleMouseMove = (e) => {
             const now = Date.now();
