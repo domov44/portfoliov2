@@ -26,7 +26,7 @@ const Section = React.forwardRef(({
                 ${spacing ? styles[`spacing_${spacing}`] : styles.defaultSpacing}
                 ${margin ? styles[`margin_${margin}`] : styles.defaultMargin}
                 ${height ? styles[`height_${height}`] : ''}
-                ${className || ''}
+                ${className || 'align_center'}
             `.trim()}
         >
             {children}

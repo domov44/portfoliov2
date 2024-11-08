@@ -1,0 +1,28 @@
+.GalleryGridList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: -moz-fit-content;
+    width: fit-content;
+    height: auto;
+    padding: 3rem;
+    will-change: transform;
+    list-style: none;
+    width: fit-content;
+}
+
+.GalleryGridListItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6vw;
+    width: 25vw;
+    height: 25vw;
+    overflow: hidden;
+}
+
+.GalleryImage {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    aspect-ratio: 3/4;
+}
