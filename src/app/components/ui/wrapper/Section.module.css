@@ -1,7 +1,6 @@
 /* Section.module.css */
 .section {
     border-radius: 10px;
-    align-items: center;
     display: flex;
     flex-direction: column;
     width: 100%;
