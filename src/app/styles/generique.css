@@ -38,15 +38,19 @@
 }
 
 /* Alignment */
-.alignCenter {
+.align_center {
   align-items: center;
 }
 
-.alignStart {
+.alignFlexStart {
   align-items: flex-start;
 }
 
-.alignEnd {
+.align_start {
+  align-items: start;
+}
+
+.align_end {
   align-items: flex-end;
 }
 

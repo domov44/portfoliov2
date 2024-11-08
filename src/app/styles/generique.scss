@@ -39,15 +39,19 @@
  }
  
  /* Alignment */
- .alignCenter {
+ .align_center {
     align-items: center;
  }
  
- .alignStart {
+ .alignFlexStart {
     align-items: flex-start;
  }
+
+ .align_start {
+   align-items: start;
+}
  
- .alignEnd {
+ .align_end {
     align-items: flex-end;
  }
  

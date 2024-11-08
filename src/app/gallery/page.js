@@ -1,11 +1,11 @@
-import GalleriesList from "../components/pageElements/gallery/GalleriesList";
+import GalleriesGridServer from "../components/pageElements/gallery/serverSide/GalleriesGridServer";
 import MainContent from "../layouts/MainContent";
 
 function Page() {
 
     return (
         <MainContent>
-            <GalleriesList />
+            <GalleriesGridServer />
         </MainContent>
     );
 }
