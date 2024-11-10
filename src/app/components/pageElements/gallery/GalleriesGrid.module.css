@@ -5,10 +5,11 @@
     width: -moz-fit-content;
     width: fit-content;
     height: auto;
-    padding: 3rem;
+    padding: 100px 0px;
     will-change: transform;
     list-style: none;
     width: fit-content;
+    margin: 0;
 }
 
 .GalleryGridListItem {
