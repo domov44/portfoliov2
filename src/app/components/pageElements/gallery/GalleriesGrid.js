@@ -117,7 +117,7 @@ const GalleriesGrid = ({ galleries }) => {
                     y: initialPosition.y,
                     rotation: initialPosition.rotation,
                     scale: 1,
-                    duration: 0.8,
+                    duration: 1.8,
                     ease: "power4.out",
                 });
             };
