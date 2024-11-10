@@ -21,12 +21,10 @@ const Section = React.forwardRef(({
                 ${highlight ? styles.highlight : ''} 
                 ${overflow ? styles.overflowVisible : ''} 
                 ${fullWidth ? styles.fullWidth : ''} 
-                ${padding ? styles[`padding_${padding}`] : styles.defaultPadding}
-                ${justify ? styles[`justify_${justify}`] : styles.defaultJustify}
                 ${spacing ? styles[`spacing_${spacing}`] : styles.defaultSpacing}
                 ${margin ? styles[`margin_${margin}`] : styles.defaultMargin}
                 ${height ? styles[`height_${height}`] : ''}
-                ${className || 'align_center'}
+                ${className || `align_center justify_center ${styles.defaultPadding}`}
             `.trim()}
         >
             {children}
