@@ -5,7 +5,7 @@ import MegaMenu from '../components/ui/aside/MegaMenu';
 import Header from '../components/ui/aside/Header';
 import Footer from '../components/ui/aside/Footer';
 
-const noFooterPaths = ['/gallery', '/about', '/contact'];
+const noFooterPaths = ['/gallery'];
 
 export default function LayoutStructure({ children }) {
     const [menuOpen, setMenuOpen] = useState(false);
