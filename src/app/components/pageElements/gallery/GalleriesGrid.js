@@ -7,6 +7,7 @@ const GalleriesGrid = ({ galleries }) => {
     const ulRef = useRef(null);
     const liRefs = useRef([]);
     const pictureRefs = useRef([]);
+    const imgRefs = useRef([]);
 
     useEffect(() => {
         const ulElement = ulRef.current;
@@ -30,6 +31,10 @@ const GalleriesGrid = ({ galleries }) => {
             ease: "power4.out",
         };
 
+        imgRefs.current.forEach((img) => {
+            gsap.set(img, { scale: 1.3 });
+        });
+
         const handleMouseMove = (e) => {
             const mouseXRatio = e.clientX / viewportWidth;
             const mouseYRatio = e.clientY / viewportHeight;
@@ -44,6 +49,23 @@ const GalleriesGrid = ({ galleries }) => {
                 y: targetY,
                 ...animationConfig,
                 overwrite: true,
+            });
+
+            imgRefs.current.forEach((img, index) => {
+                const rect = img.getBoundingClientRect();
+                const imgCenterX = rect.left + rect.width / 2;
+                const imgCenterY = rect.top + rect.height / 2;
+
+                const deltaX = (imgCenterX - viewportWidth / 2) / viewportWidth;
+                const deltaY = (imgCenterY - viewportHeight / 2) / viewportHeight;
+
+                gsap.to(img, {
+                    x: deltaX * -45,
+                    y: deltaY * -45,
+                    overwrite: true,
+                    duration: 0.8,
+                    ease: "power4.out",
+                });
             });
         };
 
@@ -69,7 +91,7 @@ const GalleriesGrid = ({ galleries }) => {
                 gsap.killTweensOf(picture);
                 gsap.to(picture, {
                     scale: 1.08,
-                    duration: 0.8,
+                    duration: 1.8,
                     ease: "power4.out",
                 });
             };
@@ -80,10 +102,10 @@ const GalleriesGrid = ({ galleries }) => {
                 const y = e.clientY - top - height / 2;
 
                 gsap.to(picture, {
-                    x: initialPosition.x + x * 0.2,
-                    y: initialPosition.y + y * 0.2,
+                    x: initialPosition.x + x * 0.15,
+                    y: initialPosition.y + y * 0.15,
                     rotation: initialPosition.rotation,
-                    duration: 0.8,
+                    duration: 1.8,
                     ease: "power4.out",
                 });
             };
@@ -137,6 +159,7 @@ const GalleriesGrid = ({ galleries }) => {
                 >
                     <picture className={styles.GalleryPicture} ref={(el) => (pictureRefs.current[index] = el)}>
                         <img
+                            ref={(el) => (imgRefs.current[index] = el)}
                             src={gallery.pictureUrl}
                             alt={`${gallery.place} - ${gallery.date}`}
                             className={styles.GalleryImage}
