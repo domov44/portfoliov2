@@ -47,3 +47,19 @@
     opacity: 0.5;
     border-radius: 15px;
 }
+
+.GalleryInformationSection{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    pointer-events: none;
+    bottom: 30px;
+}
+
+.GalleryInformationSection h1{
+    margin: 0;
+
+}
+.GalleryInformationSection p{
+    margin: 0;
+}
