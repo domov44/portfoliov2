@@ -1,4 +1,3 @@
-// GalleriesList.js
 import { generateClient } from 'aws-amplify/api';
 import { listGalleries } from "@/graphql/queries";
 import Section from '@/app/components/ui/wrapper/Section';
@@ -24,6 +23,16 @@ async function GalleriesGridServer() {
                 pictureUrl: await fetchS3File(gallery.picture)
             }))
         );
+
+        while (galleries.length < 15) {
+            const randomIndex = Math.floor(Math.random() * galleriesData.length);
+            const galleryToDuplicate = galleries[randomIndex];
+            galleries.push({
+                ...galleryToDuplicate, 
+                id: `${galleryToDuplicate.id}-duplicate-${galleries.length}`,
+                pictureUrl: galleryToDuplicate.pictureUrl,
+            });
+        }
     } catch (error) {
         console.error('Erreur lors de la récupération des galeries:', error);
     }

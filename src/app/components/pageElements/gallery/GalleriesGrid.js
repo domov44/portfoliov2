@@ -5,33 +5,15 @@ import styles from './GalleriesGrid.module.css';
 
 const GalleriesGrid = ({ galleries }) => {
     const [hoveredGallery, setHoveredGallery] = useState({ place: "hover something", date: "You need to dot it" });
-    const [galleryItems, setGalleryItems] = useState([]);
     const ulRef = useRef(null);
     const liRefs = useRef([]);
     const pictureRefs = useRef([]);
     const imgRefs = useRef([]);
 
     useEffect(() => {
-        const generateCompleteGalleryList = () => {
-            const galleryItems = [...galleries];
-            while (galleryItems.length < 15) {
-                const randomIndex = Math.floor(Math.random() * galleries.length);
-                galleryItems.push({
-                    ...galleries[randomIndex],
-                    id: `${galleries[randomIndex].id}-duplicate-${galleryItems.length}`,
-                });
-            }
-            return galleryItems;
-        };
-
-        setGalleryItems(generateCompleteGalleryList());
-    }, [galleries]);
-
-    useEffect(() => {
         if (!ulRef.current) return;
 
         const ulElement = ulRef.current;
-
         let viewportWidth = window.innerWidth;
         let viewportHeight = window.innerHeight;
         let gridWidth = ulElement.scrollWidth;
@@ -104,7 +86,7 @@ const GalleriesGrid = ({ galleries }) => {
 
         liRefs.current.forEach((li, index) => {
             const picture = pictureRefs.current[index];
-            const galleryData = galleryItems[index];
+            const galleryData = galleries[index];
 
             const handleLiMouseEnter = () => {
                 setHoveredGallery({ place: galleryData.place, date: galleryData.date });
@@ -141,12 +123,12 @@ const GalleriesGrid = ({ galleries }) => {
             window.removeEventListener('mousemove', throttledHandleMouseMove);
             window.removeEventListener("resize", updateDimensions);
         };
-    }, [galleryItems]);
+    }, [galleries]);
 
     return (
         <>
             <ul ref={ulRef} className={styles.GalleryGridList}>
-                {galleryItems.map((gallery, index) => (
+                {galleries.map((gallery, index) => (
                     <li ref={(el) => (liRefs.current[index] = el)}
                         key={gallery.id}
                         className={styles.GalleryGridListItem}
