@@ -4,16 +4,15 @@ import { gsap } from 'gsap';
 import styles from './GalleriesGrid.module.css';
 
 const GalleriesGrid = ({ galleries }) => {
-    const [hoveredGallery, setHoveredGallery] = useState({ place: "hover something", date: "You need to dot it" });
+    const [hoveredGallery, setHoveredGallery] = useState({ place: "Travel place", date: "Travel date" });
     const ulRef = useRef(null);
     const liRefs = useRef([]);
     const pictureRefs = useRef([]);
     const imgRefs = useRef([]);
 
     useEffect(() => {
-        if (!ulRef.current) return;
-
         const ulElement = ulRef.current;
+
         let viewportWidth = window.innerWidth;
         let viewportHeight = window.innerHeight;
         let gridWidth = ulElement.scrollWidth;
@@ -53,7 +52,7 @@ const GalleriesGrid = ({ galleries }) => {
                 overwrite: true,
             });
 
-            imgRefs.current.forEach((img, index) => {
+            imgRefs.current.forEach((img) => {
                 const rect = img.getBoundingClientRect();
                 const imgCenterX = rect.left + rect.width / 2;
                 const imgCenterY = rect.top + rect.height / 2;
@@ -87,6 +86,7 @@ const GalleriesGrid = ({ galleries }) => {
         liRefs.current.forEach((li, index) => {
             const picture = pictureRefs.current[index];
             const galleryData = galleries[index];
+            const initialPosition = { x: 0, y: 0, rotation: 0 };
 
             const handleLiMouseEnter = () => {
                 setHoveredGallery({ place: galleryData.place, date: galleryData.date });
@@ -98,12 +98,27 @@ const GalleriesGrid = ({ galleries }) => {
                 });
             };
 
+            const handleLiMouseMove = (e) => {
+                const { width, height, top, left } = li.getBoundingClientRect();
+                const x = e.clientX - left - width / 2;
+                const y = e.clientY - top - height / 2;
+
+                gsap.to(picture, {
+                    x: initialPosition.x + x * 0.15,
+                    y: initialPosition.y + y * 0.15,
+                    rotation: initialPosition.rotation,
+                    duration: 1.8,
+                    ease: "power4.out",
+                });
+            };
+
             const handleLiMouseLeave = () => {
-                setHoveredGallery({ place: "hover something", date: "You need to dot it" });
+                setHoveredGallery({ place: "Travel place", date: "Travel date" });
                 gsap.killTweensOf(picture);
                 gsap.to(picture, {
-                    x: 0,
-                    y: 0,
+                    x: initialPosition.x,
+                    y: initialPosition.y,
+                    rotation: initialPosition.rotation,
                     scale: 1,
                     duration: 1.8,
                     ease: "power4.out",
@@ -111,10 +126,12 @@ const GalleriesGrid = ({ galleries }) => {
             };
 
             li.addEventListener('mouseenter', handleLiMouseEnter);
+            li.addEventListener('mousemove', handleLiMouseMove);
             li.addEventListener('mouseleave', handleLiMouseLeave);
 
             return () => {
                 li.removeEventListener('mouseenter', handleLiMouseEnter);
+                li.removeEventListener('mousemove', handleLiMouseMove);
                 li.removeEventListener('mouseleave', handleLiMouseLeave);
             };
         });
@@ -125,10 +142,21 @@ const GalleriesGrid = ({ galleries }) => {
         };
     }, [galleries]);
 
+    const completeGalleryList = () => {
+        const galleryItems = [...galleries];
+        while (galleryItems.length < 15) {
+            const randomIndex = Math.floor(Math.random() * galleries.length);
+            galleryItems.push({ ...galleries[randomIndex], id: `${galleries[randomIndex].id}-duplicate-${galleryItems.length}` });
+        }
+        return galleryItems;
+    };
+
+    const galleryItems = galleries.length >= 15 ? galleries : completeGalleryList();
+
     return (
         <>
             <ul ref={ulRef} className={styles.GalleryGridList}>
-                {galleries.map((gallery, index) => (
+                {galleryItems.map((gallery, index) => (
                     <li ref={(el) => (liRefs.current[index] = el)}
                         key={gallery.id}
                         className={styles.GalleryGridListItem}
