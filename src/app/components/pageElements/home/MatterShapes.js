@@ -66,23 +66,31 @@ const MatterShapes = () => {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Création des murs
     Composite.add(world, [
       Bodies.rectangle(width / 2, 0, width, 50, { 
         isStatic: true,
-        render: { visible: false }
+        render: { 
+          visible: false 
+        }
       }),
       Bodies.rectangle(width / 2, height, width, 50, { 
         isStatic: true,
-        render: { visible: false }
+        render: { 
+          visible: true,
+          fillStyle: '#1A1821'
+        }
       }),
       Bodies.rectangle(width, height / 2, 50, height, { 
         isStatic: true,
-        render: { visible: false }
+        render: { 
+          visible: false,
+        }
       }),
       Bodies.rectangle(0, height / 2, 50, height, {
         isStatic: true,
-        render: { visible: false }
+        render: { 
+          visible: false,
+        }
       })
     ]);
 
@@ -93,6 +101,7 @@ const MatterShapes = () => {
       const y = 100 + Math.floor(index / 6) * 120;
 
       Composite.add(world, Bodies.circle(x, y, radius, {
+        restitution: 0.4,
         render: {
           sprite: {
             texture: imageSrc,
@@ -132,9 +141,9 @@ const MatterShapes = () => {
   }, []);
 
   return (
-    <Section highlight>
+    <Section fullWidth>
       <Title level={2}>Which technologies?</Title>
-      <div ref={sceneRef} style={{ width: '100%', height: '100vh', overflow: 'hidden' }} />
+      <div ref={sceneRef} style={{ width: '100%', height: '80vh', overflow: 'hidden' }} />
     </Section>
   );
 };
