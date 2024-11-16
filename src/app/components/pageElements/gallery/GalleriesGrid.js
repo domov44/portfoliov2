@@ -12,54 +12,57 @@ const GalleriesGrid = ({ galleries }) => {
 
     useEffect(() => {
         const ulElement = ulRef.current;
-
+    
         let viewportWidth = window.innerWidth;
         let viewportHeight = window.innerHeight;
         let gridWidth = ulElement.scrollWidth;
         let gridHeight = ulElement.scrollHeight;
-
+        let isMouseInsideUl = false;
+    
         const updateDimensions = () => {
             viewportWidth = window.innerWidth;
             viewportHeight = window.innerHeight;
             gridWidth = ulElement.scrollWidth;
             gridHeight = ulElement.scrollHeight;
         };
-
+    
         window.addEventListener("resize", updateDimensions);
-
+    
         const animationConfig = {
             duration: 1.2,
             ease: "power4.out",
         };
-
+    
         imgRefs.current.forEach((img) => {
             gsap.set(img, { scale: 1.3 });
         });
-
+    
         const handleMouseMove = (e) => {
+            if (!isMouseInsideUl) return;
+    
             const mouseXRatio = e.clientX / viewportWidth;
             const mouseYRatio = e.clientY / viewportHeight;
-
+    
             const targetX = Math.min(0, Math.max(-(gridWidth - viewportWidth),
                 -(gridWidth - viewportWidth) * (mouseXRatio * 0.95)));
             const targetY = Math.min(0, Math.max(-(gridHeight - viewportHeight),
                 -(gridHeight - viewportHeight) * (mouseYRatio * 0.95)));
-
+    
             gsap.to(ulElement, {
                 x: targetX,
                 y: targetY,
                 ...animationConfig,
                 overwrite: true,
             });
-
+    
             imgRefs.current.forEach((img) => {
                 const rect = img.getBoundingClientRect();
                 const imgCenterX = rect.left + rect.width / 2;
                 const imgCenterY = rect.top + rect.height / 2;
-
+    
                 const deltaX = (imgCenterX - viewportWidth / 2) / viewportWidth;
                 const deltaY = (imgCenterY - viewportHeight / 2) / viewportHeight;
-
+    
                 gsap.to(img, {
                     x: deltaX * -45,
                     y: deltaY * -45,
@@ -69,25 +72,24 @@ const GalleriesGrid = ({ galleries }) => {
                 });
             });
         };
-
-        let lastTime = 0;
-        const throttleDelay = 16;
-
-        const throttledHandleMouseMove = (e) => {
-            const now = Date.now();
-            if (now - lastTime >= throttleDelay) {
-                handleMouseMove(e);
-                lastTime = now;
-            }
+    
+        const handleMouseEnter = () => {
+            isMouseInsideUl = true;
         };
-
-        window.addEventListener('mousemove', throttledHandleMouseMove);
-
+    
+        const handleMouseLeave = () => {
+            isMouseInsideUl = false;
+        };
+    
+        ulElement.addEventListener("mousemove", handleMouseMove);
+        ulElement.addEventListener("mouseenter", handleMouseEnter);
+        ulElement.addEventListener("mouseleave", handleMouseLeave);
+    
         liRefs.current.forEach((li, index) => {
             const picture = pictureRefs.current[index];
             const galleryData = galleries[index];
             const initialPosition = { x: 0, y: 0, rotation: 0 };
-
+    
             const handleLiMouseEnter = () => {
                 setHoveredGallery({ place: galleryData.place, date: galleryData.date });
                 gsap.killTweensOf(picture);
@@ -97,12 +99,12 @@ const GalleriesGrid = ({ galleries }) => {
                     ease: "power4.out",
                 });
             };
-
+    
             const handleLiMouseMove = (e) => {
                 const { width, height, top, left } = li.getBoundingClientRect();
                 const x = e.clientX - left - width / 2;
                 const y = e.clientY - top - height / 2;
-
+    
                 gsap.to(picture, {
                     x: initialPosition.x + x * 0.15,
                     y: initialPosition.y + y * 0.15,
@@ -111,7 +113,7 @@ const GalleriesGrid = ({ galleries }) => {
                     ease: "power4.out",
                 });
             };
-
+    
             const handleLiMouseLeave = () => {
                 setHoveredGallery({ place: "Travel place", date: "Travel date" });
                 gsap.killTweensOf(picture);
@@ -124,23 +126,26 @@ const GalleriesGrid = ({ galleries }) => {
                     ease: "power4.out",
                 });
             };
-
-            li.addEventListener('mouseenter', handleLiMouseEnter);
-            li.addEventListener('mousemove', handleLiMouseMove);
-            li.addEventListener('mouseleave', handleLiMouseLeave);
-
+    
+            li.addEventListener("mouseenter", handleLiMouseEnter);
+            li.addEventListener("mousemove", handleLiMouseMove);
+            li.addEventListener("mouseleave", handleLiMouseLeave);
+    
             return () => {
-                li.removeEventListener('mouseenter', handleLiMouseEnter);
-                li.removeEventListener('mousemove', handleLiMouseMove);
-                li.removeEventListener('mouseleave', handleLiMouseLeave);
+                li.removeEventListener("mouseenter", handleLiMouseEnter);
+                li.removeEventListener("mousemove", handleLiMouseMove);
+                li.removeEventListener("mouseleave", handleLiMouseLeave);
             };
         });
-
+    
         return () => {
-            window.removeEventListener('mousemove', throttledHandleMouseMove);
+            ulElement.removeEventListener("mousemove", handleMouseMove);
+            ulElement.removeEventListener("mouseenter", handleMouseEnter);
+            ulElement.removeEventListener("mouseleave", handleMouseLeave);
             window.removeEventListener("resize", updateDimensions);
         };
     }, [galleries]);
+    
 
     const completeGalleryList = () => {
         const galleryItems = [...galleries];

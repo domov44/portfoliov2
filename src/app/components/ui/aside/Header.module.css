@@ -28,6 +28,12 @@
     height: 30px;
     width: 80px;
     padding: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.buttonHidden {
+    opacity: 0;
 }
 
 .buttonTextWrapper {
@@ -43,5 +49,6 @@
     width: 100%;
     pointer-events: fill;
     text-align: center;
-    transition: transform 0.8s ease;
+    will-change: transform;
+    visibility: hidden;
 }
