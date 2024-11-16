@@ -38,7 +38,7 @@ async function GalleriesGridServer() {
     }
 
     return (
-        <Section className="align_start h100vh justify_start space-0">
+        <Section className="align_start h100vh justify_start space-0" fullWidth>
             {galleries.length > 0 ? (
                 <GalleriesGrid galleries={galleries} />
             ) : (

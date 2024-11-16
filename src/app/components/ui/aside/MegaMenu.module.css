@@ -6,6 +6,7 @@
     width: 100%;
     border: 2px solid var(--grey-color);
     z-index: 3;
+    will-change: transform;
 }
 
 .menu_root {

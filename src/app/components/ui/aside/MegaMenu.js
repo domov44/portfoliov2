@@ -20,7 +20,7 @@ function MegaMenu({ isopen, toggleMenu, isAnimating, setIsAnimating }) {
         asideRef.current,
         { y: '-100%' },
         {
-          delay: 0.5,
+          delay: 0.6,
           y: '20px',
           duration: 1,
           ease: 'power4.out',
@@ -30,7 +30,7 @@ function MegaMenu({ isopen, toggleMenu, isAnimating, setIsAnimating }) {
 
       gsap.to(overlayRef.current, {
         opacity: 1,
-        delay: 0.5,
+        delay: 0.6,
         duration: 0.6,
         ease: 'power4.out',
         visibility: 'visible',
