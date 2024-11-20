@@ -20,7 +20,7 @@ export default async function ColisionSkillsServer() {
 
         const fetchedImageUrls = await Promise.all(
             skillsData.map(async (skill) => {
-                const url = await fetchS3File(skill.logo);
+                const url = await fetchS3File(skill.colisionLogo);
                 return url.toString();
             })
         );
