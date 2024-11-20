@@ -7,7 +7,7 @@ import LayoutStructure from './layouts/LayoutStructure';
 import ConfigureAmplifyClientSide from './components/ConfigureAmplifyClientSide';
 
 export const metadata = {
-  metadataBase: new URL('https://wwww.ronanscotet.com'),
+  metadataBase: new URL('https://www.ronanscotet.com'),
   title: 'Ronan Scotet - devops developer and lead developer',
   description: 'Hey im Ronan, come to see my portfolio made with love :D. I manage web applications from A to Z, throughout the devops cycle.',
   openGraph: {
