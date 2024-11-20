@@ -4,8 +4,8 @@ import MainContent from './layouts/MainContent';
 import HomeSecondSection from './components/pageElements/home/HomeSecondSection';
 import HomeFifthSection from './components/pageElements/home/HomeFifthSection';
 import HomeSixthSection from './components/pageElements/home/HomeSixthSection';
-import MatterShapes from './components/pageElements/home/MatterShapes';
 import HomeTravelServer from './components/pageElements/home/serverSide/HomeTravelServer';
+import ColisionSkillsServer from './components/pageElements/home/serverSide/ColisionSkillsServer';
 
 
 const Page = () => {
@@ -14,7 +14,7 @@ const Page = () => {
         <MainContent>
             <HomeHero />
             <HomeSecondSection />
-            <MatterShapes />
+            <ColisionSkillsServer />
             <HomeGrid /> 
             <HomeTravelServer />
             <HomeFifthSection />

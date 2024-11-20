@@ -74,6 +74,7 @@ const OptionList = styled.ul`
   top: calc(100% + 5px);
   left: 0;
   width: 100%;
+  z-index: 2;
   list-style: none;
   padding: 10px;
   border-radius: 5px;
