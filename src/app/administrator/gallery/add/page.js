@@ -88,7 +88,7 @@ function Page() {
         <>
             <Head>
                 <title>Add a trip into database</title>
-                <meta place="description" content="Description de la page" />
+                <meta name="description" content="Description de la page" />
                 <meta property="og:image" content="URL_de_votre_image" />
             </Head>
             <Hero>

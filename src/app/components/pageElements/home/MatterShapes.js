@@ -6,41 +6,11 @@ import decomp from 'poly-decomp';
 import Title from '../../ui/textual/Title';
 import Section from '../../ui/wrapper/Section';
 
-const MatterShapes = () => {
+const MatterShapes = ({ images }) => {
   const sceneRef = useRef(null);
-  // Tableau d'images
-  const imageSources = [
-    '/svg/aws.png',
-    '/svg/bubble.png',
-    '/svg/cpanel.png',
-    '/svg/dato.png',
-    '/svg/divi.png',
-    '/svg/docker.png',
-    '/svg/elementor.png',
-    '/svg/express.png',
-    '/svg/figma.png',
-    '/svg/firebase.png',
-    '/svg/graphql.png',
-    '/svg/html.png',
-    '/svg/javascript.png',
-    '/svg/laravel.png',
-    '/svg/mui.png',
-    '/svg/mysql.png',
-    '/svg/next.png',
-    '/svg/node.png',
-    '/svg/nuxt.png',
-    '/svg/php.png',
-    '/svg/python.png',
-    '/svg/react.png',
-    '/svg/sequelize.png',
-    '/svg/symfony.png',
-    '/svg/vue.png',
-    '/svg/vuetify.png',
-    '/svg/wordpress.png',
-  ];
 
   useEffect(() => {
-    if (!sceneRef.current) return;
+    if (!sceneRef.current || images.length === 0) return;
 
     Matter.Common.setDecomp(decomp);
 
@@ -69,34 +39,25 @@ const MatterShapes = () => {
     Composite.add(world, [
       Bodies.rectangle(width / 2, 0, width, 50, { 
         isStatic: true,
-        render: { 
-          visible: false 
-        }
+        render: { visible: false },
       }),
       Bodies.rectangle(width / 2, height, width, 50, { 
         isStatic: true,
-        render: { 
-          visible: true,
-          fillStyle: '#1A1821'
-        }
+        render: { visible: true, fillStyle: '#1A1821' },
       }),
       Bodies.rectangle(width, height / 2, 50, height, { 
         isStatic: true,
-        render: { 
-          visible: false,
-        }
+        render: { visible: false },
       }),
       Bodies.rectangle(0, height / 2, 50, height, {
         isStatic: true,
-        render: { 
-          visible: false,
-        }
-      })
+        render: { visible: false },
+      }),
     ]);
 
     const radius = 50;
 
-    imageSources.forEach((imageSrc, index) => {
+    images.forEach((imageSrc, index) => {
       const x = 100 + (index % 6) * 120;
       const y = 100 + Math.floor(index / 6) * 120;
 
@@ -117,9 +78,7 @@ const MatterShapes = () => {
       mouse: mouse,
       constraint: {
         stiffness: 0.2,
-        render: {
-          visible: false,
-        },
+        render: { visible: false },
       },
     });
     Composite.add(world, mouseConstraint);
@@ -138,7 +97,7 @@ const MatterShapes = () => {
       render.canvas.remove();
       render.textures = {};
     };
-  }, []);
+  }, [images]);
 
   return (
     <Section fullWidth>
