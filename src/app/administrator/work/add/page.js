@@ -8,7 +8,8 @@ import { useState } from 'react';
 import Button from '@/app/components/ui/button/Button';
 import { generateClient } from 'aws-amplify/api';
 import { createProject } from '@/graphql/mutations';
-import Upload from '@/app/components/ui/form/Upload';
+import UploadGallery from '@/app/components/pageElements/administrator/gallery/add/UploadGallery';
+import { uploadData } from 'aws-amplify/storage';
 
 const client = generateClient();
 
@@ -21,15 +22,43 @@ function Page() {
     const [description, setDescription] = useState('');
     const [years, setYears] = useState('');
     const [href, setHref] = useState('');
+    const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
+
+    const handleThumbnailSelect = (file) => {
+        setSelectedThumbnailFile(file);
+    };
+
+    const uploadFileToS3 = async (file) => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const key = `works/${name}/${year}/${month}/${file.name}`;
+
+        try {
+            await uploadData({
+                path: `public/${key}`,
+                data: file,
+                options: {
+                    contentType: file.type,
+                },
+            });
+            return { key };
+        } catch (error) {
+            throw new Error("Erreur lors de l'upload du fichier");
+        }
+    };
 
     const handleSubmit = async () => {
         try {
+            const { key: thumbnailKey } = await uploadFileToS3(selectedThumbnailFile);
+            
             await client.graphql({
                 query: createProject,
                 variables: {
                     input: {
                         name: name.toLowerCase(),
                         slug: slug.toLowerCase(),
+                        thumbnail: thumbnailKey,
                         github: github.toLowerCase(),
                         role: role.toLowerCase(),
                         context: context.toLowerCase(),
@@ -125,6 +154,7 @@ function Page() {
                             required
                             variant="blue"
                         />
+                        <UploadGallery onFileSelect={handleThumbnailSelect} maxSize={2 * 1048576} acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp" />
                         <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                     </Bento>
                 </FormContainer>
