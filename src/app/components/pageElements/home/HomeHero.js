@@ -39,14 +39,14 @@ const StyledImage = styled.img`
 const ImagesList = ({ images }) => {
     return (
         <ImageList>
-            {images.map((src, index) => (
+            {images.map((image, index) => (
                 <ImageItem
                     key={index}
                     className={`image-container-${index} hidden`}
                 >
                     <StyledImage
-                        src={src}
-                        alt=""
+                        src={image.thumbnail}
+                        alt={image.name}
                     />
                 </ImageItem>
             ))}
@@ -54,7 +54,7 @@ const ImagesList = ({ images }) => {
     );
 };
 
-const HomeHero = () => {
+const HomeHero = ({ images }) => {
     const [visibleImages, setVisibleImages] = useState([]);
     const heroRef = useRef(null);
     const lastImagePosition = useRef({ x: 0, y: 0, time: performance.now() });
@@ -80,26 +80,9 @@ const HomeHero = () => {
         );
     }, []);
 
-
     useEffect(() => {
         animateTitle();
     }, [animateTitle]);
-
-    const images = [
-        'https://ranlus.fr/assets/home-trail/1.jpeg',
-        'https://ranlus.fr/assets/home-trail/2.jpeg',
-        'https://ranlus.fr/assets/home-trail/3.jpeg',
-        'https://ranlus.fr/assets/home-trail/4.jpeg',
-        'https://ranlus.fr/assets/home-trail/5.jpeg',
-        'https://ranlus.fr/assets/home-trail/6.jpeg',
-        'https://ranlus.fr/assets/home-trail/7.jpeg',
-        'https://ranlus.fr/assets/home-trail/8.jpeg',
-        'https://ranlus.fr/assets/home-trail/9.jpeg',
-        'https://ranlus.fr/assets/home-trail/11.jpeg',
-        'https://ranlus.fr/assets/home-trail/13.jpeg',
-        'https://ranlus.fr/assets/home-trail/14.jpeg',
-        'https://ranlus.fr/assets/home-trail/15.jpeg',
-    ];
 
     const handleMouseMove = useCallback((e) => {
         if (!heroRef.current) return;
@@ -192,7 +175,6 @@ const HomeHero = () => {
             }
         }
     }, [visibleImages, images]);
-
 
     useEffect(() => {
         const currentHero = heroRef.current;
