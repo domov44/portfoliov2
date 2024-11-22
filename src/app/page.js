@@ -6,13 +6,14 @@ import HomeFifthSection from './components/pageElements/home/HomeFifthSection';
 import HomeSixthSection from './components/pageElements/home/HomeSixthSection';
 import HomeTravelServer from './components/pageElements/home/serverSide/HomeTravelServer';
 import ColisionSkillsServer from './components/pageElements/home/serverSide/ColisionSkillsServer';
+import HomeHeroServer from './components/pageElements/home/serverSide/HomeHeroServer';
 
 
 const Page = () => {
 
     return (
         <MainContent>
-            <HomeHero />
+            <HomeHeroServer/>
             <HomeSecondSection />
             <ColisionSkillsServer />
             <HomeGrid /> 
