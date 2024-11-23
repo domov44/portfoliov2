@@ -1,11 +1,11 @@
-import ProjectsList from "../components/pageElements/work/ProjectsList";
+import ProjectsListServer from "../components/pageElements/work/serverSide/ProjectListServer";
 import MainContent from "../layouts/MainContent";
 
 function Page() {
 
     return (
         <MainContent>
-            <ProjectsList />
+            <ProjectsListServer />
         </MainContent>
     );
 }

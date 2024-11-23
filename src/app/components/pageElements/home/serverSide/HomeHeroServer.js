@@ -25,8 +25,6 @@ export default async function HomeHeroServer() {
 
         projectsThumbnails = projectsThumbnails.filter(item => item.thumbnail);
 
-        console.log(projectsThumbnails);
-
     } catch (error) {
         console.error('Erreur lors de la récupération des galeries:', error);
     }
