@@ -75,7 +75,7 @@ function Header({ isopen, toggleMenu, isAnimating }) {
         <header className={styles.header}>
             <Container direction="row" align="center" width="full" justify="space-between">
                 <Stack align="center" width="33%">
-                    <InvisibleLink href={"/"} lineheight={"0"}>
+                    <InvisibleLink href={"/"} lineheight={"0"} transition>
                         <Logo />
                     </InvisibleLink>
                 </Stack>

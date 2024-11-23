@@ -1,50 +1,63 @@
-import { generateClient } from 'aws-amplify/api';
-import { listProjects } from "@/graphql/queries";
-import Section from '../../ui/wrapper/Section';
-import Button from '../../ui/button/Button';
-import fetchS3File from '@/app/utils/fetchS3File';
+"use client"
+import styles from './ProjectsList.module.css';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Link from 'next/link';
+import InvisibleLink from '../../ui/button/InvisibleLink';
 
-const client = generateClient();
+gsap.registerPlugin(ScrollTrigger);
 
-async function ProjectsList() {
-    let projects = [];
+function ProjectsList({ projects }) {
+    const sectionRef = useRef(null);
+    const projectRowRef = useRef(null);
 
-    try {
-        const projectsResult = await client.graphql({
-            query: listProjects,
-            authMode: 'identityPool',
+    useEffect(() => {
+        if (!projects?.length) return;
+
+        const section = sectionRef.current;
+        const projectRow = projectRowRef.current;
+
+        if (!section || !projectRow) return;
+
+        gsap.to(projectRow, {
+            x: () => -(projectRow.scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+                trigger: section,
+                start: "top top",
+                end: () => `+=${projectRow.scrollWidth - window.innerWidth}`,
+                pin: true,
+                scrub: 1,
+                invalidateOnRefresh: true,
+                pinSpacing: true
+            }
         });
 
-        projects = projectsResult.data?.listProjects?.items || [];
-
-        projects = await Promise.all(
-            projects.map(async (project) => ({
-                ...project,
-                thumbnailsUrl: await fetchS3File(project.thumbnail),
-            }))
-        );
-    } catch (error) {
-        console.error('Erreur lors de la récupération des projets:', error);
-    }
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
+    }, [projects]);
 
     return (
-        <Section>
-            <h1>All Projects</h1>
-            {projects.length > 0 ? (
-                <ul>
-                    {projects.map((project) => (
-                        <li key={project.id}>
-                            <Button transition href={`/work/${project.slug}`}>
-                                {project.name}
-                            </Button>
-                            <img alt={project.name} src={project.thumbnailsUrl} />
-                        </li>
-                    ))}
-                </ul>
+        <section ref={sectionRef} className={styles.Section}>
+            {projects && projects.length > 0 ? (
+                <div ref={projectRowRef} className={styles.ProjectRow}>
+                    {projects.map((project) =>
+                        project.thumbnailUrl ? (
+                            <article key={project.id} className={styles.ProjectArticle}>
+                                <figure>
+                                    <img alt={project.name} src={project.thumbnailUrl} />
+                                </figure>
+                                <InvisibleLink lineheight={"0"} href={`/work/${project.slug}`} transition>View project</InvisibleLink>
+                            </article>
+                        ) : null
+                    )}
+                </div>
             ) : (
                 <p>No projects found</p>
             )}
-        </Section>
+        </section>
     );
 }
 
