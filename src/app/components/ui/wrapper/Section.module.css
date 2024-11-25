@@ -45,6 +45,19 @@
 .justify_around { justify-content: space-around; }
 .justify_evenly { justify-content: space-evenly; }
 
+ /* Alignment */
+ .alignCenter {
+    align-items: center;
+ }
+ 
+ .alignStart {
+    align-items: flex-start;
+ }
+ 
+ .alignEnd {
+    align-items: flex-end;
+ }
+
 /* Variants pour spacing (gap) */
 .spacing_small { gap: 5px; }
 .spacing_medium { gap: 10px; }
