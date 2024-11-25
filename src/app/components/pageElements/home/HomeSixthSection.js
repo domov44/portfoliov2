@@ -20,11 +20,12 @@ const BentoDiv = styled.figure`
   flex-direction: column;
   justify-content: center;
   width: 22vw;
-  background: #1f1d27;
+  background: rgb(31 29 39 / 24%);
   padding: 10% 10% 20%;
   border-radius: 10px;
-  border: 2px solid #2b2930;
+  border: 1px solid rgb(56 51 63);
   transform-origin: center;
+  backdrop-filter: blur(8px);
   transform: translate3d(0px, 0px, 0px) rotate(00deg);
 `;
 
@@ -110,7 +111,7 @@ const HomeSixthSection = () => {
   return (
     <Section ref={sectionRef}>
       <Stack>
-        <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="60vw" lineHeight="0.8">
+        <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="60vw" lineHeight="0.8" zIndex="-1">
           LET'S DO SOMETHING AWESOME TOGETHER
         </Title>
       </Stack>
