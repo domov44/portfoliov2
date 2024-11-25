@@ -1,9 +1,6 @@
-'use client';
-
-import Button from '../components/ui/button/Button';
-import Title from '../components/ui/textual/Title';
-import Hero from '../components/ui/wrapper/Hero';
-import DefaultLayout from '../layouts/DefaultLayout';
+import AboutMeHero from '../components/pageElements/about-me/AboutMeHero';
+import AboutMeSecondSection from '../components/pageElements/about-me/AboutMeSecondSection';
+import AboutMeThirdSection from '../components/pageElements/about-me/AboutMeThirdSection';
 import MainContent from '../layouts/MainContent';
 
 const Page = () => {
@@ -11,12 +8,9 @@ const Page = () => {
 
     return (
         <MainContent>
-            <Hero>
-                <Title>
-                    About me
-                </Title>
-                <Button className={"step-1"} variant={"primary"} href="/" transition>back to home</Button>
-            </Hero>
+            <AboutMeHero />
+            <AboutMeSecondSection/>
+            <AboutMeThirdSection/>
         </MainContent>
     );
 }
