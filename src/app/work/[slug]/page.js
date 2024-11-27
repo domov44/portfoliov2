@@ -1,9 +1,9 @@
 import { generateClient } from 'aws-amplify/api';
 import { ProjectBySlug } from '@/graphql/queries';
-import Section from '@/app/components/ui/wrapper/Section';
-import Button from '@/app/components/ui/button/Button';
 import { notFound } from 'next/navigation';
 import MainContent from '@/app/layouts/MainContent';
+import SingleHero from '@/app/components/pageElements/work/single/SingleHero';
+import Button from '@/app/components/ui/button/Button';
 
 const client = generateClient();
 
@@ -35,15 +35,10 @@ async function Page({ params }) {
 
     return (
         <MainContent>
-            <Section>
-                <h1>{project.name}</h1>
-                {project.role && <p>Role: {project.role}</p>}
-                {project.context && <p>Context: {project.context}</p>}
-                {project.years && <p>Years: {project.years}</p>}
-                {project.description && <p>Description: {project.description}</p>}
-                {project.href && <Button href={project.href}>Voir le projet</Button>}
-                {project.github && <Button href={project.github}>Voir le github</Button>}
-            </Section>
+            <SingleHero project={project} />
+            {project.description && <p>Description: {project.description}</p>}
+            {project.href && <Button href={project.href}>Voir le projet</Button>}
+            {project.github && <Button href={project.github}>Voir le github</Button>}
         </MainContent>
     );
 }
