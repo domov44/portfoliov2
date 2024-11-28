@@ -9,7 +9,7 @@ import Stack from '@/app/components/ui/wrapper/Stack';
 async function SingleHero({ project }) {
 
     return (
-        <Section className="justify_end h100vh">
+        <Section className="justify_end h95vh">
             <Stack direction="column" height="60%" width="100%" justify="space-between">
                 <Title level={1} fontSize={"10vw"} variant="colored" textalign="center">
                     {project.name}
@@ -32,7 +32,5 @@ async function SingleHero({ project }) {
         </Section>
     );
 }
-
-export const dynamic = 'force-dynamic';
 
 export default SingleHero;

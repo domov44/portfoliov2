@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import MainContent from '@/app/layouts/MainContent';
 import SingleHero from '@/app/components/pageElements/work/single/SingleHero';
 import Button from '@/app/components/ui/button/Button';
+import SingleMainSection from '@/app/components/pageElements/work/single/SingleMainSection';
+import SingleDoubleSection from '@/app/components/pageElements/work/single/SingleDoubleSection';
 
 const client = generateClient();
 
@@ -36,9 +38,11 @@ async function Page({ params }) {
     return (
         <MainContent>
             <SingleHero project={project} />
-            {project.description && <p>Description: {project.description}</p>}
+            {/* {project.description && <p>Description: {project.description}</p>}
             {project.href && <Button href={project.href}>Voir le projet</Button>}
-            {project.github && <Button href={project.github}>Voir le github</Button>}
+            {project.github && <Button href={project.github}>Voir le github</Button>} */}
+            <SingleMainSection  project={project}/>
+            <SingleDoubleSection project={project}/> 
         </MainContent>
     );
 }
