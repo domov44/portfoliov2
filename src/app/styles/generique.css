@@ -11,8 +11,32 @@
   visibility: hidden;
 }
 
+.h60vh {
+  height: 60vh;
+}
+
+.h70vh {
+  height: 70vh;
+}
+
+.h80vh {
+  height: 80vh;
+}
+
+.h90vh {
+  height: 90vh;
+}
+
+.h95vh {
+  height: 95vh;
+}
+
 .h100vh {
   height: 100vh;
+}
+
+.defaultPadding {
+  padding: 10px 0px;
 }
 
 /* Position */
