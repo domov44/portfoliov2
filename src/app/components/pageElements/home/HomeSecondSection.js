@@ -25,7 +25,6 @@ const BentoDiv = styled.figure`
   border-radius: 10px;
   border: 1px solid rgb(56 51 63);
   transform-origin: center;
-  backdrop-filter: blur(8px);
   transform: translate3d(0px, 0px, 0px) rotate(00deg);
 `;
 
