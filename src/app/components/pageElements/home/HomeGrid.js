@@ -55,7 +55,6 @@ const GridItem = styled.article`
     grid-row: 2;
   }
 
-
   @media (max-width: 768px) {
     &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
       grid-column: 1 / span 12;
@@ -65,7 +64,7 @@ const GridItem = styled.article`
   }
 `;
 
-const HomeGrid = () => {
+const HomeGrid = ({ videos }) => {
     return (
         <Section fullWidth>
             <Container direction="column" width="100%" maxwidth="1200px">
@@ -75,18 +74,11 @@ const HomeGrid = () => {
                     </Title>
                 </Stack>
                 <ProjectGrid>
-                    <GridItem>
-                        <Video src="https://ranlus.fr/assets/work/socomec/preview.mp4" autoPlay loop muted playsInline />
-                    </GridItem>
-                    <GridItem>
-                        <Video src="https://ranlus.fr/assets/work/hugo-decrypte-mashup/preview.mp4" autoPlay loop muted playsInline />
-                    </GridItem>
-                    <GridItem>
-                        <Video src="https://ranlus.fr/assets/work/pernod-ricard-humans-right/preview.mp4" autoPlay loop muted playsInline />
-                    </GridItem>
-                    <GridItem>
-                        <Video src="https://ranlus.fr/assets/work/lyzis/preview.mp4" autoPlay loop muted playsInline />
-                    </GridItem>
+                    {videos.map((video, index) => (
+                        <GridItem key={index}>
+                            <Video src={video.video} autoPlay loop muted playsInline />
+                        </GridItem>
+                    ))}
                 </ProjectGrid>
                 <Stack width="100%" justify="center" margin={"-30vw 0 0 0"}>
                     <Button transition className="step-1" href={"/work"}>all projects</Button>
@@ -94,6 +86,6 @@ const HomeGrid = () => {
             </Container>
         </Section>
     );
-}
+};
 
 export default HomeGrid;
