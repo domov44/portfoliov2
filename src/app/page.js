@@ -1,5 +1,3 @@
-import HomeHero from './components/pageElements/home/HomeHero';
-import HomeGrid from './components/pageElements/home/HomeGrid';
 import MainContent from './layouts/MainContent';
 import HomeSecondSection from './components/pageElements/home/HomeSecondSection';
 import HomeFifthSection from './components/pageElements/home/HomeFifthSection';
@@ -7,6 +5,7 @@ import HomeSixthSection from './components/pageElements/home/HomeSixthSection';
 import HomeTravelServer from './components/pageElements/home/serverSide/HomeTravelServer';
 import ColisionSkillsServer from './components/pageElements/home/serverSide/ColisionSkillsServer';
 import HomeHeroServer from './components/pageElements/home/serverSide/HomeHeroServer';
+import HomeGridServer from './components/pageElements/home/serverSide/HomeGridServer';
 
 
 const Page = () => {
@@ -16,7 +15,7 @@ const Page = () => {
             <HomeHeroServer/>
             <HomeSecondSection />
             <ColisionSkillsServer />
-            <HomeGrid /> 
+            <HomeGridServer /> 
             <HomeTravelServer />
             <HomeFifthSection />
             <HomeSixthSection />

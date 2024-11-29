@@ -4,18 +4,23 @@ import FormContainer from '@/app/components/ui/wrapper/FormContainer';
 import Bento from '@/app/components/ui/wrapper/Bento';
 import Head from 'next/head';
 import TextInput from '@/app/components/ui/form/TextInput';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@/app/components/ui/button/Button';
 import { generateClient } from 'aws-amplify/api';
-import { createProject } from '@/graphql/mutations';
+import { updateProject } from '@/graphql/mutations';
+import { ProjectBySlug } from '@/graphql/queries';
 import UploadGallery from '@/app/components/pageElements/administrator/gallery/add/UploadGallery';
 import { uploadData } from 'aws-amplify/storage';
+import { notFound } from 'next/navigation';
 
 const client = generateClient();
 
-function Page() {
+function Page({ params }) {
+    const { slug } = params;
+
+    const [projectId, setProjectId] = useState(null);
     const [name, setName] = useState('');
-    const [slug, setSlug] = useState('');
+    const [slugField, setSlug] = useState('');
     const [github, setGithub] = useState('');
     const [role, setRole] = useState('');
     const [context, setContext] = useState('');
@@ -23,7 +28,43 @@ function Page() {
     const [years, setYears] = useState('');
     const [href, setHref] = useState('');
     const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
-    const [selectedVideoFile, setSelectedVideoFile] = useState(null); 
+    const [selectedVideoFile, setSelectedVideoFile] = useState(null); // Nouvel état pour la vidéo
+
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                const projectResult = await client.graphql({
+                    query: ProjectBySlug,
+                    variables: { slug },
+                    authMode: 'userPool',
+                });
+
+                const projectData = projectResult.data.ProjectBySlug;
+
+                const project = (projectData && projectData.items && projectData.items.length > 0)
+                    ? projectData.items[0]
+                    : null;
+
+                if (project) {
+                    setProjectId(project.id);
+                    setName(project.name || '');
+                    setSlug(project.slug || '');
+                    setGithub(project.github || '');
+                    setRole(project.role || '');
+                    setContext(project.context || '');
+                    setDescription(project.description || '');
+                    setYears(project.years || '');
+                    setHref(project.href || '');
+                } else {
+                    notFound();
+                }
+            } catch (error) {
+                console.error('Error fetching project:', error);
+            }
+        };
+
+        fetchProject();
+    }, [slug]);
 
     const handleThumbnailSelect = (file) => {
         setSelectedThumbnailFile(file);
@@ -33,11 +74,11 @@ function Page() {
         setSelectedVideoFile(file);
     };
 
-    const uploadFileToS3 = async (file, folder = 'works') => {
+    const uploadFileToS3 = async (file, type = 'works') => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
-        const key = `${folder}/${name}/${year}/${month}/${file.name}`;
+        const key = `${type}/${name}/${year}/${month}/${file.name}`;
 
         try {
             await uploadData({
@@ -55,53 +96,62 @@ function Page() {
 
     const handleSubmit = async () => {
         try {
-            const { key: thumbnailKey } = await uploadFileToS3(selectedThumbnailFile);
-            
+            let thumbnailKey = null;
             let videoKey = null;
+
+            if (selectedThumbnailFile) {
+                const uploadResult = await uploadFileToS3(selectedThumbnailFile);
+                thumbnailKey = uploadResult.key;
+            }
+
             if (selectedVideoFile) {
                 const uploadResult = await uploadFileToS3(selectedVideoFile);
                 videoKey = uploadResult.key;
             }
 
+            const input = {
+                id: projectId,
+                ...(name && { name: name.toLowerCase() }),
+                ...(slugField && { slug: slugField.toLowerCase() }),
+                ...(thumbnailKey && { thumbnail: thumbnailKey }),
+                ...(videoKey && { video: videoKey }),
+                ...(github && { github: github.toLowerCase() }),
+                ...(role && { role: role.toLowerCase() }),
+                ...(context && { context: context.toLowerCase() }),
+                ...(description && { description }),
+                ...(years && { years: parseInt(years) }),
+                ...(href && { href: href.toLowerCase() }),
+                top4: false,
+            };
+
             await client.graphql({
-                query: createProject,
-                variables: {
-                    input: {
-                        name: name.toLowerCase(),
-                        slug: slug.toLowerCase(),
-                        thumbnail: thumbnailKey,
-                        video: videoKey,
-                        github: github.toLowerCase(),
-                        role: role.toLowerCase(),
-                        context: context.toLowerCase(),
-                        description: description,
-                        years: parseInt(years),
-                        href: href.toLowerCase(),
-                        top4: false,
-                    },
-                },
+                query: updateProject,
+                variables: { input },
             });
 
-            console.log("success");
-
+            console.log('Project updated successfully!');
         } catch (error) {
-            console.error("error during submit", error);
+            console.error('Error updating project:', error);
         }
     };
 
     return (
         <>
             <Head>
-                <title>Connectez-vous à votre compte Miamze</title>
-                <meta name="description" content="Description de la page" />
+                <title>Éditez votre projet</title>
+                <meta name="description" content="Modification du projet existant" />
                 <meta property="og:image" content="URL_de_votre_image" />
             </Head>
             <Hero>
                 <FormContainer>
-                    <Bento width="450px" highlight="highlight" padding="40px"
+                    <Bento
+                        width="450px"
+                        highlight="highlight"
+                        padding="40px"
                         responsive={{
-                            mobilePadding: "20px"
-                        }}>
+                            mobilePadding: '20px',
+                        }}
+                    >
                         <TextInput
                             type="text"
                             label="Name"
@@ -113,7 +163,7 @@ function Page() {
                         <TextInput
                             type="text"
                             label="Slug"
-                            value={slug}
+                            value={slugField}
                             onChange={(e) => setSlug(e.target.value)}
                             required
                             variant="blue"
@@ -166,17 +216,19 @@ function Page() {
                             required
                             variant="blue"
                         />
-                        <UploadGallery 
-                            onFileSelect={handleThumbnailSelect} 
-                            maxSize={2 * 1048576} 
-                            acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp" 
+                        <UploadGallery
+                            onFileSelect={handleThumbnailSelect}
+                            maxSize={2 * 1048576}
+                            acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp"
                         />
-                        <UploadGallery 
-                            onFileSelect={handleVideoSelect} 
+                        <UploadGallery
+                            onFileSelect={handleVideoSelect}
                             maxSize={3 * 1048576}
-                            acceptedTypes="video/mp4, video/webm, video/avi" 
+                            acceptedTypes="video/mp4, video/webm, video/ogg, video/mvk"
                         />
-                        <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+                        <Button variant="primary" onClick={handleSubmit}>
+                            Submit
+                        </Button>
                     </Bento>
                 </FormContainer>
             </Hero>
