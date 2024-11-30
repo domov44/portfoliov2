@@ -19,7 +19,7 @@ async function ProjectsListServer() {
         projects = await Promise.all(
             projects.map(async (project) => ({
                 ...project,
-                thumbnailUrl: await fetchS3File(project.thumbnail),
+                videoUrl: await fetchS3File(project.video),
             }))
         );
     } catch (error) {

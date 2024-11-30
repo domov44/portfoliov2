@@ -1,4 +1,4 @@
-.Section{
+.Section {
     max-width: 100%;
     padding: 100px 0;
     gap: 10px;
@@ -41,7 +41,7 @@
 }
 
 .ProjectArticle a {
-    color:var(--bg-color);
+    color: var(--bg-color);
     cursor: pointer;
 }
 
@@ -53,4 +53,10 @@
     height: 100%;
     z-index: 1;
     content: "";
+}
+
+.ProjectVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

@@ -44,10 +44,10 @@ function ProjectsList({ projects }) {
             {projects && projects.length > 0 ? (
                 <div ref={projectRowRef} className={styles.ProjectRow}>
                     {projects.map((project) =>
-                        project.thumbnailUrl ? (
+                        project.videoUrl ? (
                             <article key={project.id} className={styles.ProjectArticle}>
                                 <figure>
-                                    <img alt={project.name} src={project.thumbnailUrl} />
+                                    <video className={styles.ProjectVideo} alt={project.name} src={project.videoUrl} autoPlay loop muted playsInline></video>
                                 </figure>
                                 <InvisibleLink lineheight={"0"} href={`/work/${project.slug}`} transition>View project</InvisibleLink>
                             </article>
