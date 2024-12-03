@@ -7,10 +7,10 @@ export const onCreateProject = /* GraphQL */ `
       id
       name
       slug
+      date
       images
       thumbnail
       video
-      top4
       href
       github
       role
@@ -30,6 +30,8 @@ export const onCreateProject = /* GraphQL */ `
         updatedAt
         __typename
       }
+      featuredOrder
+      globalPartitionKey
       createdAt
       updatedAt
       categoryProjectId
@@ -44,10 +46,10 @@ export const onUpdateProject = /* GraphQL */ `
       id
       name
       slug
+      date
       images
       thumbnail
       video
-      top4
       href
       github
       role
@@ -67,6 +69,8 @@ export const onUpdateProject = /* GraphQL */ `
         updatedAt
         __typename
       }
+      featuredOrder
+      globalPartitionKey
       createdAt
       updatedAt
       categoryProjectId
@@ -81,10 +85,10 @@ export const onDeleteProject = /* GraphQL */ `
       id
       name
       slug
+      date
       images
       thumbnail
       video
-      top4
       href
       github
       role
@@ -104,6 +108,8 @@ export const onDeleteProject = /* GraphQL */ `
         updatedAt
         __typename
       }
+      featuredOrder
+      globalPartitionKey
       createdAt
       updatedAt
       categoryProjectId

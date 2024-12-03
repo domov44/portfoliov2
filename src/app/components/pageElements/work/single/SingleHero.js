@@ -1,8 +1,6 @@
 "use client"
-import Button from '@/app/components/ui/button/Button';
 import Text from '@/app/components/ui/textual/Text';
 import Title from '@/app/components/ui/textual/Title';
-import Hero from '@/app/components/ui/wrapper/Hero';
 import Section from '@/app/components/ui/wrapper/Section';
 import Stack from '@/app/components/ui/wrapper/Stack';
 
@@ -23,9 +21,9 @@ async function SingleHero({ project }) {
                         <Stack width="33%" direction="column" spacing='0' align="center" className="uppercase">
                             <Title level={3} className={"step--2"}>Context:</Title><Text className={"step--1"}>{project.context}</Text>
                         </Stack>}
-                    {project.years &&
+                    {project.date &&
                         <Stack width="33%" direction="column" spacing='0' align="center" className="uppercase">
-                            <Title level={3} className={"step--2"}>Years:</Title><Text className={"step--1"}>{project.years}</Text>
+                            <Title level={3} className={"step--2"}>Date:</Title><Text className={"step--1"}>{project.date}</Text>
                         </Stack>}
                 </Stack>
             </Stack>

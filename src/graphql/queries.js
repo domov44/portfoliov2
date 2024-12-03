@@ -7,10 +7,10 @@ export const getProject = /* GraphQL */ `
       id
       name
       slug
+      date
       images
       thumbnail
       video
-      top4
       href
       github
       role
@@ -30,6 +30,8 @@ export const getProject = /* GraphQL */ `
         updatedAt
         __typename
       }
+      featuredOrder
+      globalPartitionKey
       createdAt
       updatedAt
       categoryProjectId
@@ -49,10 +51,10 @@ export const listProjects = /* GraphQL */ `
         id
         name
         slug
+        date
         images
         thumbnail
         video
-        top4
         href
         github
         role
@@ -60,6 +62,8 @@ export const listProjects = /* GraphQL */ `
         steps
         description
         years
+        featuredOrder
+        globalPartitionKey
         createdAt
         updatedAt
         categoryProjectId
@@ -90,10 +94,10 @@ export const ProjectByName = /* GraphQL */ `
         id
         name
         slug
+        date
         images
         thumbnail
         video
-        top4
         href
         github
         role
@@ -101,6 +105,8 @@ export const ProjectByName = /* GraphQL */ `
         steps
         description
         years
+        featuredOrder
+        globalPartitionKey
         createdAt
         updatedAt
         categoryProjectId
@@ -131,10 +137,10 @@ export const ProjectBySlug = /* GraphQL */ `
         id
         name
         slug
+        date
         images
         thumbnail
         video
-        top4
         href
         github
         role
@@ -142,6 +148,96 @@ export const ProjectBySlug = /* GraphQL */ `
         steps
         description
         years
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const ProjectsByFeaturedOrder = /* GraphQL */ `
+  query ProjectsByFeaturedOrder(
+    $featuredOrder: Int!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ProjectsByFeaturedOrder(
+      featuredOrder: $featuredOrder
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        years
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const allProjectsByDate = /* GraphQL */ `
+  query AllProjectsByDate(
+    $globalPartitionKey: String!
+    $date: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    allProjectsByDate(
+      globalPartitionKey: $globalPartitionKey
+      date: $date
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        years
+        featuredOrder
+        globalPartitionKey
         createdAt
         updatedAt
         categoryProjectId
