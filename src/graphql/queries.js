@@ -17,7 +17,6 @@ export const getProject = /* GraphQL */ `
       context
       steps
       description
-      years
       skills {
         nextToken
         __typename
@@ -61,7 +60,6 @@ export const listProjects = /* GraphQL */ `
         context
         steps
         description
-        years
         featuredOrder
         globalPartitionKey
         createdAt
@@ -104,7 +102,6 @@ export const ProjectByName = /* GraphQL */ `
         context
         steps
         description
-        years
         featuredOrder
         globalPartitionKey
         createdAt
@@ -147,7 +144,6 @@ export const ProjectBySlug = /* GraphQL */ `
         context
         steps
         description
-        years
         featuredOrder
         globalPartitionKey
         createdAt
@@ -190,7 +186,6 @@ export const ProjectsByFeaturedOrder = /* GraphQL */ `
         context
         steps
         description
-        years
         featuredOrder
         globalPartitionKey
         createdAt
@@ -235,7 +230,6 @@ export const allProjectsByDate = /* GraphQL */ `
         context
         steps
         description
-        years
         featuredOrder
         globalPartitionKey
         createdAt

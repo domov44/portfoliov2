@@ -20,7 +20,6 @@ export const createProject = /* GraphQL */ `
       context
       steps
       description
-      years
       skills {
         nextToken
         __typename
@@ -62,7 +61,6 @@ export const updateProject = /* GraphQL */ `
       context
       steps
       description
-      years
       skills {
         nextToken
         __typename
@@ -104,7 +102,6 @@ export const deleteProject = /* GraphQL */ `
       context
       steps
       description
-      years
       skills {
         nextToken
         __typename
