@@ -5,10 +5,10 @@ type Project @model @auth(rules: [
   id: ID!
   name: String! @index(name: "byName", queryField: "ProjectByName")
   slug: String! @index(name: "bySlug", queryField: "ProjectBySlug")
+  date: AWSDate!
   images: AWSJSON
   thumbnail: String
   video: String
-  top4: Boolean!
   href: String
   github: String
   role: String
@@ -18,6 +18,9 @@ type Project @model @auth(rules: [
   years: Int
   skills: [Skill] @hasMany
   category: Category @hasOne
+  featuredOrder: Int @index(name: "byFeaturedOrder", queryField: "ProjectsByFeaturedOrder")
+  globalPartitionKey: String! 
+    @index(name: "allProjectsByDate", queryField: "allProjectsByDate", sortKeyFields: ["date"])
 }
 
 type Skill @model @auth(rules: [

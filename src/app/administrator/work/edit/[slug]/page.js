@@ -25,10 +25,11 @@ function Page({ params }) {
     const [role, setRole] = useState('');
     const [context, setContext] = useState('');
     const [description, setDescription] = useState('');
-    const [years, setYears] = useState('');
+    const [date, setDate] = useState('');
     const [href, setHref] = useState('');
     const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
-    const [selectedVideoFile, setSelectedVideoFile] = useState(null); // Nouvel état pour la vidéo
+    const [selectedVideoFile, setSelectedVideoFile] = useState(null);
+    const [featuredOrder, setFeaturedOrder] = useState('');
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -53,8 +54,9 @@ function Page({ params }) {
                     setRole(project.role || '');
                     setContext(project.context || '');
                     setDescription(project.description || '');
-                    setYears(project.years || '');
+                    setDate(project.date || '');
                     setHref(project.href || '');
+                    setFeaturedOrder(project.featuredOrder || '');
                 } else {
                     notFound();
                 }
@@ -119,9 +121,9 @@ function Page({ params }) {
                 ...(role && { role: role.toLowerCase() }),
                 ...(context && { context: context.toLowerCase() }),
                 ...(description && { description }),
-                ...(years && { years: parseInt(years) }),
+                ...(years && { date: date }),
                 ...(href && { href: href.toLowerCase() }),
-                top4: false,
+                ...(featuredOrder && { featuredOrder: featuredOrder.toLowerCase() }),
             };
 
             await client.graphql({
@@ -200,19 +202,25 @@ function Page({ params }) {
                             required
                             variant="blue"
                         />
-                        <TextInput
-                            type="number"
-                            label="Years"
-                            value={years}
-                            onChange={(e) => setYears(e.target.value)}
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
                             required
-                            variant="blue"
                         />
                         <TextInput
                             type="text"
                             label="Link of the project"
                             value={href}
                             onChange={(e) => setHref(e.target.value)}
+                            required
+                            variant="blue"
+                        />
+                        <TextInput
+                            type="number"
+                            label="Order"
+                            value={featuredOrder}
+                            onChange={(e) => setFeaturedOrder(e.target.value)}
                             required
                             variant="blue"
                         />
