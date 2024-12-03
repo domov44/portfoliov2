@@ -121,9 +121,9 @@ function Page({ params }) {
                 ...(role && { role: role.toLowerCase() }),
                 ...(context && { context: context.toLowerCase() }),
                 ...(description && { description }),
-                ...(years && { date: date }),
+                ...(date && { date: date }),
                 ...(href && { href: href.toLowerCase() }),
-                ...(featuredOrder && { featuredOrder: featuredOrder.toLowerCase() }),
+                ...(featuredOrder && { featuredOrder: featuredOrder }),
             };
 
             await client.graphql({
