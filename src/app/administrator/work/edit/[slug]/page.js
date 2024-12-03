@@ -123,7 +123,7 @@ function Page({ params }) {
                 ...(description && { description }),
                 ...(date && { date: date }),
                 ...(href && { href: href.toLowerCase() }),
-                ...(featuredOrder && { featuredOrder: featuredOrder.toLowerCase() }),
+                ...(featuredOrder && { featuredOrder: featuredOrder }),
             };
 
             await client.graphql({
