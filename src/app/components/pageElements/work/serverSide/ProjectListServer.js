@@ -1,5 +1,5 @@
 import { generateClient } from 'aws-amplify/api';
-import { listProjects } from "@/graphql/queries";
+import { allProjectsByDate } from "@/graphql/queries";
 import fetchS3File from '@/app/utils/fetchS3File';
 import ProjectsList from '../ProjectsList';
 
@@ -10,11 +10,15 @@ async function ProjectsListServer() {
 
     try {
         const projectsResult = await client.graphql({
-            query: listProjects,
+            query: allProjectsByDate,
             authMode: 'identityPool',
+            variables: {
+                globalPartitionKey: "projects",
+                sortDirection: "DESC",
+            }
         });
 
-        projects = projectsResult.data?.listProjects?.items || [];
+        projects = projectsResult.data?.allProjectsByDate?.items || [];
 
         projects = await Promise.all(
             projects.map(async (project) => ({

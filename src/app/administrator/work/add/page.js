@@ -20,10 +20,11 @@ function Page() {
     const [role, setRole] = useState('');
     const [context, setContext] = useState('');
     const [description, setDescription] = useState('');
-    const [years, setYears] = useState('');
+    const [date, setDate] = useState('');
     const [href, setHref] = useState('');
     const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
-    const [selectedVideoFile, setSelectedVideoFile] = useState(null); 
+    const [selectedVideoFile, setSelectedVideoFile] = useState(null);
+    const [featuredOrder, setFeaturedOrder] = useState('');
 
     const handleThumbnailSelect = (file) => {
         setSelectedThumbnailFile(file);
@@ -56,7 +57,7 @@ function Page() {
     const handleSubmit = async () => {
         try {
             const { key: thumbnailKey } = await uploadFileToS3(selectedThumbnailFile);
-            
+
             let videoKey = null;
             if (selectedVideoFile) {
                 const uploadResult = await uploadFileToS3(selectedVideoFile);
@@ -75,9 +76,10 @@ function Page() {
                         role: role.toLowerCase(),
                         context: context.toLowerCase(),
                         description: description,
-                        years: parseInt(years),
+                        date: date,
                         href: href.toLowerCase(),
-                        top4: false,
+                        featuredOrder: featuredOrder,
+                        globalPartitionKey: "projects"
                     },
                 },
             });
@@ -92,7 +94,7 @@ function Page() {
     return (
         <>
             <Head>
-                <title>Connectez-vous à votre compte Miamze</title>
+                <title>Add a project</title>
                 <meta name="description" content="Description de la page" />
                 <meta property="og:image" content="URL_de_votre_image" />
             </Head>
@@ -150,13 +152,11 @@ function Page() {
                             required
                             variant="blue"
                         />
-                        <TextInput
-                            type="number"
-                            label="Years"
-                            value={years}
-                            onChange={(e) => setYears(e.target.value)}
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
                             required
-                            variant="blue"
                         />
                         <TextInput
                             type="text"
@@ -166,15 +166,23 @@ function Page() {
                             required
                             variant="blue"
                         />
-                        <UploadGallery 
-                            onFileSelect={handleThumbnailSelect} 
-                            maxSize={2 * 1048576} 
-                            acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp" 
+                        <TextInput
+                            type="number"
+                            label="Order"
+                            value={featuredOrder}
+                            onChange={(e) => setFeaturedOrder(e.target.value)}
+                            required
+                            variant="blue"
                         />
-                        <UploadGallery 
-                            onFileSelect={handleVideoSelect} 
+                        <UploadGallery
+                            onFileSelect={handleThumbnailSelect}
+                            maxSize={2 * 1048576}
+                            acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp"
+                        />
+                        <UploadGallery
+                            onFileSelect={handleVideoSelect}
                             maxSize={3 * 1048576}
-                            acceptedTypes="video/mp4, video/webm, video/avi" 
+                            acceptedTypes="video/mp4, video/webm, video/avi"
                         />
                         <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                     </Bento>
