@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import styled from 'styled-components';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Title from '../../ui/textual/Title';
 import Stack from '../../ui/wrapper/Stack';
@@ -13,38 +12,6 @@ import Button from '../../ui/button/Button';
 import Text from '../../ui/textual/Text';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const BentoDiv = styled.figure`
-  position: relative;
-  overflow: hidden;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 22vw;
-  background: rgb(31 29 39 / 24%);
-  padding: 10% 10% 20%;
-  border-radius: 10px;
-  border: 1px solid rgb(56 51 63);
-  transform-origin: center;
-  backdrop-filter: blur(8px);
-  transform: translate3d(0px, 0px, 0px) rotate(00deg);
-`;
-
-const BentoParentdiv = styled.div`
-  position: relative;
-  margin: 0;
-  padding: 0;
-  transform-origin: center;
-  transform: translate3d(-10px, 150px, 0px) rotate(10deg);
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  object-fit: cover;
-`;
 
 const AboutMeSecondSection = ({ images, background }) => {
     const sectionRef = useRef(null);
@@ -153,18 +120,19 @@ const AboutMeSecondSection = ({ images, background }) => {
                             </Stack>
                         </Stack>
                         <Stack width={"60%"} justify={"center"}>
-                            <BentoParentdiv ref={parentBentoDivRef}>
-                                <BentoDiv ref={bentoDivRef}>
-                                    <Image src="https://media.licdn.com/dms/image/v2/D4D03AQG7_lNmrEXP3w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732219068306?e=1738195200&v=beta&t=xupm-35NvNz3RJJtZ97gfrRGUqi3Bf-SWDLkipUizj0" />
+                            <div ref={parentBentoDivRef} className={styles.bentoParentDiv}>
+                                <figure ref={bentoDivRef} className={styles.bentoDiv}>
+                                    <img
+                                        src="https://media.licdn.com/dms/image/v2/D4D03AQG7_lNmrEXP3w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732219068306?e=1738195200&v=beta&t=xupm-35NvNz3RJJtZ97gfrRGUqi3Bf-SWDLkipUizj0"
+                                        className={styles.video}
+                                    ></img>
                                     <Stack>
-                                        <Text>@rscotet</Text>
+                                        <Text>@ronanscotet</Text>
                                     </Stack>
-                                </BentoDiv>
-                            </BentoParentdiv>
+                                </figure>
+                            </div>
                         </Stack>
-
                     </Container>
-
                 </Stack>
                 <figure className={styles.image_section}>
                     <img className={styles.image_bg} ref={imageBgRef} src={"https://ranlus.fr/assets/gallery/15.webp"} alt="Background" />

@@ -1,25 +1,3 @@
-.image_bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6;
-    transform: translate3d(0px, -10%, 0px);
-    will-change: transform;
-}
-
-.image_section{
-    width: 100%;
-    border-radius: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 190vh;
-    overflow: hidden;
-    margin: 0;
-    background: black;
-    z-index: -1;
-}
-
 .bentoDiv {
     position: relative;
     overflow: hidden;
@@ -33,7 +11,6 @@
     border-radius: 10px;
     border: 1px solid rgb(56, 51, 63);
     transform-origin: center;
-    backdrop-filter: blur(8px);
     transform: translate3d(0px, 0px, 0px) rotate(0deg);
   }
   
@@ -42,7 +19,7 @@
     margin: 0;
     padding: 0;
     transform-origin: center;
-    transform: translate3d(-10px, 150px, 0px) rotate(10deg);
+    transform: translate3d(-10px, -100px, 0px) rotate(10deg);
   }
   
   .video {
