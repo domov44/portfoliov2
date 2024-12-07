@@ -319,3 +319,81 @@ export const onDeleteGallery = /* GraphQL */ `
     }
   }
 `;
+export const onCreateSocial = /* GraphQL */ `
+  subscription OnCreateSocial($filter: ModelSubscriptionSocialFilterInput) {
+    onCreateSocial(filter: $filter) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateSocial = /* GraphQL */ `
+  subscription OnUpdateSocial($filter: ModelSubscriptionSocialFilterInput) {
+    onUpdateSocial(filter: $filter) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteSocial = /* GraphQL */ `
+  subscription OnDeleteSocial($filter: ModelSubscriptionSocialFilterInput) {
+    onDeleteSocial(filter: $filter) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateBento = /* GraphQL */ `
+  subscription OnCreateBento($filter: ModelSubscriptionBentoFilterInput) {
+    onCreateBento(filter: $filter) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateBento = /* GraphQL */ `
+  subscription OnUpdateBento($filter: ModelSubscriptionBentoFilterInput) {
+    onUpdateBento(filter: $filter) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteBento = /* GraphQL */ `
+  subscription OnDeleteBento($filter: ModelSubscriptionBentoFilterInput) {
+    onDeleteBento(filter: $filter) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

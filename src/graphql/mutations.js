@@ -358,3 +358,99 @@ export const deleteGallery = /* GraphQL */ `
     }
   }
 `;
+export const createSocial = /* GraphQL */ `
+  mutation CreateSocial(
+    $input: CreateSocialInput!
+    $condition: ModelSocialConditionInput
+  ) {
+    createSocial(input: $input, condition: $condition) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateSocial = /* GraphQL */ `
+  mutation UpdateSocial(
+    $input: UpdateSocialInput!
+    $condition: ModelSocialConditionInput
+  ) {
+    updateSocial(input: $input, condition: $condition) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteSocial = /* GraphQL */ `
+  mutation DeleteSocial(
+    $input: DeleteSocialInput!
+    $condition: ModelSocialConditionInput
+  ) {
+    deleteSocial(input: $input, condition: $condition) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createBento = /* GraphQL */ `
+  mutation CreateBento(
+    $input: CreateBentoInput!
+    $condition: ModelBentoConditionInput
+  ) {
+    createBento(input: $input, condition: $condition) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateBento = /* GraphQL */ `
+  mutation UpdateBento(
+    $input: UpdateBentoInput!
+    $condition: ModelBentoConditionInput
+  ) {
+    updateBento(input: $input, condition: $condition) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteBento = /* GraphQL */ `
+  mutation DeleteBento(
+    $input: DeleteBentoInput!
+    $condition: ModelBentoConditionInput
+  ) {
+    deleteBento(input: $input, condition: $condition) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

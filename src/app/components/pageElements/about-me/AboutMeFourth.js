@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import styled from 'styled-components';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Title from '../../ui/textual/Title';
 import Stack from '../../ui/wrapper/Stack';
@@ -10,42 +9,6 @@ import Text from '../../ui/textual/Text';
 import styles from './AboutMeFourthSection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const BentoDiv = styled.figure`
-  position: relative;
-  overflow: hidden;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 22vw;
-  background: rgb(31 29 39 / 24%);
-  padding: 10% 10% 20%;
-  border-radius: 10px;
-  border: 1px solid rgb(56 51 63);
-  transform-origin: center;
-  transform: translate3d(0px, 0px, 0px) rotate(00deg);
-`;
-
-const BentoParentdiv = styled.li`
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  transform-origin: center;
-  list-style: none;
-
-  &:nth-child(1) { top: 0; left: 0; transform: translate(-10%, -10%); }
-  &:nth-child(2) { top: 0; right: 0; transform: translate(10%, -15%); }
-  &:nth-child(3) { bottom: 0; left: 0; transform: translate(10%, 200%); }
-  &:nth-child(4) { bottom: 0; right: 0; transform: translate(10%, 150%); }
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  object-fit: cover;
-`;
 
 const AboutMeFourthSection = () => {
   const sectionRef = useRef(null);
@@ -78,7 +41,7 @@ const AboutMeFourthSection = () => {
       });
 
       const handleMouseMove = (e) => {
-        const bentoDiv = parentBentoDiv.querySelector('figure');
+        const bentoDiv = parentBentoDiv.querySelector(`.${styles.bentoDiv}`);
         const { width, height, top, left } = bentoDiv.getBoundingClientRect();
         const x = e.clientX - left - width / 2;
         const y = e.clientY - top - height / 2;
@@ -93,7 +56,7 @@ const AboutMeFourthSection = () => {
       };
 
       const handleMouseLeave = () => {
-        const bentoDiv = parentBentoDiv.querySelector('figure');
+        const bentoDiv = parentBentoDiv.querySelector(`.${styles.bentoDiv}`);
         gsap.to(bentoDiv, {
           x: 0,
           y: 0,
@@ -131,19 +94,20 @@ const AboutMeFourthSection = () => {
             </Stack>
           </Stack>
         </Stack>
-        <ul className={styles.list_about}>
+        <ul className={styles.listAbout}>
           {bentos.map((bento, index) => (
-            <BentoParentdiv
+            <li
               key={index}
               ref={(el) => (bentoRefs.current[index] = el)}
+              className={styles.bentoParentDiv}
             >
-              <BentoDiv>
-                <Image src={bento.image} />
+              <div className={styles.bentoDiv}>
+                <img src={bento.image} className={styles.image} alt="" />
                 <Stack>
                   <Text>{bento.caption}</Text>
                 </Stack>
-              </BentoDiv>
-            </BentoParentdiv>
+              </div>
+            </li>
           ))}
         </ul>
       </Stack>

@@ -484,3 +484,129 @@ export const listGalleries = /* GraphQL */ `
     }
   }
 `;
+export const getSocial = /* GraphQL */ `
+  query GetSocial($id: ID!) {
+    getSocial(id: $id) {
+      id
+      label
+      href
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listSocials = /* GraphQL */ `
+  query ListSocials(
+    $filter: ModelSocialFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSocials(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        label
+        href
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const SocialByname = /* GraphQL */ `
+  query SocialByname(
+    $label: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSocialFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    SocialByname(
+      label: $label
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        label
+        href
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getBento = /* GraphQL */ `
+  query GetBento($id: ID!) {
+    getBento(id: $id) {
+      id
+      file
+      href
+      label
+      featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listBentos = /* GraphQL */ `
+  query ListBentos(
+    $filter: ModelBentoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBentos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        file
+        href
+        label
+        featuredOrder
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const BentoByFeaturedOrder = /* GraphQL */ `
+  query BentoByFeaturedOrder(
+    $featuredOrder: Int!
+    $sortDirection: ModelSortDirection
+    $filter: ModelBentoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    BentoByFeaturedOrder(
+      featuredOrder: $featuredOrder
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        file
+        href
+        label
+        featuredOrder
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

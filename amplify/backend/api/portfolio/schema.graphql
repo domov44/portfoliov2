@@ -64,3 +64,23 @@ type Gallery @model @auth(rules: [
   homeBackground: Boolean
   onHome: Boolean
 }
+
+type Social @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
+  id: ID!
+  label: String! @index(name: "byName", queryField: "SocialByname")
+  href: String!
+}
+
+type Bento @model @auth(rules: [
+  {allow: public, provider: identityPool, operations: [read]}
+  {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]},
+]) {
+  id: ID!
+  file: String
+  href: String
+  label: String
+  featuredOrder: Int @index(name: "byFeaturedOrder", queryField: "BentoByFeaturedOrder")
+}

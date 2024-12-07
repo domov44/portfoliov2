@@ -1,27 +1,35 @@
 import React from "react";
-import styled from "styled-components";
+import styles from "./Text.module.css";
 
-const TextComponent = styled.p`
-  font-family: var(--text-font-cashdisplay);
-  color: ${(props) =>
-    props.$variant === "default"
-      ? "var(--paragraph)"
-      : props.$variant === "colored"
-        ? "var(--main-color)"
-        : props.$variant === "contrasted"
-        ? "var(--color-title)"
-        : props.$variant === "white"
-          ? "#fff"
-          : "var(--paragraph)"};
-  text-align: ${props => (props.$textalign)};
-  max-width: ${props => (props.$maxwidth)};
-`;
+const Text = ({
+  variant = "default",
+  textalign = "left",
+  className,
+  id,
+  onClick,
+  children,
+  maxwidth,
+  fontfamily,
+  ...restProps
+}) => {
+  const combinedClassName = `${styles.text} ${styles[variant]} ${className || ""}`;
 
-const Text = ({ variant, textalign, className, id, onClick, children, maxwidth, fontfamily, ...restProps }) => {
+  const inlineStyles = {
+    textAlign: textalign,
+    maxWidth: maxwidth,
+    fontFamily: fontfamily,
+  };
+
   return (
-    <TextComponent className={className} $textalign={textalign} $variant={variant} $maxwidth={maxwidth} $fontfamily={fontfamily} {...restProps}>
+    <p
+      className={combinedClassName}
+      style={inlineStyles}
+      id={id}
+      onClick={onClick}
+      {...restProps}
+    >
       {children}
-    </TextComponent>
+    </p>
   );
 };
 
