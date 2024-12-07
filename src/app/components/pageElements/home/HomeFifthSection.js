@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Title from '../../ui/textual/Title';
@@ -9,39 +8,9 @@ import Section from '../../ui/wrapper/Section';
 import Container from '../../ui/wrapper/Container';
 import Button from '../../ui/button/Button';
 import Text from '../../ui/textual/Text';
+import styles from "./HomeFifthSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const BentoDiv = styled.figure`
-  position: relative;
-  overflow: hidden;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 22vw;
-  background: rgb(31 29 39 / 24%);
-  padding: 10% 10% 20%;
-  border-radius: 10px;
-  border: 1px solid rgb(56 51 63);
-  transform-origin: center;
-  transform: translate3d(0px, 0px, 0px) rotate(00deg);
-`;
-
-const BentoParentdiv = styled.div`
-  position: relative;
-  margin: 0;
-  padding: 0;
-  transform-origin: center;
-  transform: translate3d(-10px, -100px, 0px) rotate(-10deg);
-`;
-
-const Video = styled.video`
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  object-fit: cover;
-`;
 
 const HomeFifthSection = () => {
   const bentoDivRef = useRef(null);
@@ -111,14 +80,21 @@ const HomeFifthSection = () => {
     <Section ref={sectionRef}>
       <Container direction={"row"} width={"full"} maxwidth={"xl"} align={"center"}>
         <Stack width={"60%"} justify={"center"}>
-          <BentoParentdiv ref={parentBentoDivRef}>
-            <BentoDiv ref={bentoDivRef}>
-              <Video src="https://ranlus.fr/assets/instagram-card/3.mp4" autoPlay loop muted playsInline />
+          <div ref={parentBentoDivRef} className={styles.bentoParentDiv}>
+            <figure ref={bentoDivRef} className={styles.bentoDiv}>
+              <video
+                src="https://ranlus.fr/assets/instagram-card/3.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.video}
+              ></video>
               <Stack>
-                <Text>@rscotet</Text>
+                <Text>@ronanscotet</Text>
               </Stack>
-            </BentoDiv>
-          </BentoParentdiv>
+            </figure>
+          </div>
         </Stack>
         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
           <Title level={3} className={"step-1"}>
