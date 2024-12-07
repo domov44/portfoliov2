@@ -1,52 +1,52 @@
 import React, { forwardRef } from "react";
-import styled from "styled-components";
+import styles from "./Title.module.css";
 
-const TitleComponent = styled.h1.withConfig({
-  shouldForwardProp: (prop) =>
-    !['$variant', '$fontSize', '$zIndex', '$textalign', '$fontfamily'].includes(prop),
-})`
-  margin: 0;
-  overflow: hidden;
-  line-height: ${(props) => props.$lineHeight || ''};
-  font-size: ${(props) => props.$fontSize || ''};
-  position: relative;
-  font-family: ${(props) => props.$fontfamily || 'var(--text-font-cashdisplay)'};
-  text-align: ${(props) => props.$textalign || 'left'};
-  width: ${(props) => props.$width || ''};
-  z-index: ${(props) => props.$zIndex || '1'};
-  color: ${(props) =>
-    props.$variant === "default"
-      ? "var(--color-title)"
-      : props.$variant === "colored"
-        ? "var(--main-color)"
-        : props.$variant === "white"
-          ? "#fff"
-          : props.$variant === "black"
-            ? "#151b49"
-            : "var(--color-title)"};
-`;
+const Title = forwardRef(({
+  data_cy,
+  variant = "default",
+  lineHeight,
+  level = 1,
+  width,
+  className = "",
+  fontSize,
+  id,
+  onClick,
+  children,
+  zIndex,
+  textalign = "left",
+  fontfamily,
+  ...restProps
+}, ref) => {
+  const HeadingTag = `h${level}`;
 
-const Title = forwardRef(({ data_cy, variant, lineHeight, level, width, className, fontSize, id, onClick, children, zIndex, textalign, fontfamily, ...restProps }, ref) => {
-  const HeadingTag = `h${level || 1}`;
+  const dynamicClasses = [
+    styles.title,
+    styles[variant],
+    styles[`align-${textalign}`],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const inlineStyles = {
+    lineHeight: lineHeight || undefined,
+    width: width || undefined,
+    fontSize: fontSize || undefined,
+    zIndex: zIndex || undefined,
+    fontFamily: fontfamily || undefined,
+  };
 
   return (
-    <TitleComponent
-      as={HeadingTag}
-      $lineHeight={lineHeight}
-      className={className}
-      $variant={variant}
-      $width={width}
-      $level={level}
-      $textalign={textalign}
-      $fontfamily={fontfamily}
-      ref={ref}
-      $zIndex={zIndex}
-      $fontSize={fontSize}
+    <HeadingTag
+      className={dynamicClasses}
+      style={inlineStyles}
       data-cy={data_cy}
+      ref={ref}
+      onClick={onClick}
       {...restProps}
     >
       {children}
-    </TitleComponent>
+    </HeadingTag>
   );
 });
 
