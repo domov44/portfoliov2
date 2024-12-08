@@ -20,7 +20,7 @@ const AboutMeThirdSection = () => {
                     </Text>
                 </Stack>
                 <Stack direction={"column"} width={"60%"} spacing={"20px"} align="center">
-                    <Title level={4} className={"step-1"} textalign="center" width="20vw">
+                    <Title level={4} className={"default step-1 text_align_center w20vw"}>
                         Get in touch with me and let's talk about your project.
                     </Title>
                     <Button className={"step-1"} variant={"primary"} href="https://www.linkedin.com/in/ronan-scotet-concepteur-web/" target={"_blank"}>

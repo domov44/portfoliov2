@@ -81,7 +81,7 @@ const AboutMeFourthSection = () => {
       <Stack ref={sectionRef} className="scroll-section" position="relative" direction="column" overflow justify="start" padding="0px 0px 20vh 0px" spacing="100px">
         <Stack padding="30vh 0px 0px 0px" direction="column" width="100%" align="center" spacing="10vw" zIndex="1">
           <Stack width="70vw" justify="center" direction="column" align="center">
-            <Title level={2} fontSize="8vw" variant="colored" textalign="center" lineHeight="0.8">
+            <Title level={2} className="colored font8vw text_align_center w70vw ln0_8">
               WHAT CAN YOU EXPECT FROM ME ?
             </Title>
             <Stack width="40vw" justify="center" direction="column" align="center">

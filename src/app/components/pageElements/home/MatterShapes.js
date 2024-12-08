@@ -101,7 +101,7 @@ const MatterShapes = ({ images }) => {
 
   return (
     <Section fullWidth>
-      <Title level={2}>Which technologies?</Title>
+      <Title level={2} className="default">Which technologies?</Title>
       <div ref={sceneRef} style={{ width: '100%', height: '80vh', overflow: 'hidden' }} />
     </Section>
   );

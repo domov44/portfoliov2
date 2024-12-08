@@ -80,7 +80,7 @@ const HomeSixthSection = () => {
   return (
     <Section ref={sectionRef}>
       <Stack>
-        <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="60vw" lineHeight="0.8" zIndex="-1">
+        <Title level={2} className="colored font8vw zIndex_-1 text_align_center w60vw ln0_8">
           LET'S DO SOMETHING AWESOME TOGETHER
         </Title>
       </Stack>
@@ -103,7 +103,7 @@ const HomeSixthSection = () => {
           </div>
         </Stack>
         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
-          <Title level={3} className={"step-1"}>
+          <Title level={3} className={"default step-1"}>
             I'm excited just to imagine our future collaboration.
           </Title>
           <Stack direction={"column"}>
