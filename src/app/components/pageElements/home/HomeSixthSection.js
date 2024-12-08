@@ -110,7 +110,7 @@ const HomeSixthSection = () => {
             <Text>
               Make room for your vision and stand out from the crowd.
             </Text>
-            <Title level={4} className={"step-0"}>
+            <Title level={4} className={"default step-0"}>
               Hit me up and let's schedule a call.
             </Title>
           </Stack>
