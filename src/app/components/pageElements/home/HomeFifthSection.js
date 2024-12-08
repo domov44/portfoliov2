@@ -97,7 +97,7 @@ const HomeFifthSection = () => {
           </div>
         </Stack>
         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
-          <Title level={3} className={"step-1"}>
+          <Title level={3} className={"default step-1"}>
             Inspired by the best, I go further than just making code, pushing every project to the limit.
           </Title>
           <Stack direction={"column"}>

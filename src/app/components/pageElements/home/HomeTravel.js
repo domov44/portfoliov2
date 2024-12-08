@@ -60,7 +60,7 @@ const HomeTravel = ({ images, background }) => {
         <>
             <Section>
                 <Stack width="100%" justify="center">
-                    <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="70vw" lineHeight="0.8">
+                    <Title level={2} className="colored font8vw text_align_center w70vw ln0_8">
                         BEYOND CODE. CAPTURING MOMENTS
                     </Title>
                 </Stack>
@@ -69,7 +69,7 @@ const HomeTravel = ({ images, background }) => {
                 <Stack ref={sectionRef} className="scroll-section" position="relative" direction="column" overflow height="260vh" justify="start" padding="0px 0px 70vh 0px" spacing="100px" width="100%">
                     <Stack zIndex={2} justify="space-between" align="center" width="100%" position="sticky" top="30vh" padding="0px 30px">
                         <Stack width="33.3%">
-                            <Title level={5} className="step-1">TRAVEL</Title>
+                            <Title level={5} className="default step-1">TRAVEL</Title>
                         </Stack>
                         <Stack width="33.3%" justify="center">
                             <ul className={styles.image_list}>

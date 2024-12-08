@@ -98,7 +98,7 @@ const HomeSecondSection = () => {
           </div>
         </Stack>
         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
-          <Title level={3} className={"step-1"}>
+          <Title level={3} className="text_align_center default step-1">
             What do I do as a devops developer & as a lead developer?
           </Title>
           <Stack direction={"column"}>
