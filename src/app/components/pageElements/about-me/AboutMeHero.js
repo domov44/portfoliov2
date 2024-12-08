@@ -17,7 +17,7 @@ const AboutMeHero = () => {
                         <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
                     </Stack>
                     <Stack width={"33.3%"} justify={"center"}>
-                        <Title level={6}>Let's work together</Title>
+                        <Title level={6} className="default">Let's work together</Title>
                     </Stack>
                     <Stack width={"33.3%"} justify={"end"}>
                         <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>@ronanscotet</TextLink>

@@ -104,13 +104,13 @@ const AboutMeSecondSection = ({ images, background }) => {
             <Stack width="100%" ref={sectionRef} className="scroll-section" position="relative" direction="column" overflow height="160vh" justify="start" padding="0px 0px 70vh 0px" spacing="100px">
                 <Stack padding="50vh 0px 0px 0px" direction="column" width="100%" align="center" spacing="10vw">
                     <Stack width="100%" justify="center">
-                        <Title level={2} fontSize="8vw" variant="colored" textalign="center" width="70vw" lineHeight="0.8">
+                        <Title level={2} className="colored font8vw text_align_center w70vw ln0_8">
                             IAM A DEVOPS DEVELOPER
                         </Title>
                     </Stack>
                     <Container direction={"row"} width={"full"} maxwidth={"xl"} align={"center"}>
                         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
-                            <Title level={3} className={"step-1"}>
+                            <Title level={3} className={"default step-1"}>
                                 With me, you can be sure that every project will be carried out with commitment throughout the entire devops cycle.
                             </Title>
                             <Stack direction={"column"}>

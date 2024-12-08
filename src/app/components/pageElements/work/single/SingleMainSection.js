@@ -37,7 +37,7 @@ async function SingleMainSection({ project }) {
     }, []);
 
     return (
-        <Section className="h100vh defaultPadding" ref={sectionRef}>
+        <Section className="defaultPadding" ref={sectionRef}>
             <figure className={styles.image_section}>
                 <img className={styles.image_bg} ref={imageBgRef} src={"https://ranlus.fr/assets/work/hugo-decrypte-mashup/2.jpeg"} alt="Background" />
             </figure>

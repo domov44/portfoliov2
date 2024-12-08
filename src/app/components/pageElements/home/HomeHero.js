@@ -196,14 +196,14 @@ const HomeHero = ({ images }) => {
                         <TextLink href={"https://github.com/domov44"}>@domov44</TextLink>
                     </Stack>
                     <Stack width={"33.3%"} justify={"center"}>
-                        <Title level={6}>Devops developer & lead dev</Title>
+                        <Title level={6} className="text_align_center default">Devops developer & lead dev</Title>
                     </Stack>
                     <Stack width={"33.3%"} justify={"end"}>
                         <TextLink href={"https://www.linkedin.com/in/ronan-scotet-concepteur-web/"}>@ronanscotet</TextLink>
                     </Stack>
                 </Stack>
                 <Stack overflow={"hidden"} justify={"end"} width={"100%"}>
-                    <Title ref={titleRef} level={1} fontSize={"14vw"} variant="colored" zIndex="-1" data_cy="name-surname" className="hidden">
+                    <Title ref={titleRef} level={1} data_cy="name-surname" className="colored hidden font14vw zIndex_-1">
                         {titleText.split('').map((letter, index) => (
                             <span
                                 key={index}

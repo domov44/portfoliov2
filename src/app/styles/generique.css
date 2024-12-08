@@ -35,6 +35,39 @@
   height: 100vh;
 }
 
+.font8vw {
+  font-size: 8vw;
+}
+
+.font10vw {
+  font-size: 10vw;
+}
+
+.font14vw {
+  font-size: 14vw;
+}
+
+.colored {
+  color: var(--main-color);
+}
+
+/* Variants */
+.default {
+  color: var(--color-title);
+}
+
+.colored {
+  color: var(--main-color);
+}
+
+.white {
+  color: #fff;
+}
+
+.black {
+  color: #151b49;
+}
+
 .defaultPadding {
   padding: 10px 0px;
 }
@@ -123,6 +156,18 @@
 .width_fit {
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.w20vw {
+  width: 20vw;
+}
+
+.w60vw {
+  width: 60vw;
+}
+
+.w70vw {
+  width: 70vw;
 }
 
 /* Height */
@@ -269,6 +314,10 @@
 }
 
 /* Z-Index */
+.zIndex_-1 {
+  z-index: -1;
+}
+
 .zIndex_0 {
   z-index: 0;
 }
@@ -360,4 +409,14 @@
 
 .uppercase {
   text-transform: uppercase;
+}
+
+/* text align */
+.text_align_center {
+  text-align: center;
+}
+
+/* line height*/
+.ln0_8 {
+  line-height: 0.8;
 }/*# sourceMappingURL=generique.css.map */

@@ -3,52 +3,5 @@
     margin: 0;
     overflow: hidden;
     position: relative;
-    line-height: 1.5;
-    text-align: left;
     font-family: var(--text-font-cashdisplay);
-    z-index: 1;
-    color: var(--color-title);
-  }
-  
-  /* Variants */
-  .default {
-    color: var(--color-title);
-  }
-  
-  .colored {
-    color: var(--main-color);
-  }
-  
-  .white {
-    color: #fff;
-  }
-  
-  .black {
-    color: #151b49;
-  }
-  
-  /* Utility classes for alignment */
-  .align-left {
-    text-align: left;
-  }
-  
-  .align-center {
-    text-align: center;
-  }
-  
-  .align-right {
-    text-align: right;
-  }
-  
-  /* Font size */
-  .font-size-small {
-    font-size: 14px;
-  }
-  
-  .font-size-medium {
-    font-size: 18px;
-  }
-  
-  .font-size-large {
-    font-size: 24px;
   }
