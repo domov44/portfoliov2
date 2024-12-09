@@ -62,3 +62,19 @@
   height: 100%;
   margin: 0;
 }
+
+.bentoDiv a {
+  color: var(--secondary-bg-color);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bentoDiv a::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  content: "";
+}

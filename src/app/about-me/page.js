@@ -1,8 +1,8 @@
-import AboutMeFourthSection from '../components/pageElements/about-me/AboutMeFourth';
 import AboutMeHero from '../components/pageElements/about-me/AboutMeHero';
-import AboutMeSecondSection from '../components/pageElements/about-me/AboutMeSecondSection';
 import AboutMeThirdSection from '../components/pageElements/about-me/AboutMeThirdSection';
-import HomeSixthSection from '../components/pageElements/home/HomeSixthSection';
+import AboutMeFourthSectionServer from '../components/pageElements/about-me/server/AboutMeFourthSectionServer';
+import AboutMeSecondSectionServer from '../components/pageElements/about-me/server/AboutMeSecondSectionServer';
+import HomeSixthSectionServer from '../components/pageElements/home/serverSide/HomeSixthSection';
 import MainContent from '../layouts/MainContent';
 
 const Page = () => {
@@ -11,10 +11,10 @@ const Page = () => {
     return (
         <MainContent>
             <AboutMeHero />
-            <AboutMeSecondSection/>
+            <AboutMeSecondSectionServer/>
             <AboutMeThirdSection/>
-            <AboutMeFourthSection/>
-            <HomeSixthSection/>
+            <AboutMeFourthSectionServer/>
+            <HomeSixthSectionServer/>
         </MainContent>
     );
 }

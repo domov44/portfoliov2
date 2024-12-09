@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Title from '../../ui/textual/Title';
@@ -10,10 +9,11 @@ import Container from '../../ui/wrapper/Container';
 import Button from '../../ui/button/Button';
 import Text from '../../ui/textual/Text';
 import styles from "./HomeSecondSection.module.css";
+import InvisibleLink from '../../ui/button/InvisibleLink';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HomeSecondSection = () => {
+const HomeSecondSection = ({ bento }) => {
   const bentoDivRef = useRef(null);
   const parentBentoDivRef = useRef(null);
   const sectionRef = useRef(null);
@@ -35,7 +35,7 @@ const HomeSecondSection = () => {
         start: "top bottom",
         end: "bottom top",
         scrub: true,
-        onUpdate: (self) => {
+        onUpdate: () => {
           parentBentoPosition.x = gsap.getProperty(parentBentoDiv, "x");
           parentBentoPosition.y = gsap.getProperty(parentBentoDiv, "y");
           parentBentoPosition.rotation = gsap.getProperty(parentBentoDiv, "rotation");
@@ -82,19 +82,28 @@ const HomeSecondSection = () => {
       <Container direction={"row"} width={"full"} maxwidth={"xl"} align={"center"}>
         <Stack width={"60%"} justify={"center"}>
           <div ref={parentBentoDivRef} className={styles.bentoParentDiv}>
-            <figure ref={bentoDivRef} className={styles.bentoDiv}>
-              <video
-                src="https://ranlus.fr/assets/instagram-card/2.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={styles.video}
-              ></video>
-              <Stack>
-                <Text>@ronanscotet</Text>
-              </Stack>
-            </figure>
+            {bento.map((item, index) => (
+              <figure key={index} ref={bentoDivRef} className={styles.bentoDiv}>
+                {item.fileType.startsWith("image") ? (
+                  <img src={item.file} alt={item.label} className={styles.video} />
+                ) : item.fileType.startsWith("video") ? (
+                  <video
+                    src={item.file}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className={styles.video}
+                  ></video>
+                ) : null}
+                < Stack >
+                  <Text>{item.label}</Text>
+                </Stack>
+                {item.href && (
+                  <InvisibleLink lineheight={"0"} href={item.href} target={"_blank"}>{item.href}</InvisibleLink>
+                )}
+              </figure>
+            ))}
           </div>
         </Stack>
         <Stack direction={"column"} width={"40%"} spacing={"20px"}>
@@ -114,7 +123,7 @@ const HomeSecondSection = () => {
           </Button>
         </Stack>
       </Container>
-    </Section>
+    </Section >
   );
 };
 
