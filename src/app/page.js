@@ -1,11 +1,11 @@
 import MainContent from './layouts/MainContent';
-import HomeSecondSection from './components/pageElements/home/HomeSecondSection';
-import HomeFifthSection from './components/pageElements/home/HomeFifthSection';
-import HomeSixthSection from './components/pageElements/home/HomeSixthSection';
 import HomeTravelServer from './components/pageElements/home/serverSide/HomeTravelServer';
 import ColisionSkillsServer from './components/pageElements/home/serverSide/ColisionSkillsServer';
 import HomeHeroServer from './components/pageElements/home/serverSide/HomeHeroServer';
 import HomeGridServer from './components/pageElements/home/serverSide/HomeGridServer';
+import HomeSecondSectionServer from './components/pageElements/home/serverSide/HomeSecondSectionServer';
+import HomeFifthSectionServer from './components/pageElements/home/serverSide/HomeFifthSectionServer';
+import HomeSixthSectionServer from './components/pageElements/home/serverSide/HomeSixthSection';
 
 
 const Page = () => {
@@ -13,12 +13,12 @@ const Page = () => {
     return (
         <MainContent>
             <HomeHeroServer/>
-            <HomeSecondSection />
+            <HomeSecondSectionServer />
             <ColisionSkillsServer />
             <HomeGridServer /> 
             <HomeTravelServer />
-            <HomeFifthSection />
-            <HomeSixthSection />
+            <HomeFifthSectionServer />
+            <HomeSixthSectionServer />
         </MainContent>
     );
 }
