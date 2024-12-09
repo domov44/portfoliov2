@@ -10,10 +10,11 @@ import styles from './AboutMeSecondSection.module.css';
 import Container from '../../ui/wrapper/Container';
 import Button from '../../ui/button/Button';
 import Text from '../../ui/textual/Text';
+import InvisibleLink from '../../ui/button/InvisibleLink';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const AboutMeSecondSection = ({ images, background }) => {
+const AboutMeSecondSection = ({ bento }) => {
     const sectionRef = useRef(null);
     const imageBgRef = useRef(null);
 
@@ -121,15 +122,28 @@ const AboutMeSecondSection = ({ images, background }) => {
                         </Stack>
                         <Stack width={"60%"} justify={"center"}>
                             <div ref={parentBentoDivRef} className={styles.bentoParentDiv}>
-                                <figure ref={bentoDivRef} className={styles.bentoDiv}>
-                                    <img
-                                        src="https://media.licdn.com/dms/image/v2/D4D03AQG7_lNmrEXP3w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732219068306?e=1738195200&v=beta&t=xupm-35NvNz3RJJtZ97gfrRGUqi3Bf-SWDLkipUizj0"
-                                        className={styles.video}
-                                    ></img>
-                                    <Stack>
-                                        <Text>@ronanscotet</Text>
-                                    </Stack>
-                                </figure>
+                                {bento.map((item, index) => (
+                                    <figure key={index} ref={bentoDivRef} className={styles.bentoDiv}>
+                                        {item.fileType.startsWith("image") ? (
+                                            <img src={item.file} alt={item.label} className={styles.video} />
+                                        ) : item.fileType.startsWith("video") ? (
+                                            <video
+                                                src={item.file}
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className={styles.video}
+                                            ></video>
+                                        ) : null}
+                                        < Stack >
+                                            <Text>{item.label}</Text>
+                                        </Stack>
+                                        {item.href && (
+                                            <InvisibleLink lineheight={"0"} href={item.href} target={"_blank"}>{item.href}</InvisibleLink>
+                                        )}
+                                    </figure>
+                                ))}
                             </div>
                         </Stack>
                     </Container>

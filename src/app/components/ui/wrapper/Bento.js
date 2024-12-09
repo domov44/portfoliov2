@@ -1,47 +1,55 @@
-import React, { forwardRef, useRef, useImperativeHandle } from "react";
-import styles from "./Bento.module.css";
-import Stack from "./Stack";
-import Text from "../textual/Text";
+import React from 'react';
+import styled from 'styled-components';
 
-const Bento = forwardRef(({ 
-  videoSrc, 
-  username, 
-  onMouseMove, 
-  onMouseLeave 
-}, ref) => {
-  const parentBentoDivRef = useRef(null);
-  const bentoDivRef = useRef(null);
+const BentoDiv = styled.div`
+  position: ${props => props.$position || "relative"};
+  overflow: hidden;
+  gap: 10px;
+  top: ${props => props.$top || ""};
+  right: ${props => props.$right || ""};
+  bottom: ${props => props.$bottom || ""};
+  left: ${props => props.$left || ""};
+  display: flex;
+  flex-direction: ${props => (props.$direction === "row" ? "row" : "column")};
+  justify-content: center;
+  align-items: ${props => (props.$align === "center" ? "center" : "")};
+  width: ${props => (props.$width ? props.$width : "100%")};
+  height: ${props => (props.$height ? props.$height : "")};
+  background: ${props => (props.$highlight ? "#1f1d27" : "")};
+  padding: ${props => (props.$padding ? props.$padding : "24px")};
+  border-radius: ${props => (props.$highlight ? "10px" : "")};
+  border: 2px solid #2b2930;
 
-  useImperativeHandle(ref, () => ({
-    parentBentoDivRef,
-    bentoDivRef
-  }));
+  @media (max-width: 1000px) {
+    width: ${props => (props.$responsive && props.$responsive.tabletWidth ? props.$responsive.tabletWidth : props.$width)};
+    padding: ${props => (props.$responsive && props.$responsive.tabletPadding ? props.$responsive.tabletPadding : props.$padding)};
+  }
 
+  @media (max-width: 750px) {
+    width: ${props => (props.$responsive && props.$responsive.mobileWidth ? props.$responsive.mobileWidth : props.$responsive && props.$responsive.tabletWidth ? props.$responsive.tabletWidth : props.$width)};
+    padding: ${props => (props.$responsive && props.$responsive.mobilePadding ? props.$responsive.mobilePadding : props.$responsive && props.$responsive.tabletPadding ? props.$responsive.tabletPadding : props.$padding)};
+  }
+`;
+
+function Bento({ children, align, position, direction, highlight, top, right, bottom, left, width, padding, responsive, height }) {
   return (
-    <div 
-      ref={parentBentoDivRef} 
-      className={styles.bentoParentDiv}
+    <BentoDiv
+      $align={align}
+      $position={position}
+      $top={top}
+      $right={right}
+      $bottom={bottom}
+      $left={left}
+      $direction={direction}
+      $highlight={highlight}
+      $width={width}
+      $height={height}
+      $padding={padding}
+      $responsive={responsive}
     >
-      <figure 
-        ref={bentoDivRef} 
-        className={styles.bentoDiv}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-      >
-        <video
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={styles.video}
-        ></video>
-        <Stack>
-          <Text>@{username}</Text>
-        </Stack>
-      </figure>
-    </div>
+      {children}
+    </BentoDiv>
   );
-});
+}
 
 export default Bento;
