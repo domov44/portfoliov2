@@ -10,6 +10,10 @@ import { generateClient } from 'aws-amplify/api';
 import { createProject } from '@/graphql/mutations';
 import UploadGallery from '@/app/components/pageElements/administrator/gallery/add/UploadGallery';
 import { uploadData } from 'aws-amplify/storage';
+import Accordion from '@/app/components/ui/wrapper/Accordion';
+import IconButton from '@/app/components/ui/button/IconButton';
+import { CiTrash } from 'react-icons/ci';
+import Stack from '@/app/components/ui/wrapper/Stack';
 
 const client = generateClient();
 
@@ -25,6 +29,29 @@ function Page() {
     const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
     const [selectedVideoFile, setSelectedVideoFile] = useState(null);
     const [featuredOrder, setFeaturedOrder] = useState('');
+
+    const [lines, setLines] = useState([{ id: 1, images: [] }]);
+
+    const addLine = () => {
+        const newLine = { id: lines.length + 1, images: [] };
+        setLines([...lines, newLine]);
+    };
+
+    const addImageToLine = (lineId) => {
+        setLines(lines.map(line =>
+            line.id === lineId ? { ...line, images: [...line.images, null] } : line
+        ));
+    };
+
+    const removeImageFromLine = (lineId, index) => {
+        setLines(lines.map(line =>
+            line.id === lineId ? { ...line, images: line.images.filter((_, i) => i !== index) } : line
+        ));
+    };
+
+    const removeLine = (lineId) => {
+        setLines(lines.filter(line => line.id !== lineId));
+    };
 
     const handleThumbnailSelect = (file) => {
         setSelectedThumbnailFile(file);
@@ -54,6 +81,33 @@ function Page() {
         }
     };
 
+    const generateJson = async () => {
+        try {
+            const rows = await Promise.all(
+                lines.map(async (line) => {
+                    const pictureKeys = await Promise.all(
+                        line.images.map(async (image) => {
+                            if (image) {
+                                const { key } = await uploadFileToS3(image);
+                                return key;
+                            }
+                            return null;
+                        })
+                    );
+
+                    return { pictures: pictureKeys.filter(picture => picture !== null) };
+                })
+            );
+
+            const jsonData = { rows };
+            console.log("Generated JSON: ", jsonData.rows);
+
+            return jsonData;
+        } catch (error) {
+            console.error("Erreur lors de la génération du JSON", error);
+        }
+    };
+
     const handleSubmit = async () => {
         try {
             const { key: thumbnailKey } = await uploadFileToS3(selectedThumbnailFile);
@@ -62,6 +116,12 @@ function Page() {
             if (selectedVideoFile) {
                 const uploadResult = await uploadFileToS3(selectedVideoFile);
                 videoKey = uploadResult.key;
+            }
+
+            const jsonData = await generateJson();
+            if (!jsonData) {
+                console.error("Erreur de génération du JSON.");
+                return;
             }
 
             await client.graphql({
@@ -79,7 +139,8 @@ function Page() {
                         date: date,
                         href: href.toLowerCase(),
                         featuredOrder: featuredOrder,
-                        globalPartitionKey: "projects"
+                        globalPartitionKey: "projects",
+                        images: JSON.stringify(jsonData.rows),
                     },
                 },
             });
@@ -184,6 +245,45 @@ function Page() {
                             maxSize={3 * 1048576}
                             acceptedTypes="video/mp4, video/webm, video/avi"
                         />
+
+                        {lines.map((line) => (
+                            <Stack key={line.id} width="100%">
+                                <Accordion title={`Ligne ${line.id}`}>
+                                    {line.images.map((image, index) => (
+                                        <Stack key={index}>
+                                            <UploadGallery
+                                                onFileSelect={(file) => {
+                                                    const newLines = lines.map(l => {
+                                                        if (l.id === line.id) {
+                                                            const updatedImages = [...l.images];
+                                                            updatedImages[index] = file;
+                                                            return { ...l, images: updatedImages };
+                                                        }
+                                                        return l;
+                                                    });
+                                                    setLines(newLines);
+                                                }}
+                                                maxSize={2 * 1048576}
+                                                acceptedTypes="image/png, image/jpeg, image/jpg, image/avif, image/webp"
+                                            />
+                                            <IconButton variant={"danger"} onClick={() => removeImageFromLine(line.id, index)}>
+                                                <CiTrash />
+                                            </IconButton>
+                                        </Stack>
+                                    ))}
+                                    <IconButton variant={"action"} onClick={() => addImageToLine(line.id)}>
+                                        Ajouter une image
+                                    </IconButton>
+                                </Accordion>
+                                <IconButton variant={"danger"} onClick={() => removeLine(line.id)}>
+                                    <CiTrash />
+                                </IconButton>
+                            </Stack>
+                        ))}
+
+                        <IconButton variant={"action"} onClick={addLine}>
+                            Ajouter une ligne d'image
+                        </IconButton>
                         <Button variant="primary" onClick={handleSubmit}>Submit</Button>
                     </Bento>
                 </FormContainer>

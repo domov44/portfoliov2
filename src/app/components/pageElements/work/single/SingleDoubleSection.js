@@ -7,7 +7,7 @@ import styles from './SingleDoubleSection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-async function SingleDoubleSection({ project }) {
+function SingleDoubleSection({ images }) {
     const sectionRef = useRef(null);
     const imageRefs = useRef([]);
 
@@ -33,7 +33,7 @@ async function SingleDoubleSection({ project }) {
     return (
         <Section className="h80vh defaultPadding align_center" ref={sectionRef}>
             <div className={styles.wrapper_single}>
-                {['https://ranlus.fr/assets/work/hugo-decrypte-mashup/4.jpeg', 'https://ranlus.fr/assets/work/hugo-decrypte-mashup/3.jpeg'].map((src, index) => (
+                {images.map((src, index) => (
                     <div key={index} className={styles.stack_single}>
                         <figure className={styles.image_section}>
                             <img
