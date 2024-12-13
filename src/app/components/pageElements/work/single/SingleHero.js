@@ -1,17 +1,35 @@
 "use client"
+import Button from '@/app/components/ui/button/Button';
 import Text from '@/app/components/ui/textual/Text';
 import Title from '@/app/components/ui/textual/Title';
 import Section from '@/app/components/ui/wrapper/Section';
 import Stack from '@/app/components/ui/wrapper/Stack';
+import { PiGithubLogoFill } from 'react-icons/pi';
 
 async function SingleHero({ project }) {
 
     return (
         <Section className="justify_end h95vh">
             <Stack direction="column" height="60%" width="100%" justify="space-between">
-                <Title level={1} className="colored font10vw text_align_center">
-                    {project.name}
-                </Title>
+                <Stack direction="column" align="center" width="100%">
+                    <Title level={1} className="colored font10vw text_align_center">
+                        {project.name}
+                    </Title>
+                    {(project.href && project.href !== '' || project.github && project.github !== '') && (
+                        <Stack>
+                            {(project.href && project.href !== '') && (
+                                <Button variant="primary" href={project.href} target="_blank">
+                                    view the project
+                                </Button>
+                            )}
+                            {(project.github && project.github !== '') && (
+                                <Button variant="secondary" href={project.github} target="_blank">
+                                    <PiGithubLogoFill /> look at the github
+                                </Button>
+                            )}
+                        </Stack>
+                    )}
+                </Stack>
                 <Stack width="100%" justify="space-between">
                     {project.role &&
                         <Stack width="33%" direction="column" spacing='0' align="center" className="uppercase">
