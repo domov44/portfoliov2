@@ -35,7 +35,6 @@ function Page({ params }) {
     const [selectedVideoFile, setSelectedVideoFile] = useState(null);
     const [featuredOrder, setFeaturedOrder] = useState('');
     
-    // New state for managing image rows
     const [lines, setLines] = useState([{ id: 1, images: [] }]);
 
     useEffect(() => {
@@ -64,7 +63,6 @@ function Page({ params }) {
                     setHref(project.href || '');
                     setFeaturedOrder(project.featuredOrder || '');
 
-                    // Parse and set the images if they exist
                     if (project.images) {
                         try {
                             const parsedImages = JSON.parse(project.images);
@@ -187,18 +185,18 @@ function Page({ params }) {
 
             const input = {
                 id: projectId,
-                ...(name && { name: name.toLowerCase() }),
-                ...(slugField && { slug: slugField.toLowerCase() }),
-                ...(thumbnailKey && { thumbnail: thumbnailKey }),
-                ...(videoKey && { video: videoKey }),
-                ...(github && { github: github.toLowerCase() }),
-                ...(role && { role: role.toLowerCase() }),
-                ...(context && { context: context.toLowerCase() }),
-                ...(description && { description }),
-                ...(date && { date: date }),
-                ...(href && { href: href.toLowerCase() }),
-                ...(featuredOrder && { featuredOrder: featuredOrder }),
-                ...(jsonData && { images: JSON.stringify(jsonData.rows) }),
+                name: name.toLowerCase() || '',
+                slug: slugField.toLowerCase() || '',
+                thumbnail: thumbnailKey || '',
+                video: videoKey || '',
+                github: github.toLowerCase() || '',
+                role: role.toLowerCase() || '',
+                context: context.toLowerCase() || '',
+                description: description || '',
+                date: date || '',
+                href: href.toLowerCase() || '',
+                featuredOrder: featuredOrder || '',
+                images: JSON.stringify(jsonData.rows) || '[]',
             };
 
             await client.graphql({

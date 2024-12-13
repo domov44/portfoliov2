@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useInstantUrlTransition } from '@/app/utils/useInstantUrlTransition';
 import styles from './Button.module.css';
 
-const Button = ({ children, onClick, className, width, href, transition = false, target }) => {
+const Button = ({ children, onClick, className, width, href, transition = false, target, variant = 'primary' }) => {
   const buttonRef = useRef(null);
   const handleTransition = useInstantUrlTransition();
   const [circle, setCircle] = useState({ x: 0, y: 0, size: 0 });
@@ -33,7 +33,7 @@ const Button = ({ children, onClick, className, width, href, transition = false,
     <Component
       href={href}
       {...(href && { target })}
-      className={`${styles.button} ${width === "fit-content" ? styles.fitContent : width === "full-width" ? styles.fullWidth : ""} ${className}`}
+      className={`${styles.button} ${styles[variant]} ${width === "fit-content" ? styles.fitContent : width === "full-width" ? styles.fullWidth : ""} ${className}`}
       onMouseDown={transition ? (event) => event.preventDefault() : undefined}
       onClick={href && transition ? (event) => handleTransition(href, event) : onClick}
       onMouseEnter={handleMouseEnter}
