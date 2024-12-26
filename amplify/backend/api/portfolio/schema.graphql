@@ -15,7 +15,7 @@ type Project @model @auth(rules: [
   context: String
   steps: AWSJSON
   description: String
-  skills: [Skill] @hasMany
+  skills: [Skill] @manyToMany(relationName: "ProjectSkills")
   category: Category @hasOne
   featuredOrder: Int @index(name: "byFeaturedOrder", queryField: "ProjectsByFeaturedOrder")
   globalPartitionKey: String! 
@@ -32,6 +32,7 @@ type Skill @model @auth(rules: [
   colisionLogo: String
   typeID: String!
   type: SkillType @hasOne
+  project: [Project] @manyToMany(relationName: "ProjectSkills")
 }
 
 type SkillType @model @auth(rules: [

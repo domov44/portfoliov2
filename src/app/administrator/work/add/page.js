@@ -4,20 +4,28 @@ import FormContainer from '@/app/components/ui/wrapper/FormContainer';
 import Bento from '@/app/components/ui/wrapper/Bento';
 import Head from 'next/head';
 import TextInput from '@/app/components/ui/form/TextInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/app/components/ui/button/Button';
 import { generateClient } from 'aws-amplify/api';
-import { createProject } from '@/graphql/mutations';
+import { createProject, createProjectSkills } from '@/graphql/mutations';
 import UploadGallery from '@/app/components/pageElements/administrator/gallery/add/UploadGallery';
 import { uploadData } from 'aws-amplify/storage';
 import Accordion from '@/app/components/ui/wrapper/Accordion';
 import IconButton from '@/app/components/ui/button/IconButton';
 import { CiTrash } from 'react-icons/ci';
 import Stack from '@/app/components/ui/wrapper/Stack';
+import { listSkills } from '@/graphql/queries';
+import useCategoriesOptions from '@/app/utils/getCategories';
+import SelectSearchable from '@/app/components/ui/form/SelectSearchable';
 
 const client = generateClient();
 
 function Page() {
+
+    const categoriesOptions = useCategoriesOptions();
+    const [category, setCategory] = useState(null);
+    const [skills, setSkills] = useState([]);
+    const [selectedSkills, setSelectedSkills] = useState([]);
     const [name, setName] = useState('');
     const [slug, setSlug] = useState('');
     const [github, setGithub] = useState('');
@@ -108,23 +116,51 @@ function Page() {
         }
     };
 
+    useEffect(() => {
+        const fetchSkills = async () => {
+            try {
+                const skillsResult = await client.graphql({
+                    query: listSkills,
+                    authMode: 'userPool',
+                });
+
+                const skillsData = skillsResult.data.listSkills;
+                const skills = skillsData && skillsData.items ? skillsData.items : [];
+                setSkills(skills);
+                console.log(skills)
+            } catch (error) {
+                console.error('Error fetching skills:', error);
+            }
+        };
+
+        fetchSkills();
+    }, []);
+
+    const handleCheckboxChange = (skillId) => {
+        setSelectedSkills((prevSelected) =>
+            prevSelected.includes(skillId)
+                ? prevSelected.filter((id) => id !== skillId)
+                : [...prevSelected, skillId]
+        );
+    };
+
     const handleSubmit = async () => {
         try {
             const { key: thumbnailKey } = await uploadFileToS3(selectedThumbnailFile);
-
+    
             let videoKey = null;
             if (selectedVideoFile) {
                 const uploadResult = await uploadFileToS3(selectedVideoFile);
                 videoKey = uploadResult.key;
             }
-
+    
             const jsonData = await generateJson();
             if (!jsonData) {
                 console.error("Erreur de génération du JSON.");
                 return;
             }
-
-            await client.graphql({
+    
+            const projectResult = await client.graphql({
                 query: createProject,
                 variables: {
                     input: {
@@ -141,14 +177,35 @@ function Page() {
                         featuredOrder: featuredOrder,
                         globalPartitionKey: "projects",
                         images: JSON.stringify(jsonData.rows),
+                        projectCategoryId: category || null,
                     },
                 },
             });
-
-            console.log("success");
-
+    
+            const project = projectResult.data.createProject;
+            console.log("Projet créé:", project);
+    
+            for (const skillId of selectedSkills) {
+                try {
+                    await client.graphql({
+                        query: createProjectSkills,
+                        variables: {
+                            input: {
+                                projectId: project.id,
+                                skillId: skillId,
+                            },
+                        },
+                    });
+                    console.log(`Relation créée entre le projet ${project.id} et la compétence ${skillId}`);
+                } catch (error) {
+                    console.error(`Erreur lors de la liaison du projet ${project.id} avec la compétence ${skillId}:`, error);
+                }
+            }
+    
+            console.log("Toutes les relations ont été créées avec succès.");
+    
         } catch (error) {
-            console.error("error during submit", error);
+            console.error("Erreur lors de la soumission:", error);
         }
     };
 
@@ -235,6 +292,26 @@ function Page() {
                             required
                             variant="blue"
                         />
+                        <SelectSearchable
+                            options={categoriesOptions}
+                            onSelect={(selectedOption) => setCategory(selectedOption.id)}
+                            label="Rechercher une catégorie"
+                        />
+                        <ul>
+                            {skills.map((skill) => (
+                                <li key={skill.id}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value={skill.id}
+                                            checked={selectedSkills.includes(skill.id)}
+                                            onChange={() => handleCheckboxChange(skill.id)}
+                                        />
+                                        {skill.name}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
                         <UploadGallery
                             onFileSelect={handleThumbnailSelect}
                             maxSize={2 * 1048576}

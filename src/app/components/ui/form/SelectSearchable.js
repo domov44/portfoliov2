@@ -103,6 +103,7 @@ const SelectSearchable = ({ options, onSelect, defaultText, value, label }) => {
   useEffect(() => {
     const selected = options.find(option => option.id === value);
     setSelectedOption(selected || null);
+    setSearchTerm(selected ? selected.name : '');
   }, [value, options]);
 
   useEffect(() => {
@@ -121,7 +122,6 @@ const SelectSearchable = ({ options, onSelect, defaultText, value, label }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [searchTerm, options]);
-
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -172,6 +172,7 @@ const SelectSearchable = ({ options, onSelect, defaultText, value, label }) => {
     </StyledSelect>
   );
 };
+
 
 
 export default SelectSearchable;

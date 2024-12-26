@@ -7,8 +7,8 @@ import TextInput from '@/app/components/ui/form/TextInput';
 import { useState, useEffect } from 'react';
 import Button from '@/app/components/ui/button/Button';
 import { generateClient } from 'aws-amplify/api';
-import { updateProject } from '@/graphql/mutations';
-import { ProjectBySlug } from '@/graphql/queries';
+import { createProjectSkills, deleteProjectSkills, updateProject } from '@/graphql/mutations';
+import { ProjectBySlug } from '@/graphqlCustom/queries';
 import UploadGallery from '@/app/components/pageElements/administrator/gallery/add/UploadGallery';
 import { uploadData } from 'aws-amplify/storage';
 import { notFound } from 'next/navigation';
@@ -16,12 +16,16 @@ import Accordion from '@/app/components/ui/wrapper/Accordion';
 import IconButton from '@/app/components/ui/button/IconButton';
 import { CiTrash } from 'react-icons/ci';
 import Stack from '@/app/components/ui/wrapper/Stack';
+import useCategoriesOptions from '@/app/utils/getCategories';
+import SelectSearchable from '@/app/components/ui/form/SelectSearchable';
+import { listSkills } from '@/graphql/queries';
 
 const client = generateClient();
 
 function Page({ params }) {
+    const categoriesOptions = useCategoriesOptions();
     const { slug } = params;
-
+    const [category, setCategory] = useState(null);
     const [projectId, setProjectId] = useState(null);
     const [name, setName] = useState('');
     const [slugField, setSlug] = useState('');
@@ -34,7 +38,10 @@ function Page({ params }) {
     const [selectedThumbnailFile, setSelectedThumbnailFile] = useState(null);
     const [selectedVideoFile, setSelectedVideoFile] = useState(null);
     const [featuredOrder, setFeaturedOrder] = useState('');
-    
+    const [skills, setSkills] = useState([]);
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const [existingSkills, setExistingSkills] = useState([]);
+
     const [lines, setLines] = useState([{ id: 1, images: [] }]);
 
     useEffect(() => {
@@ -51,6 +58,8 @@ function Page({ params }) {
                     ? projectData.items[0]
                     : null;
 
+                console.log(project)
+
                 if (project) {
                     setProjectId(project.id);
                     setName(project.name || '');
@@ -62,6 +71,16 @@ function Page({ params }) {
                     setDate(project.date || '');
                     setHref(project.href || '');
                     setFeaturedOrder(project.featuredOrder || '');
+                    setCategory(project.category.id);
+
+                    if (project.skills && project.skills.items) {
+                        const skills = project.skills.items.map(skillItem => ({
+                            skillId: skillItem.skill.id,
+                            relationId: skillItem.id,
+                        }));
+                        setSelectedSkills(skills.map(skill => skill.skillId));
+                        setExistingSkills(skills);
+                    }
 
                     if (project.images) {
                         try {
@@ -79,6 +98,7 @@ function Page({ params }) {
                 } else {
                     notFound();
                 }
+
             } catch (error) {
                 console.error('Error fetching project:', error);
             }
@@ -163,6 +183,34 @@ function Page({ params }) {
         }
     };
 
+    useEffect(() => {
+        const fetchSkills = async () => {
+            try {
+                const skillsResult = await client.graphql({
+                    query: listSkills,
+                    authMode: 'userPool',
+                });
+
+                const skillsData = skillsResult.data.listSkills;
+                const skills = skillsData && skillsData.items ? skillsData.items : [];
+                setSkills(skills);
+                console.log(skills)
+            } catch (error) {
+                console.error('Error fetching skills:', error);
+            }
+        };
+
+        fetchSkills();
+    }, []);
+
+    const handleCheckboxChange = (skillId) => {
+        setSelectedSkills((prevSelected) =>
+            prevSelected.includes(skillId)
+                ? prevSelected.filter((id) => id !== skillId)
+                : [...prevSelected, skillId]
+        );
+    };
+
     const handleSubmit = async () => {
         try {
             let thumbnailKey = null;
@@ -187,8 +235,8 @@ function Page({ params }) {
                 id: projectId,
                 name: name.toLowerCase() || '',
                 slug: slugField.toLowerCase() || '',
-                thumbnail: thumbnailKey || '',
-                video: videoKey || '',
+                ...(thumbnailKey && { thumbnail: thumbnailKey }),
+                ...(videoKey && { video: videoKey }),
                 github: github.toLowerCase() || '',
                 role: role.toLowerCase() || '',
                 context: context.toLowerCase() || '',
@@ -197,6 +245,7 @@ function Page({ params }) {
                 href: href.toLowerCase() || '',
                 featuredOrder: featuredOrder || '',
                 images: JSON.stringify(jsonData.rows) || '[]',
+                ...(category && { projectCategoryId: category }),
             };
 
             await client.graphql({
@@ -204,11 +253,38 @@ function Page({ params }) {
                 variables: { input },
             });
 
+            const skillsToAdd = selectedSkills.filter(skillId => !existingSkills.includes(skillId));
+            const skillsToRemove = existingSkills.filter(skillId => !selectedSkills.includes(skillId));
+
+            for (const skillId of skillsToAdd) {
+                await client.graphql({
+                    query: createProjectSkills,
+                    variables: {
+                        input: {
+                            projectId,
+                            skillId,
+                        },
+                    },
+                });
+            }
+
+            for (const { relationId } of skillsToRemove) {
+                await client.graphql({
+                    query: deleteProjectSkills,
+                    variables: {
+                        input: {
+                            id: relationId,
+                        },
+                    },
+                });
+            }
+
             console.log('Project updated successfully!');
         } catch (error) {
             console.error('Error updating project:', error);
         }
     };
+
 
     return (
         <>
@@ -297,6 +373,27 @@ function Page({ params }) {
                             required
                             variant="blue"
                         />
+                        <SelectSearchable
+                            options={categoriesOptions}
+                            onSelect={(selectedOption) => setCategory(selectedOption.id)}
+                            label="Rechercher une catégorie"
+                            value={category}
+                        />
+                        <ul>
+                            {skills.map((skill) => (
+                                <li key={skill.id}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value={skill.id}
+                                            checked={selectedSkills.includes(skill.id)}
+                                            onChange={() => handleCheckboxChange(skill.id)}
+                                        />
+                                        {skill.name}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
                         <UploadGallery
                             onFileSelect={handleThumbnailSelect}
                             maxSize={2 * 1048576}
@@ -330,8 +427,8 @@ function Page({ params }) {
                                             />
                                             {image && (
                                                 <div>
-                                                    {typeof image === 'string' 
-                                                        ? `Existing image: ${image}` 
+                                                    {typeof image === 'string'
+                                                        ? `Existing image: ${image}`
                                                         : `New image: ${image.name}`}
                                                 </div>
                                             )}

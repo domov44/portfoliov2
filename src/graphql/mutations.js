@@ -142,9 +142,12 @@ export const createSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -168,9 +171,12 @@ export const updateSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -194,9 +200,12 @@ export const deleteSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -358,51 +367,6 @@ export const deleteGallery = /* GraphQL */ `
     }
   }
 `;
-export const createSocial = /* GraphQL */ `
-  mutation CreateSocial(
-    $input: CreateSocialInput!
-    $condition: ModelSocialConditionInput
-  ) {
-    createSocial(input: $input, condition: $condition) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateSocial = /* GraphQL */ `
-  mutation UpdateSocial(
-    $input: UpdateSocialInput!
-    $condition: ModelSocialConditionInput
-  ) {
-    updateSocial(input: $input, condition: $condition) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteSocial = /* GraphQL */ `
-  mutation DeleteSocial(
-    $input: DeleteSocialInput!
-    $condition: ModelSocialConditionInput
-  ) {
-    deleteSocial(input: $input, condition: $condition) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createBento = /* GraphQL */ `
   mutation CreateBento(
     $input: CreateBentoInput!
@@ -448,6 +412,150 @@ export const deleteBento = /* GraphQL */ `
       href
       label
       featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createProjectSkills = /* GraphQL */ `
+  mutation CreateProjectSkills(
+    $input: CreateProjectSkillsInput!
+    $condition: ModelProjectSkillsConditionInput
+  ) {
+    createProjectSkills(input: $input, condition: $condition) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateProjectSkills = /* GraphQL */ `
+  mutation UpdateProjectSkills(
+    $input: UpdateProjectSkillsInput!
+    $condition: ModelProjectSkillsConditionInput
+  ) {
+    updateProjectSkills(input: $input, condition: $condition) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteProjectSkills = /* GraphQL */ `
+  mutation DeleteProjectSkills(
+    $input: DeleteProjectSkillsInput!
+    $condition: ModelProjectSkillsConditionInput
+  ) {
+    deleteProjectSkills(input: $input, condition: $condition) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
       createdAt
       updatedAt
       __typename
