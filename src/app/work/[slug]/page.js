@@ -6,6 +6,11 @@ import SingleHero from '@/app/components/pageElements/work/single/SingleHero';
 import SingleMainSection from '@/app/components/pageElements/work/single/SingleMainSection';
 import SingleDoubleSection from '@/app/components/pageElements/work/single/SingleDoubleSection';
 import fetchS3File from '@/app/utils/fetchS3File';
+import SingleVideoSection from '@/app/components/pageElements/work/single/SingleVideoSection';
+import Section from '@/app/components/ui/wrapper/Section';
+import Stack from '@/app/components/ui/wrapper/Stack';
+import Text from '@/app/components/ui/textual/Text';
+import Title from '@/app/components/ui/textual/Title';
 
 const client = generateClient();
 
@@ -50,16 +55,33 @@ async function Page({ params }) {
         console.error('Erreur lors du traitement des images:', error);
     }
 
+    let videoFile = null;
+    if (project.video) {
+        try {
+            videoFile = await fetchS3File(project.video);
+        } catch (error) {
+            console.error('Erreur lors de la récupération du fichier vidéo:', error);
+        }
+    }
+
     return (
         <MainContent>
             <SingleHero project={project} />
-            {enrichedRows.map((row, index) => (
-                row.pictures.length === 1 ? (
-                    <SingleMainSection key={index} image={row.pictures[0]} />
-                ) : (
-                    <SingleDoubleSection key={index} images={row.pictures} />
-                )
-            ))}
+            {videoFile && <SingleVideoSection video={videoFile} />}
+            <Section>
+                <Stack direction="column">
+                    <Title level={3} className="step-1">Description of the project</Title>
+                    <Text textalign="center">{project.description}</Text>
+                </Stack>
+            </Section>
+            {enrichedRows.map((row, index) => {
+                if (row.pictures.length === 1) {
+                    return <SingleMainSection key={index} image={row.pictures[0]} />;
+                } else if (row.pictures.length === 2) {
+                    return <SingleDoubleSection key={index} images={row.pictures} />;
+                }
+                return null;
+            })}
         </MainContent>
     );
 }

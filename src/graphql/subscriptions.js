@@ -130,9 +130,12 @@ export const onCreateSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -153,9 +156,12 @@ export const onUpdateSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -176,9 +182,12 @@ export const onDeleteSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -319,42 +328,6 @@ export const onDeleteGallery = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSocial = /* GraphQL */ `
-  subscription OnCreateSocial($filter: ModelSubscriptionSocialFilterInput) {
-    onCreateSocial(filter: $filter) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateSocial = /* GraphQL */ `
-  subscription OnUpdateSocial($filter: ModelSubscriptionSocialFilterInput) {
-    onUpdateSocial(filter: $filter) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteSocial = /* GraphQL */ `
-  subscription OnDeleteSocial($filter: ModelSubscriptionSocialFilterInput) {
-    onDeleteSocial(filter: $filter) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onCreateBento = /* GraphQL */ `
   subscription OnCreateBento($filter: ModelSubscriptionBentoFilterInput) {
     onCreateBento(filter: $filter) {
@@ -391,6 +364,147 @@ export const onDeleteBento = /* GraphQL */ `
       href
       label
       featuredOrder
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateProjectSkills = /* GraphQL */ `
+  subscription OnCreateProjectSkills(
+    $filter: ModelSubscriptionProjectSkillsFilterInput
+  ) {
+    onCreateProjectSkills(filter: $filter) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateProjectSkills = /* GraphQL */ `
+  subscription OnUpdateProjectSkills(
+    $filter: ModelSubscriptionProjectSkillsFilterInput
+  ) {
+    onUpdateProjectSkills(filter: $filter) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteProjectSkills = /* GraphQL */ `
+  subscription OnDeleteProjectSkills(
+    $filter: ModelSubscriptionProjectSkillsFilterInput
+  ) {
+    onDeleteProjectSkills(filter: $filter) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
       createdAt
       updatedAt
       __typename
