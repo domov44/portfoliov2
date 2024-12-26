@@ -258,9 +258,12 @@ export const getSkill = /* GraphQL */ `
         updatedAt
         __typename
       }
+      project {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      projectSkillsId
       skillTypeId
       __typename
     }
@@ -281,7 +284,6 @@ export const listSkills = /* GraphQL */ `
         typeID
         createdAt
         updatedAt
-        projectSkillsId
         skillTypeId
         __typename
       }
@@ -313,7 +315,6 @@ export const SkillByname = /* GraphQL */ `
         typeID
         createdAt
         updatedAt
-        projectSkillsId
         skillTypeId
         __typename
       }
@@ -484,66 +485,6 @@ export const listGalleries = /* GraphQL */ `
     }
   }
 `;
-export const getSocial = /* GraphQL */ `
-  query GetSocial($id: ID!) {
-    getSocial(id: $id) {
-      id
-      label
-      href
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listSocials = /* GraphQL */ `
-  query ListSocials(
-    $filter: ModelSocialFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSocials(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        label
-        href
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const SocialByname = /* GraphQL */ `
-  query SocialByname(
-    $label: String!
-    $sortDirection: ModelSortDirection
-    $filter: ModelSocialFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    SocialByname(
-      label: $label
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        label
-        href
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getBento = /* GraphQL */ `
   query GetBento($id: ID!) {
     getBento(id: $id) {
@@ -601,6 +542,127 @@ export const BentoByFeaturedOrder = /* GraphQL */ `
         href
         label
         featuredOrder
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getProjectSkills = /* GraphQL */ `
+  query GetProjectSkills($id: ID!) {
+    getProjectSkills(id: $id) {
+      id
+      projectId
+      skillId
+      project {
+        id
+        name
+        slug
+        date
+        images
+        thumbnail
+        video
+        href
+        github
+        role
+        context
+        steps
+        description
+        featuredOrder
+        globalPartitionKey
+        createdAt
+        updatedAt
+        categoryProjectId
+        projectCategoryId
+        __typename
+      }
+      skill {
+        id
+        name
+        logo
+        colisionLogo
+        typeID
+        createdAt
+        updatedAt
+        skillTypeId
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listProjectSkills = /* GraphQL */ `
+  query ListProjectSkills(
+    $filter: ModelProjectSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProjectSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        projectId
+        skillId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const projectSkillsByProjectId = /* GraphQL */ `
+  query ProjectSkillsByProjectId(
+    $projectId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProjectSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    projectSkillsByProjectId(
+      projectId: $projectId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        projectId
+        skillId
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const projectSkillsBySkillId = /* GraphQL */ `
+  query ProjectSkillsBySkillId(
+    $skillId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProjectSkillsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    projectSkillsBySkillId(
+      skillId: $skillId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        projectId
+        skillId
         createdAt
         updatedAt
         __typename
