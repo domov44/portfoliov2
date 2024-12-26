@@ -20,7 +20,6 @@ export const listSkills = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        projectSkillsId
         skillTypeId
         __typename
       }

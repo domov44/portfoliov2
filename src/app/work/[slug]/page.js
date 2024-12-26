@@ -69,8 +69,8 @@ async function Page({ params }) {
             <SingleHero project={project} />
             {videoFile && <SingleVideoSection video={videoFile} />}
             <Section>
-                <Stack direction="column">
-                    <Title level={3} className="step-1">Description of the project</Title>
+                <Stack direction="column" width="100%">
+                    <Title level={3} className="step-1 text_align_center">Description of the project</Title>
                     <Text textalign="center">{project.description}</Text>
                 </Stack>
             </Section>
