@@ -1,5 +1,6 @@
 "use client"
 import Button from '@/app/components/ui/button/Button';
+import Chip from '@/app/components/ui/textual/Chip';
 import Text from '@/app/components/ui/textual/Text';
 import Title from '@/app/components/ui/textual/Title';
 import Section from '@/app/components/ui/wrapper/Section';
@@ -12,9 +13,12 @@ async function SingleHero({ project }) {
         <Section className="justify_end h95vh">
             <Stack direction="column" height="60%" width="100%" justify="space-between">
                 <Stack direction="column" align="center" width="100%">
-                    <Title level={1} className="colored font10vw text_align_center">
-                        {project.name}
-                    </Title>
+                    <Stack direction="column" width="100%" className="align_center" spacing="0px">
+                        <Chip variant={"danger"}>{project.category.name}</Chip>
+                        <Title level={1} className="colored font10vw text_align_center">
+                            {project.name}
+                        </Title>
+                    </Stack>
                     {(project.href && project.href !== '' || project.github && project.github !== '') && (
                         <Stack>
                             {(project.href && project.href !== '') && (
