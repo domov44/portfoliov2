@@ -1,5 +1,5 @@
 import { generateClient } from 'aws-amplify/api';
-import { ProjectBySlug } from '@/graphql/queries';
+import { ProjectBySlug } from '@/graphqlCustom/queries';
 import { notFound } from 'next/navigation';
 import MainContent from '@/app/layouts/MainContent';
 import SingleHero from '@/app/components/pageElements/work/single/SingleHero';
@@ -11,6 +11,7 @@ import Section from '@/app/components/ui/wrapper/Section';
 import Stack from '@/app/components/ui/wrapper/Stack';
 import Text from '@/app/components/ui/textual/Text';
 import Title from '@/app/components/ui/textual/Title';
+import SingleSkills from '@/app/components/pageElements/work/single/SingleSkills';
 
 const client = generateClient();
 
@@ -64,16 +65,35 @@ async function Page({ params }) {
         }
     }
 
+    let colisionLogos = [];
+    if (project.skills && Array.isArray(project.skills.items)) {
+        try {
+            colisionLogos = await Promise.all(
+                project.skills.items.map(async (skill) => {
+                    if (skill.skill && skill.skill.colisionLogo) {
+                        return await fetchS3File(skill.skill.colisionLogo);
+                    }
+                    return null;
+                })
+            );
+        } catch (error) {
+            console.error('Erreur lors de la récupération des colisionLogos:', error);
+        }
+    }
+
+    const validColisionLogos = colisionLogos.filter((url) => url !== null);
+
     return (
         <MainContent>
             <SingleHero project={project} />
             {videoFile && <SingleVideoSection video={videoFile} />}
             <Section>
-                <Stack direction="column" width="100%">
-                    <Title level={3} className="step-1 text_align_center">Description of the project</Title>
-                    <Text textalign="center">{project.description}</Text>
+                <Stack direction="column" width="100%" className="align_center">
+                    <Title level={3} className="step-3 text_align_center default">Description of the project</Title>
+                    <Text textalign="center" maxwidth={"40vw"}>{project.description}</Text>
                 </Stack>
             </Section>
+            <SingleSkills images={validColisionLogos} />
             {enrichedRows.map((row, index) => {
                 if (row.pictures.length === 1) {
                     return <SingleMainSection key={index} image={row.pictures[0]} />;

@@ -19,6 +19,7 @@ import Stack from '@/app/components/ui/wrapper/Stack';
 import useCategoriesOptions from '@/app/utils/getCategories';
 import SelectSearchable from '@/app/components/ui/form/SelectSearchable';
 import { listSkills } from '@/graphql/queries';
+import Textarea from '@/app/components/ui/form/Textarea';
 
 const client = generateClient();
 
@@ -343,12 +344,13 @@ function Page({ params }) {
                             required
                             variant="blue"
                         />
-                        <TextInput
+                        <Textarea
                             type="text"
                             label="Description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             required
+                            maxCharCount={500}
                             variant="blue"
                         />
                         <input
