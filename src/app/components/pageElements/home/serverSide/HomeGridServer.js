@@ -23,6 +23,7 @@ export default async function HomeGridServer() {
                 const project = result.data?.ProjectsByFeaturedOrder?.items[0];
                 return project ? {
                     name: project.name,
+                    slug: project.slug,
                     video: project.video ? await fetchS3File(project.video) : undefined,
                 } : null;
             })
