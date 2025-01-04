@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Section from '@/app/components/ui/wrapper/Section';
-import styles from './SingleMainSection.module.css';
+import styles from './SingleVideoSection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +29,7 @@ function SingleVideoSection({ video }) {
     }, []);
 
     return (
-        <Section className="defaultPadding" ref={sectionRef}>
+        <Section className="h100vh defaultPadding" ref={sectionRef}>
             <figure className={styles.image_section}>
                 <video
                     className={styles.image_bg}
