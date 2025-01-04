@@ -15,7 +15,6 @@
     margin: 0;
     background: black;
     z-index: -1;
-    aspect-ratio: 16 / 9;
 }
 
 .wrapper_single{
