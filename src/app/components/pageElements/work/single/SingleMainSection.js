@@ -27,7 +27,7 @@ function SingleMainSection({ image }) {
     }, []);
 
     return (
-        <Section className="defaultPadding" ref={sectionRef}>
+        <Section className="h80vh defaultPadding align_center" ref={sectionRef}>
             <figure className={styles.image_section}>
                 <img
                     className={styles.image_bg}
